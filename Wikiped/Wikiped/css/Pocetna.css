@@ -1,0 +1,236 @@
+﻿*
+{
+    margin:0px;
+    padding:0px;
+    font-family:Verdana;
+    font-size:13px;
+   
+}
+body
+{
+    background-image:url("/Slike/ln.png");
+ 
+}
+
+.headers
+{
+    width:100%;
+    height:38px;
+    background:#7c7c7c;
+      overflow:hidden;
+      -moz-box-shadow: 0 0 2px 1px #b5b3b3;
+ -webkit-box-shadow: 0 0 2px 1px #b5b3b3;
+ box-shadow: 0 0 2px 1px #b5b3b3;
+}
+.headPomocni
+{
+    margin:0px auto;
+    width:960px;
+    height:40px;
+    overflow:hidden;
+}
+.headLogo
+{
+    width:147px;
+    height:37px;
+    position:absolute;
+      background-image:url("/Slike/logo.png");
+      float:left;
+      opacity:0.6;
+
+}
+.foothers
+{
+    width:100%;
+    height:30px;
+    bottom:0px;
+    position:fixed;
+    background:#babab9;
+    -moz-box-shadow: 0 0 1px 1px #b5b3b3;
+ -webkit-box-shadow: 0 0 1px 1px #b5b3b3;
+ box-shadow: 0 0 1px 1px #b5b3b3;
+}
+.contents
+{
+    width:960px;
+    height:100%;
+    margin:0px auto;
+    background:rgba(181,180,180,0.5);
+   
+    overflow:hidden;
+}
+
+
+
+.regOkolica
+{
+ float:right;
+ width:250px;
+ height:40px;
+ 
+   overflow:hidden;
+  /* margin:50px 0px 0px 0px;*/
+  margin:0px 0px 0px 0px;
+   
+}
+.regSlika
+{
+    float:right;
+    background-image:url("/slike/registracija.png");
+    width:32px;
+    height:32px;
+}
+
+.regtext
+{
+   float:right;
+   width:80px;
+   height:25px;
+   margin:0px 0px 0px 5px; 
+   padding:5px 0px 0px 0px;
+   color:#000000;
+   margin:0px 20px 0px 0px;
+   font-weight:bold;
+}
+
+
+.loginSlika
+{
+    float:right;
+    background-image:url("/slike/key.png");
+    width:25px;
+    height:25px;
+    margin:3px 0px 0px 0px;
+}
+
+.logintext
+{
+   float:right;
+   width:35px;
+   height:25px;
+   margin:0px 17px 0px 5px; 
+   padding:5px 0px 0px 0px;
+   font-weight:bold;
+   color:#000000;
+}
+.GlMeni
+{
+     margin:0px auto;
+    width:960px;
+    height:35px;
+    overflow:hidden;
+    background:#171717;
+    background-color:rgba(139,155,186,1);
+   -moz-box-shadow: 0 0 1px 1px #b5b3b3;
+ -webkit-box-shadow: 0 0 1px 1px #b5b3b3;
+ box-shadow: 0 0 1px 1px #b5b3b3;
+}
+.GdjeText
+{
+   height:20px;
+   width:auto; 
+   float:left;
+   margin:8px 0px 0px 5px;
+   color:#ffffff;
+   font-weight:bold;
+}
+
+.GdjeTextFoot
+{
+   height:20px;
+   width:auto; 
+   float:left;
+   margin:8px 0px 0px 5px;
+   color:#6c6b6b;
+   font-weight:bold;
+  
+}
+.GdjeTextFoot:hover
+{
+   cursor:pointer;
+   color:#ffffff;
+ 
+}
+
+
+
+.GdjeTacka
+{
+    float:left;
+    margin:15px 1px 0px 7px;
+    width:5px;
+    height:5px;
+    background-image:url('/slike/tacka.png');
+    
+}
+.OkolicaMenijaHome
+{
+   width:150px;
+   height:32px;
+   overflow:hidden;
+   float:left;
+    border-right:1px solid #817f7a;
+    
+    border-bottom:2px solid #817f7a;
+}
+.OkolicaMenijaHomeFoot
+{
+   width:100px;
+   height:32px;
+   overflow:hidden;
+   float:left;
+    
+}
+.OkolicaMenijaHomeFootRight
+{
+   width:auto;
+   height:32px;
+   overflow:hidden;
+   float:right;
+   margin:0px 5px 0px 0px;
+  
+}
+.OkolicaMenijaHomePret
+{
+   width:205px;
+   height:32px;
+   overflow:hidden;
+   float:left;
+
+    border-bottom:2px solid #817f7a;
+}
+
+.OkolicaMenijaHome:hover
+{
+
+    border-bottom:2px solid #ff76f1;
+    cursor:pointer;
+  
+}
+
+.PretragaMeni
+{
+    width:145px;
+    height:25px;
+    float:left;
+    margin:5px 0px 0px 5px;
+    border:1px solid #666460;
+    border-bottom-left-radius:4px;
+    border-top-left-radius:4px;
+    border-right:0px;
+    padding:0px 0px 0px 5px;
+
+}
+.BtnPretraga
+{
+    width:46px;
+    height:25px;
+    float:left;
+    background:#8b99c0;
+    margin:5px 0px 0px 0px;
+    color:#ffffff;
+    border:1px solid #666460;
+     border-bottom-right-radius:4px;
+    border-top-right-radius:4px;
+    border-left:0px;
+}

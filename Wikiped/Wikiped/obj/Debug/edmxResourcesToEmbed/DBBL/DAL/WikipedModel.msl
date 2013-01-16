@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="WikipedModelStoreContainer" CdmEntityContainer="WikipedEntities">
+    <EntitySetMapping Name="Algoritmi">
+      <EntityTypeMapping TypeName="WikipedModel.Algoritmi">
+        <MappingFragment StoreEntitySet="Algoritmi">
+          <ScalarProperty Name="AlgoritamID" ColumnName="AlgoritamID" />
+          <ScalarProperty Name="Vrsta" ColumnName="Vrsta" />
+          <ScalarProperty Name="naziv" ColumnName="naziv" />
+          <ScalarProperty Name="Opis" ColumnName="Opis" />
+          <ScalarProperty Name="KorisnikID" ColumnName="KorisnikID" />
+          <ScalarProperty Name="Aktivan" ColumnName="Aktivan" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Clanci">
+      <EntityTypeMapping TypeName="WikipedModel.Clanci">
+        <MappingFragment StoreEntitySet="Clanci">
+          <ScalarProperty Name="ClanakID" ColumnName="ClanakID" />
+          <ScalarProperty Name="TagVrstaID" ColumnName="TagVrstaID" />
+          <ScalarProperty Name="Popularnost" ColumnName="Popularnost" />
+          <ScalarProperty Name="Ocjenjeno" ColumnName="Ocjenjeno" />
+          <ScalarProperty Name="Slika" ColumnName="Slika" />
+          <ScalarProperty Name="Guid" ColumnName="Guid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Drzave">
+      <EntityTypeMapping TypeName="WikipedModel.Drzave">
+        <MappingFragment StoreEntitySet="Drzave">
+          <ScalarProperty Name="DrzavaID" ColumnName="DrzavaID" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Jezici">
+      <EntityTypeMapping TypeName="WikipedModel.Jezici">
+        <MappingFragment StoreEntitySet="Jezici">
+          <ScalarProperty Name="JezikID" ColumnName="JezikID" />
+          <ScalarProperty Name="Vrsta" ColumnName="Vrsta" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Komentari">
+      <EntityTypeMapping TypeName="WikipedModel.Komentari">
+        <MappingFragment StoreEntitySet="Komentari">
+          <ScalarProperty Name="KomentarID" ColumnName="KomentarID" />
+          <ScalarProperty Name="Tekst" ColumnName="Tekst" />
+          <ScalarProperty Name="KorisnikID" ColumnName="KorisnikID" />
+          <ScalarProperty Name="ClanakID" ColumnName="ClanakID" />
+          <ScalarProperty Name="Datum" ColumnName="Datum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Korisnici">
+      <EntityTypeMapping TypeName="WikipedModel.Korisnici">
+        <MappingFragment StoreEntitySet="Korisnici">
+          <ScalarProperty Name="KorisnikID" ColumnName="KorisnikID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Ime" ColumnName="Ime" />
+          <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="DrzavaID" ColumnName="DrzavaID" />
+          <ScalarProperty Name="Grad" ColumnName="Grad" />
+          <ScalarProperty Name="Adresa" ColumnName="Adresa" />
+          <ScalarProperty Name="KorisnikVrstaID" ColumnName="KorisnikVrstaID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KorisnikVrste">
+      <EntityTypeMapping TypeName="WikipedModel.KorisnikVrste">
+        <MappingFragment StoreEntitySet="KorisnikVrste">
+          <ScalarProperty Name="KorisnikVrstaID" ColumnName="KorisnikVrstaID" />
+          <ScalarProperty Name="Vrsta" ColumnName="Vrsta" />
+          <ScalarProperty Name="Opis" ColumnName="Opis" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OcjenaKorisnici">
+      <EntityTypeMapping TypeName="WikipedModel.OcjenaKorisnici">
+        <MappingFragment StoreEntitySet="OcjenaKorisnici">
+          <ScalarProperty Name="OcjenaKorisnik" ColumnName="OcjenaKorisnik" />
+          <ScalarProperty Name="KorisnikID" ColumnName="KorisnikID" />
+          <ScalarProperty Name="ClanakID" ColumnName="ClanakID" />
+          <ScalarProperty Name="OcjenaID" ColumnName="OcjenaID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ocjene">
+      <EntityTypeMapping TypeName="WikipedModel.Ocjene">
+        <MappingFragment StoreEntitySet="Ocjene">
+          <ScalarProperty Name="OcjenaID" ColumnName="OcjenaID" />
+          <ScalarProperty Name="Ocjena" ColumnName="Ocjena" />
+          <ScalarProperty Name="Opis" ColumnName="Opis" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sadrzaji">
+      <EntityTypeMapping TypeName="WikipedModel.Sadrzaji">
+        <MappingFragment StoreEntitySet="Sadrzaji">
+          <ScalarProperty Name="SadrzajID" ColumnName="SadrzajID" />
+          <ScalarProperty Name="Naslov" ColumnName="Naslov" />
+          <ScalarProperty Name="Opis" ColumnName="Opis" />
+          <ScalarProperty Name="Tekst" ColumnName="Tekst" />
+          <ScalarProperty Name="JezikID" ColumnName="JezikID" />
+          <ScalarProperty Name="ClanakID" ColumnName="ClanakID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="WikipedModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TagClanci">
+      <EntityTypeMapping TypeName="WikipedModel.TagClanci">
+        <MappingFragment StoreEntitySet="TagClanci">
+          <ScalarProperty Name="TagClanakID" ColumnName="TagClanakID" />
+          <ScalarProperty Name="ClanakID" ColumnName="ClanakID" />
+          <ScalarProperty Name="TagID" ColumnName="TagID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tagovi">
+      <EntityTypeMapping TypeName="WikipedModel.Tagovi">
+        <MappingFragment StoreEntitySet="Tagovi">
+          <ScalarProperty Name="TagID" ColumnName="TagID" />
+          <ScalarProperty Name="Opis" ColumnName="Opis" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TagVrste">
+      <EntityTypeMapping TypeName="WikipedModel.TagVrste">
+        <MappingFragment StoreEntitySet="TagVrste">
+          <ScalarProperty Name="TagVrstaID" ColumnName="TagVrstaID" />
+          <ScalarProperty Name="Vrsta" ColumnName="Vrsta" />
+          <ScalarProperty Name="Opis" ColumnName="Opis" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
