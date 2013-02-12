@@ -1,0 +1,521 @@
+﻿.ProfNaslov
+{
+    width:200px;
+    height:30px;
+    display:block;
+    color:#ffffff;
+    margin:2px 0px 15px 5px;
+    font-size:22px;
+}
+.regDivPolje
+{
+    width:280px;
+    height:45px;
+    overflow:hidden;
+    float:left;
+    margin:5px 0px 0px 8px;
+    
+    
+}
+.regTextPolje
+{
+    float:left;
+    color:Black;
+    width:250px;
+    height:14px;
+    margin:1px 0px 0px 0px;
+    
+}
+.ProfPPolja
+{
+    border:1px solid #f7ce50;
+    width:256px;
+    height:25px;
+    display:block;
+ border-radius:4px;
+    float:left;
+    
+}
+.ProfBtnIzlaz2
+{
+   float:left;
+    width:110px;
+
+    height:20px;
+  
+text-align:left;
+font-size:15px;
+    font-weight:bold;
+   
+      margin:21px 0px 0px 9px;
+    
+}
+.ProfBtnIzlaz2:hover
+{
+    cursor:pointer;
+    
+}
+.ProfBtnSnimi2
+{
+   float:right;
+    width:110px;
+
+    height:20px;
+  border:1px solid #fcdd7d;
+
+    background:#f7ce50; 
+    border-radius:4px;
+      margin:20px 11px 0px 0px;
+    -moz-box-shadow: 0 0 1px 1px #888;
+ -webkit-box-shadow: 0 0 1px 1px #888;
+ box-shadow: 0 0 1px 1px #888;
+    
+}
+.profgreska
+{
+    float:left;
+    width:150px;
+    height:20px;
+     margin:0px 0px 0px 9px;
+     font-size:11px;
+     color:#ee0101;
+}
+#registracijskaForma
+{
+    display:none;
+    width:500px;
+    height:552px;
+    overflow:hidden;
+    background-image:url('/Images/regDialog.png');
+}
+#LoginForma
+{
+     display:none;
+    width:500px;
+    height:552px;
+    overflow:hidden;
+    background-image:url('/Images/regDialog.png');
+}
+.ui-dialog-titlebar  
+{
+    display:none; 
+    overflow:hidden;
+    padding: 0;
+}
+.ui-dialog input{
+   
+     font-size:14px;
+     padding:0px 0px 0px 5px;
+ }
+ 
+ .ui-dialog .regTextPolje
+ {
+     font-size:12px;
+ }
+ .ui-dialog .regtxtDan
+ {
+     font-size:12px;
+ }
+ .ui-dialog .regtxtGodina
+ {
+     font-size:12px;
+ }
+ 
+ 
+ .ui-widget-overlay {
+    background: #000000;
+    opacity: 0.3;
+ }
+ 
+ .ui-dialog .regRbVelicina
+ {
+     font-size:12px;
+    
+  
+ }
+ .ui-dialog .regRbtextLbl
+ {
+     font-size:12px;
+     
+ }
+ 
+ .left
+ {
+     float:left;
+ }
+ 
+ .right
+ {
+     float:right;
+ }
+ /* pitanja sve*/
+ .question-summary {
+    border-bottom: 1px solid #eaeaea;
+    overflow: hidden;
+    padding: 11px 0px;
+    width: 730px;
+    float: left;
+}
+ .leftBox
+ {
+     cursor:pointer;
+ }
+ .narrow .votes {
+    background: transparent;
+    float: left;
+    margin: 0 3px 0 0;
+    padding: 5px;
+    width: 38px;
+    height: 38px;
+}
+.votes {
+    color: #555555;
+    padding: 0 0 7px 0;
+    text-align: center;
+    font-size: 13px;
+}
+.mini-counts {
+    height: 25px;
+    font-size: 20px;
+    font-weight: normal;
+    text-align: center;
+}
+.narrow .status {
+    float: left;
+    margin: 0 3px 0 0;
+    padding: 5px;
+    width: 48px;
+    height: 38px;
+    font-size: 13px;
+}
+.unanswered {
+    background: transparent;
+    color: #9A4444;
+    color: #9a4444;
+}
+.narrow .views {
+    float: left;
+    margin: 0 7px 0 0;
+    padding: 5px 0px 5px 4px;
+    width: 40px;
+    height: 38px;
+    font-size: 13px;
+}
+.narrow .summary {
+    width: 550px;
+    float:left;
+}
+.summary h3 {
+    font-size:17px;
+    margin:0;
+}
+.tags {
+    line-height: 18px;
+    float: left;
+}
+.post-tag, .post-text .post-tag, .wmd-preview a.post-tag {
+    color: #3E6D8E;
+    background-color: #E0EAF1;
+    border-bottom: 1px solid #3E6D8E;
+    border-right: 1px solid #7F9FB6;
+    padding: 3px 4px 3px 4px;
+    margin: 2px 2px 2px 0;
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 2.4;
+    white-space: nowrap;
+}
+a.post-tag:hover, .post-text a.post-tag:hover, .wmd-preview a.post-tag:hover {
+    background-color: #3E6D8E;
+    color: #E0EAF1;
+    border-bottom: 1px solid #37607D;
+    border-right: 1px solid #37607D;
+    text-decoration: none;
+}
+.narrow .started {
+    width: auto;
+    line-height: inherit;
+    padding-top: 4px;
+    white-space: nowrap;
+}
+.started {
+    width: 185px;
+    color: #999;
+    float: right;
+    line-height: 18px;
+    font-size: 13px;
+}
+.started-link, .started-link:visited {
+    color: #999;
+}
+.relativetime {
+    font-weight: normal;
+    text-decoration: none;
+}
+.started .reputation-score {
+    margin-left: 1px;
+    font-size: 100%!important;
+    font-weight: normal!important;
+}
+.reputation-score {
+    font-weight: bold;
+    color: #444;
+    font-size: 100%;
+    margin-right: 2px;
+}
+
+.question-hyperlink {
+    font-weight: bold;
+}
+a {
+    color: #0077cc;
+    text-decoration: none;
+    cursor: pointer;
+}
+a:hover {
+    text-decoration: underline;
+}
+a:visited {
+    color: #4a6b82;
+}
+.summary h3:hover 
+{
+    text-decoration: underline;
+}
+.question
+{
+    width:730px;
+}
+.question .title
+{
+    font-size: 21px;
+}
+.question .qusummary
+{
+    font-size:14px;
+    text-align: justify;
+}
+.clear
+{
+    clear:both;
+}
+.response
+{
+    width:730px;
+    margin-top: 10px;
+}
+.response .numberRes
+{
+    font-size:15px;
+    font-weight: bold;
+    padding-bottom: 7px;
+    margin-bottom: 10px;
+}
+.response .summary
+{
+    font-size:14px;
+    border-top: 1px solid #cccccc;
+    padding-top: 20px;
+    clear:both;
+}
+a.comment-user.owner {
+    padding: 2px 5px 2px 5px;
+}
+a.comment-user {
+    white-space: nowrap;
+    padding: 0;
+}
+.owner {
+    background-color: #deedff;
+    background-color: rgba(222, 237, 255, 0.4);
+    background-color: #e0eaf1;
+}
+.user-info {
+    height: 35px;
+    width: 185px;
+    font-size:13px;
+}
+.user-info .user-action-time {
+    margin-top: 2px;
+    margin-bottom: 4px;
+}
+.user-info .user-gravatar32 {
+    float: left;
+    width: 45px;
+    height: 55px;
+    margin-top: 4px;
+}
+.user-info .user-details {
+    margin-left: 5px;
+    overflow: hidden;
+}
+.user-details {
+    color: #888;
+    line-height: 17px;
+}
+.post-signature {
+    padding-left: 5px;
+    padding-top: 2px;
+    text-align: left;
+    vertical-align: top;
+    width: 175px;
+    height: 58px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    float:right;
+}
+.user-info img
+{
+    height:45px;
+    width:45px;
+}
+
+.comments {
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
+.comments {
+    width: 660px;
+    border-top: dotted 1px #aaa;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    line-height: 135%;
+    color: #444;
+    clear:both;
+    margin-left: 69px;
+}
+tr.comment:hover {
+    background-color: #fafafa;
+}
+tr.comment > td {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: dotted 1px #ddd;
+}
+.comment-text, .comment-form {
+    vertical-align: text-top;
+    padding: 0px 6px 0px 7px;
+    font-size: 13px;
+}
+.votecell {
+    width: 60px;
+    vertical-align: top;
+    float: left;
+}
+.vote {
+text-align: center;
+}
+.question-page .vote-count-post, .review-task-page .vote-count-post {
+    padding-top: 2px;
+    color: #555;
+}
+.vote span {
+    display: block;
+    color: #808185;
+    font-weight: normal;
+}
+.vote-count-post {
+    display: block;
+    font-size: 24px;
+}
+.vote-up-off, .vote-up-on, .vote-down-off, .vote-down-on {
+    display: block;
+    margin: 0 auto;
+    width: 41px;
+    height: 25px;
+}
+.vote-up-off{
+    background-image: url('/Images/arrowUp.png');
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+.vote-down-off
+{
+    background-image: url('/Images/arrowDown.png');
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+.tagDetailMargin
+{
+    margin-left: 60px;
+    margin-top: 15px;
+}
+.helpful
+{
+    float: left;
+    margin-top: 55px;
+}
+.question .title:hover
+{
+    text-decoration:underline;
+}
+.clanak-wraper-left
+{
+    width:466px;
+    min-height:300px;
+    height:auto;
+    overflow:hidden;
+    background:#f5fffa;
+    float:left;
+    border:1px solid #cef2e0;
+    border-radius:3px;
+    box-shadow: 0 3px 3px #DDD;
+    -webkit-box-shadow: 1px 5px 4px gray;
+    
+}
+.clanak-wraper-right
+{
+    width:466px;
+    min-height:300px;
+    height:auto;
+    overflow:hidden;
+    background:#f5fffa;
+    float:right;
+    border:1px solid #cef2e0;
+    border-radius: 3px;
+    box-shadow: 0 3px 3px #DDD;
+    -webkit-box-shadow: 1px 5px 4px gray;
+    
+}
+.clanak-naslov
+{
+    float:left;
+    width:446px;
+    min-height:25px;
+    height:auto;
+    font-size:15px;
+    font-weight:bold;
+    overflow:hidden;
+    margin:10px 5px 5px 5px;
+    padding:0px 5px 0px 5px;
+    background:#cef2e0;
+    border-radius: 4px;
+}
+.clanak-slika
+{
+    float:left;
+    width:120px;
+    height:120px;
+    margin:0px 5px 0px 0px;
+    background:blue;
+    border-radius: 3px;
+  
+}
+
+.clanak-text
+{
+    text-align:justify;
+    font-size:12px;
+    margin:5px;
+   
+}
+.clanak-read-more
+{
+    
+   display:inline;
+   font-weight:bold;
+   margin:0px 5px 0px 5px;
+}
+.clanak-read-more:hover
+{
+    cursor:pointer;
+}

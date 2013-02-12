@@ -1,0 +1,351 @@
+﻿body {
+    background-color: #E8EBEC;
+}
+#page_head {
+    background: white;
+    width: 960px;
+    height: 80px;
+    z-index: 100;
+    margin: 0 auto;
+    border-radius: 0 0 6px 6px;
+    box-shadow: 0 3px 3px #DDD;
+    -webkit-box-shadow: 1px 5px 4px gray;
+}
+#main-wrapper {
+    overflow: hidden;
+    width: 100%;
+    background-color: transparent;
+    min-height: 35px;
+    margin-top: 5px;
+}
+#main-wbg {
+    overflow: hidden;
+    width: 940px;
+    margin: 0 auto;
+    padding: 10px 10px 10px 10px;
+    background-color: #FFFFFF;
+    border: 1px solid #BEBEBE;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    -webkit-border-radius-topright: 4px;
+    -webkit-border-radius-topleft: 4px;
+    -webkit-border-radius-bottomright: 4px;
+    -webkit-border-radius-bottomleft: 4px;
+    -moz-border-radius-topright: 4px;
+    -moz-border-radius-topleft: 4px;
+    -moz-border-radius-bottomright: 4px;
+    -moz-border-radius-bottomleft: 4px;
+}
+.headers
+{
+    width:100%;
+    height:38px;
+    background:#7c7c7c;
+    overflow:hidden;
+    -moz-box-shadow: 0 0 2px 1px #b5b3b3;
+    -webkit-box-shadow: 0 0 2px 1px #b5b3b3;
+     box-shadow: 0 0 2px 1px #b5b3b3;
+}
+.headPomocni
+{
+    margin:0px auto;
+    width:960px;
+    height:40px;
+    overflow:hidden;
+}
+.headLogo
+{
+    width:147px;
+    height:37px;
+    position:absolute;
+    float:left;
+    margin:0px 0px 0px 5px;
+}
+.foothers
+{
+    width:100%;
+    height:30px;
+    bottom:0px;
+    position:fixed;
+    background:#babab9;
+    -moz-box-shadow: 0 0 1px 1px #b5b3b3;
+    -webkit-box-shadow: 0 0 1px 1px #b5b3b3;
+     box-shadow: 0 0 1px 1px #b5b3b3;
+}
+
+.regOkolica
+{
+ float:right;
+ width:250px;
+ height:40px;
+ overflow:hidden;
+  margin:0px 0px 0px 0px;
+}
+.regSlika
+{
+    float:right;
+    background-image:url("/Images/users2.png");
+    width:32px;
+    height:32px;
+}
+.regtext
+{
+   float:right;
+   width:80px;
+   height:25px;
+   margin:0px 0px 0px 5px; 
+   padding:5px 0px 0px 0px;
+   color:#000000;
+   margin:0px 20px 0px 0px;
+}
+
+.loginSlika
+{
+    float:right;
+    background-image:url("/Images/key.png");
+    width:25px;
+    height:25px;
+    margin:3px 0px 0px 0px;
+}
+.logintext
+{
+   float:right;
+   width:35px;
+   height:25px;
+   margin:0px 17px 0px 5px; 
+   padding:5px 0px 0px 0px;
+   color:#000000;
+   margin-right: 27px;
+}
+.GlMeni
+{
+    width:758px;
+    height:35px;
+    overflow:hidden;
+    background-color: #EEE;
+   -moz-box-shadow: 0 0 1px 1px #b5b3b3;
+     -webkit-box-shadow: 0 0 1px 1px #b5b3b3;
+     box-shadow: 0 0 1px 1px #b5b3b3;
+     float: right;
+     border-radius: 5px;
+}
+.GdjeText
+{
+   height:20px;
+   width:auto; 
+   float:left;
+   margin:8px 0px 0px 5px;
+   color:Black;
+   font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
+   font-size:13px;
+}
+
+.GdjeTextFoot
+{
+   height:20px;
+   width:auto; 
+   float:left;
+   margin:8px 0px 0px 5px;
+   color:#6c6b6b;
+   font-weight:bold;
+  font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
+}
+.GdjeTextFoot:hover
+{
+   cursor:pointer;
+   color:#ffffff;
+ 
+}
+.GdjeTacka
+{
+    float:left;
+    margin:15px 1px 0px 7px;
+    width:5px;
+    height:5px;
+    background-image:url('/Images/tacka.png');
+    background: rgb(8, 163, 8);
+    
+}
+.OkolicaMenijaHome
+{
+   width:149px;
+   height:32px;
+   overflow:hidden;
+   float:left;
+    border-right:2px solid #DDD;
+}
+.OkolicaMenijaHomeFoot
+{
+   width:100px;
+   height:32px;
+   overflow:hidden;
+   float:left;
+    
+}
+.OkolicaMenijaHomeFootRight
+{
+   width:auto;
+   height:32px;
+   overflow:hidden;
+   float:right;
+   margin:0px 5px 0px 0px;
+  
+}
+.OkolicaMenijaHomePret
+{
+   width:205px;
+   height:32px;
+   overflow:hidden;
+   float:left;
+
+    border-bottom:2px solid #817f7a;
+}
+
+.OkolicaMenijaHome:hover
+{
+
+    border-bottom:2px solid rgb(8, 163, 8);
+    cursor:pointer;
+  
+}
+
+.PretragaMeni
+{
+    width:145px;
+    height:25px;
+    float:left;
+    margin:5px 0px 0px 5px;
+    border:1px solid #666460;
+    border-bottom-left-radius:4px;
+    border-top-left-radius:4px;
+    border-right:0px;
+    padding:0px 0px 0px 5px;
+
+}
+.BtnPretraga
+{
+    width:46px;
+    height:25px;
+    float:left;
+    background:#8b99c0;
+    margin:5px 0px 0px 0px;
+    color:#ffffff;
+    border:1px solid #666460;
+     border-bottom-right-radius:4px;
+    border-top-right-radius:4px;
+    border-left:0px;
+}
+.regtext:hover
+{
+   color: rgb(105, 92, 92);
+    font-weight: bold;
+    cursor:pointer;
+}
+.logintext:hover
+{
+       color: rgb(105, 92, 92);
+    font-weight: bold;
+    cursor:pointer;
+    
+}
+.OkolicaMenijaPri
+{
+  float:right;
+   width:190px;
+   height:37px;
+   overflow:hidden;
+   margin:0px 0px 0px 2px;
+  background:#8f8a7f; 
+
+}
+.OkolicaMenijaPri:hover
+{
+    background:rgba(143,138,127,0.5);
+    cursor:pointer;
+}
+
+.OkolicaMenijaLogo
+{
+  float:left;
+   width:190px;
+   height:37px;
+   overflow:hidden;
+   margin:0px 0px 0px 2px;
+}
+.headSliklogof
+{
+    float:left;
+    background-image:url("/Images/logof.png");
+    width:16px;
+    height:16px;
+    margin:1px 0px 2px 3px;
+    padding:0px;
+   
+}
+.headSlikProfil
+{
+    float:left;
+    background-image:url("/Images/profile.png");
+    width:16px;
+    height:16px;
+    margin:1px 0px 2px 3px;
+    padding:0px;
+   
+}
+.headSlikWiki
+{
+    float:left;
+    background-image:url("/Images/dogadjaji.png");
+    width:16px;
+    height:16px;
+    margin:1px 0px 2px 3px;
+    padding:0px;
+   
+}
+.headSlikPitanje
+{
+    float:left;
+    background-image:url("/Images/question.png");
+    width:16px;
+    height:16px;
+    margin:1px 0px 2px 3px;
+    padding:0px;
+   
+}
+.headTextPP
+{
+   float:left;
+   width:115px;
+   height:17px;  
+   padding:0px 0px 0px 0px;
+   color:#fbda64;
+   margin:0px 0px 0px 4px;
+   font-size:14px;
+   font-weight:bold;
+  overflow:hidden;
+  
+}
+.headTextPodMeni2
+{
+   float:left;
+   width:130px;
+   height:25px;
+   padding:0px 0px 0px 0px;
+   color:#720000;
+   margin:0px 0px 0px 4px;
+   font-size:11px;
+   font-weight:bold;
+   font-weight:bolder;
+}
+.wrapperleft
+{
+    
+}
+.sidebar-right
+{
+    overflow: hidden;
+    margin-bottom: 60px;
+    width: 210px;
+}

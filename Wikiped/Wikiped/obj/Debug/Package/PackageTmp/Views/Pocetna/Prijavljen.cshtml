@@ -1,0 +1,29 @@
+﻿@model Wikiped.DBBL.DAL.Korisnici
+<link rel="stylesheet" type="text/css" href="../../css/Prijavljen.css" />
+
+<a href=@Url.Action("odjava","Pocetna")>
+<div id="btnOdjava1" class="OkolicaMenijaPri">
+<div class="headSliklogof"></div>
+<div id="rgText1"  class="headTextPP">@Model.UserName</div>
+<div class="headTextPodMeni2">Odjava</div>
+</div>
+</a>
+
+<div id="btnOdjava2" class="OkolicaMenijaPri">
+<div class="headSlikPitanje"></div>
+<div id="rgText2"  class="headTextPP" runat="server">Pitanja</div>
+<div class="headTextPodMeni2">Evidencija pitanja</div>
+</div>
+
+<div id="btnOdjava3" class="OkolicaMenijaPri">
+<div class="headSlikWiki"></div>
+<div id="rgText3"  class="headTextPP" runat="server">Wiki</div>
+<div class="headTextPodMeni2">Evidencija clanaka</div>
+</div>
+
+
+<div id="btnOdjava4" class="OkolicaMenijaPri">
+<div class="headSlikProfil"></div>
+<div id="rgText4"  class="headTextPP" runat="server">Profil</div>
+<div class="headTextPodMeni2">Uredite vas profil</div>
+</div>

@@ -1,1 +1,1608 @@
-test
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="WikipedModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="WikipedModelStoreContainer">
+          <EntitySet Name="Algoritmi" EntityType="WikipedModel.Store.Algoritmi" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Clanci" EntityType="WikipedModel.Store.Clanci" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Drzave" EntityType="WikipedModel.Store.Drzave" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="GlasoviZaOdgovore" EntityType="WikipedModel.Store.GlasoviZaOdgovore" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="GlasoviZaPitanja" EntityType="WikipedModel.Store.GlasoviZaPitanja" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Jezici" EntityType="WikipedModel.Store.Jezici" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Komentari" EntityType="WikipedModel.Store.Komentari" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Korisnici" EntityType="WikipedModel.Store.Korisnici" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="KorisnikVrste" EntityType="WikipedModel.Store.KorisnikVrste" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="OcjenaKorisnici" EntityType="WikipedModel.Store.OcjenaKorisnici" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Odgovori" EntityType="WikipedModel.Store.Odgovori" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="OdgovorNaOdgovor" EntityType="WikipedModel.Store.OdgovorNaOdgovor" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Pitanja" EntityType="WikipedModel.Store.Pitanja" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Sadrzaji" EntityType="WikipedModel.Store.Sadrzaji" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="sysdiagrams" EntityType="WikipedModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TagClanci" EntityType="WikipedModel.Store.TagClanci" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TagoviPitanja" EntityType="WikipedModel.Store.TagoviPitanja" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Tags" EntityType="WikipedModel.Store.Tags" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TagVrste" EntityType="WikipedModel.Store.TagVrste" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Algoritmi_Korisnici" Association="WikipedModel.Store.FK_Algoritmi_Korisnici">
+            <End Role="Korisnici" EntitySet="Korisnici" />
+            <End Role="Algoritmi" EntitySet="Algoritmi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Clanci_TagVrste" Association="WikipedModel.Store.FK_Clanci_TagVrste">
+            <End Role="TagVrste" EntitySet="TagVrste" />
+            <End Role="Clanci" EntitySet="Clanci" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GlasoviZaOdgovore_Korisnici" Association="WikipedModel.Store.FK_GlasoviZaOdgovore_Korisnici">
+            <End Role="Korisnici" EntitySet="Korisnici" />
+            <End Role="GlasoviZaOdgovore" EntitySet="GlasoviZaOdgovore" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GlasoviZaOdgovore_Odgovori" Association="WikipedModel.Store.FK_GlasoviZaOdgovore_Odgovori">
+            <End Role="Odgovori" EntitySet="Odgovori" />
+            <End Role="GlasoviZaOdgovore" EntitySet="GlasoviZaOdgovore" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GlasoviZaPitanja_Korisnici" Association="WikipedModel.Store.FK_GlasoviZaPitanja_Korisnici">
+            <End Role="Korisnici" EntitySet="Korisnici" />
+            <End Role="GlasoviZaPitanja" EntitySet="GlasoviZaPitanja" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GlasoviZaPitanja_Pitanja" Association="WikipedModel.Store.FK_GlasoviZaPitanja_Pitanja">
+            <End Role="Pitanja" EntitySet="Pitanja" />
+            <End Role="GlasoviZaPitanja" EntitySet="GlasoviZaPitanja" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Komentari_Clanci" Association="WikipedModel.Store.FK_Komentari_Clanci">
+            <End Role="Clanci" EntitySet="Clanci" />
+            <End Role="Komentari" EntitySet="Komentari" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Komentari_Korisnici" Association="WikipedModel.Store.FK_Komentari_Korisnici">
+            <End Role="Korisnici" EntitySet="Korisnici" />
+            <End Role="Komentari" EntitySet="Komentari" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Korisnici_Drzave" Association="WikipedModel.Store.FK_Korisnici_Drzave">
+            <End Role="Drzave" EntitySet="Drzave" />
+            <End Role="Korisnici" EntitySet="Korisnici" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Korisnici_KorisnikVrste" Association="WikipedModel.Store.FK_Korisnici_KorisnikVrste">
+            <End Role="KorisnikVrste" EntitySet="KorisnikVrste" />
+            <End Role="Korisnici" EntitySet="Korisnici" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OcjenaKorisnici_Clanci" Association="WikipedModel.Store.FK_OcjenaKorisnici_Clanci">
+            <End Role="Clanci" EntitySet="Clanci" />
+            <End Role="OcjenaKorisnici" EntitySet="OcjenaKorisnici" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OcjenaKorisnici_Korisnici" Association="WikipedModel.Store.FK_OcjenaKorisnici_Korisnici">
+            <End Role="Korisnici" EntitySet="Korisnici" />
+            <End Role="OcjenaKorisnici" EntitySet="OcjenaKorisnici" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Odgovori_Korisnici" Association="WikipedModel.Store.FK_Odgovori_Korisnici">
+            <End Role="Korisnici" EntitySet="Korisnici" />
+            <End Role="Odgovori" EntitySet="Odgovori" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Odgovori_Pitanja" Association="WikipedModel.Store.FK_Odgovori_Pitanja">
+            <End Role="Pitanja" EntitySet="Pitanja" />
+            <End Role="Odgovori" EntitySet="Odgovori" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OdgovorNaOdgovor_Korisnici" Association="WikipedModel.Store.FK_OdgovorNaOdgovor_Korisnici">
+            <End Role="Korisnici" EntitySet="Korisnici" />
+            <End Role="OdgovorNaOdgovor" EntitySet="OdgovorNaOdgovor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OdgovorNaOdgovor_Odgovori" Association="WikipedModel.Store.FK_OdgovorNaOdgovor_Odgovori">
+            <End Role="Odgovori" EntitySet="Odgovori" />
+            <End Role="OdgovorNaOdgovor" EntitySet="OdgovorNaOdgovor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pitanja_Korisnici" Association="WikipedModel.Store.FK_Pitanja_Korisnici">
+            <End Role="Korisnici" EntitySet="Korisnici" />
+            <End Role="Pitanja" EntitySet="Pitanja" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sadrzaji_Clanci" Association="WikipedModel.Store.FK_Sadrzaji_Clanci">
+            <End Role="Clanci" EntitySet="Clanci" />
+            <End Role="Sadrzaji" EntitySet="Sadrzaji" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sadrzaji_Jezici" Association="WikipedModel.Store.FK_Sadrzaji_Jezici">
+            <End Role="Jezici" EntitySet="Jezici" />
+            <End Role="Sadrzaji" EntitySet="Sadrzaji" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TagClanci_Clanci" Association="WikipedModel.Store.FK_TagClanci_Clanci">
+            <End Role="Clanci" EntitySet="Clanci" />
+            <End Role="TagClanci" EntitySet="TagClanci" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TagClanci_Tags" Association="WikipedModel.Store.FK_TagClanci_Tags">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="TagClanci" EntitySet="TagClanci" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TagoviPitanja_Pitanja" Association="WikipedModel.Store.FK_TagoviPitanja_Pitanja">
+            <End Role="Pitanja" EntitySet="Pitanja" />
+            <End Role="TagoviPitanja" EntitySet="TagoviPitanja" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TagoviPitanja_Tags" Association="WikipedModel.Store.FK_TagoviPitanja_Tags">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="TagoviPitanja" EntitySet="TagoviPitanja" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Algoritmi">
+          <Key>
+            <PropertyRef Name="AlgoritamID" />
+          </Key>
+          <Property Name="AlgoritamID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Vrsta" Type="int" />
+          <Property Name="naziv" Type="nvarchar(max)" />
+          <Property Name="Opis" Type="text" />
+          <Property Name="KorisnikID" Type="int" />
+          <Property Name="Aktivan" Type="int" />
+        </EntityType>
+        <EntityType Name="Clanci">
+          <Key>
+            <PropertyRef Name="ClanakID" />
+          </Key>
+          <Property Name="ClanakID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="TagVrstaID" Type="int" />
+          <Property Name="Popularnost" Type="float" />
+          <Property Name="Ocjenjeno" Type="int" />
+          <Property Name="Slika" Type="nvarchar(max)" />
+          <Property Name="Guid" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="Drzave">
+          <Key>
+            <PropertyRef Name="DrzavaID" />
+          </Key>
+          <Property Name="DrzavaID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="GlasoviZaOdgovore">
+          <Key>
+            <PropertyRef Name="GlasoviZaOdgovorID" />
+          </Key>
+          <Property Name="GlasoviZaOdgovorID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="OdgovorID" Type="int" />
+          <Property Name="KorisnikID" Type="int" />
+          <Property Name="Glas" Type="int" />
+        </EntityType>
+        <EntityType Name="GlasoviZaPitanja">
+          <Key>
+            <PropertyRef Name="GlasoviZaPitanjeID" />
+          </Key>
+          <Property Name="GlasoviZaPitanjeID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PitanjeID" Type="int" />
+          <Property Name="KorisnikID" Type="int" />
+          <Property Name="Glas" Type="int" />
+        </EntityType>
+        <EntityType Name="Jezici">
+          <Key>
+            <PropertyRef Name="JezikID" />
+          </Key>
+          <Property Name="JezikID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Vrsta" Type="int" />
+          <Property Name="Naziv" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Komentari">
+          <Key>
+            <PropertyRef Name="KomentarID" />
+          </Key>
+          <Property Name="KomentarID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Tekst" Type="text" />
+          <Property Name="KorisnikID" Type="int" />
+          <Property Name="ClanakID" Type="int" />
+          <Property Name="Datum" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Korisnici">
+          <Key>
+            <PropertyRef Name="KorisnikID" />
+          </Key>
+          <Property Name="KorisnikID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="nvarchar(max)" />
+          <Property Name="Password" Type="nvarchar(max)" />
+          <Property Name="Ime" Type="nvarchar" MaxLength="50" />
+          <Property Name="Prezime" Type="nvarchar" MaxLength="150" />
+          <Property Name="Email" Type="nvarchar" MaxLength="200" />
+          <Property Name="DrzavaID" Type="int" />
+          <Property Name="Grad" Type="nvarchar" MaxLength="200" />
+          <Property Name="Adresa" Type="nvarchar(max)" />
+          <Property Name="Slika" Type="nvarchar" MaxLength="255" />
+          <Property Name="KorisnikVrstaID" Type="int" />
+        </EntityType>
+        <EntityType Name="KorisnikVrste">
+          <Key>
+            <PropertyRef Name="KorisnikVrstaID" />
+          </Key>
+          <Property Name="KorisnikVrstaID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Vrsta" Type="int" />
+          <Property Name="Opis" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="OcjenaKorisnici">
+          <Key>
+            <PropertyRef Name="OcjenaKorisnik" />
+          </Key>
+          <Property Name="OcjenaKorisnik" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="KorisnikID" Type="int" />
+          <Property Name="ClanakID" Type="int" />
+          <Property Name="Ocjena" Type="float" />
+        </EntityType>
+        <EntityType Name="Odgovori">
+          <Key>
+            <PropertyRef Name="OdgovorID" />
+          </Key>
+          <Property Name="OdgovorID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PitanjeID" Type="int" />
+          <Property Name="Odgovor" Type="nvarchar(max)" />
+          <Property Name="BrojGlasova" Type="int" />
+          <Property Name="Datum" Type="datetime" />
+          <Property Name="KorisnikID" Type="int" />
+        </EntityType>
+        <EntityType Name="OdgovorNaOdgovor">
+          <Key>
+            <PropertyRef Name="OdgovorNaOdgovorID" />
+          </Key>
+          <Property Name="OdgovorNaOdgovorID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="OdgovorID" Type="int" />
+          <Property Name="Odgovor" Type="nvarchar(max)" />
+          <Property Name="BrojGlasova" Type="int" />
+          <Property Name="Datum" Type="datetime" />
+          <Property Name="KorisnikID" Type="int" />
+        </EntityType>
+        <EntityType Name="Pitanja">
+          <Key>
+            <PropertyRef Name="PitanjeID" />
+          </Key>
+          <Property Name="PitanjeID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="nvarchar(max)" />
+          <Property Name="Opis" Type="nvarchar(max)" />
+          <Property Name="Datum" Type="datetime" />
+          <Property Name="BrojGlasova" Type="int" />
+          <Property Name="BrojPregleda" Type="int" />
+          <Property Name="KorisnikID" Type="int" />
+          <Property Name="TemaID" Type="int" />
+        </EntityType>
+        <EntityType Name="Sadrzaji">
+          <Key>
+            <PropertyRef Name="SadrzajID" />
+          </Key>
+          <Property Name="SadrzajID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Naslov" Type="nvarchar(max)" />
+          <Property Name="Opis" Type="text" />
+          <Property Name="Tekst" Type="text" />
+          <Property Name="JezikID" Type="int" />
+          <Property Name="ClanakID" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TagClanci">
+          <Key>
+            <PropertyRef Name="TagClanakID" />
+          </Key>
+          <Property Name="TagClanakID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ClanakID" Type="int" />
+          <Property Name="TagID" Type="int" />
+        </EntityType>
+        <EntityType Name="TagoviPitanja">
+          <Key>
+            <PropertyRef Name="TagoviPitanjeID" />
+          </Key>
+          <Property Name="TagoviPitanjeID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="TagID" Type="int" Nullable="false" />
+          <Property Name="PitanjeID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tags">
+          <Key>
+            <PropertyRef Name="TagID" />
+          </Key>
+          <Property Name="TagID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Ime" Type="nvarchar" MaxLength="50" />
+          <Property Name="Opis" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="TagVrste">
+          <Key>
+            <PropertyRef Name="TagVrstaID" />
+          </Key>
+          <Property Name="TagVrstaID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Vrsta" Type="int" />
+          <Property Name="Opis" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_Algoritmi_Korisnici">
+          <End Role="Korisnici" Type="WikipedModel.Store.Korisnici" Multiplicity="0..1" />
+          <End Role="Algoritmi" Type="WikipedModel.Store.Algoritmi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnici">
+              <PropertyRef Name="KorisnikID" />
+            </Principal>
+            <Dependent Role="Algoritmi">
+              <PropertyRef Name="KorisnikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Clanci_TagVrste">
+          <End Role="TagVrste" Type="WikipedModel.Store.TagVrste" Multiplicity="0..1" />
+          <End Role="Clanci" Type="WikipedModel.Store.Clanci" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TagVrste">
+              <PropertyRef Name="TagVrstaID" />
+            </Principal>
+            <Dependent Role="Clanci">
+              <PropertyRef Name="TagVrstaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GlasoviZaOdgovore_Korisnici">
+          <End Role="Korisnici" Type="WikipedModel.Store.Korisnici" Multiplicity="0..1" />
+          <End Role="GlasoviZaOdgovore" Type="WikipedModel.Store.GlasoviZaOdgovore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnici">
+              <PropertyRef Name="KorisnikID" />
+            </Principal>
+            <Dependent Role="GlasoviZaOdgovore">
+              <PropertyRef Name="KorisnikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GlasoviZaOdgovore_Odgovori">
+          <End Role="Odgovori" Type="WikipedModel.Store.Odgovori" Multiplicity="0..1" />
+          <End Role="GlasoviZaOdgovore" Type="WikipedModel.Store.GlasoviZaOdgovore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Odgovori">
+              <PropertyRef Name="OdgovorID" />
+            </Principal>
+            <Dependent Role="GlasoviZaOdgovore">
+              <PropertyRef Name="OdgovorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GlasoviZaPitanja_Korisnici">
+          <End Role="Korisnici" Type="WikipedModel.Store.Korisnici" Multiplicity="0..1" />
+          <End Role="GlasoviZaPitanja" Type="WikipedModel.Store.GlasoviZaPitanja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnici">
+              <PropertyRef Name="KorisnikID" />
+            </Principal>
+            <Dependent Role="GlasoviZaPitanja">
+              <PropertyRef Name="KorisnikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GlasoviZaPitanja_Pitanja">
+          <End Role="Pitanja" Type="WikipedModel.Store.Pitanja" Multiplicity="0..1" />
+          <End Role="GlasoviZaPitanja" Type="WikipedModel.Store.GlasoviZaPitanja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pitanja">
+              <PropertyRef Name="PitanjeID" />
+            </Principal>
+            <Dependent Role="GlasoviZaPitanja">
+              <PropertyRef Name="PitanjeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Komentari_Clanci">
+          <End Role="Clanci" Type="WikipedModel.Store.Clanci" Multiplicity="0..1" />
+          <End Role="Komentari" Type="WikipedModel.Store.Komentari" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clanci">
+              <PropertyRef Name="ClanakID" />
+            </Principal>
+            <Dependent Role="Komentari">
+              <PropertyRef Name="ClanakID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Komentari_Korisnici">
+          <End Role="Korisnici" Type="WikipedModel.Store.Korisnici" Multiplicity="0..1" />
+          <End Role="Komentari" Type="WikipedModel.Store.Komentari" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnici">
+              <PropertyRef Name="KorisnikID" />
+            </Principal>
+            <Dependent Role="Komentari">
+              <PropertyRef Name="KorisnikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Korisnici_Drzave">
+          <End Role="Drzave" Type="WikipedModel.Store.Drzave" Multiplicity="0..1" />
+          <End Role="Korisnici" Type="WikipedModel.Store.Korisnici" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drzave">
+              <PropertyRef Name="DrzavaID" />
+            </Principal>
+            <Dependent Role="Korisnici">
+              <PropertyRef Name="DrzavaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Korisnici_KorisnikVrste">
+          <End Role="KorisnikVrste" Type="WikipedModel.Store.KorisnikVrste" Multiplicity="0..1" />
+          <End Role="Korisnici" Type="WikipedModel.Store.Korisnici" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KorisnikVrste">
+              <PropertyRef Name="KorisnikVrstaID" />
+            </Principal>
+            <Dependent Role="Korisnici">
+              <PropertyRef Name="KorisnikVrstaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OcjenaKorisnici_Clanci">
+          <End Role="Clanci" Type="WikipedModel.Store.Clanci" Multiplicity="0..1" />
+          <End Role="OcjenaKorisnici" Type="WikipedModel.Store.OcjenaKorisnici" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clanci">
+              <PropertyRef Name="ClanakID" />
+            </Principal>
+            <Dependent Role="OcjenaKorisnici">
+              <PropertyRef Name="ClanakID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OcjenaKorisnici_Korisnici">
+          <End Role="Korisnici" Type="WikipedModel.Store.Korisnici" Multiplicity="0..1" />
+          <End Role="OcjenaKorisnici" Type="WikipedModel.Store.OcjenaKorisnici" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnici">
+              <PropertyRef Name="KorisnikID" />
+            </Principal>
+            <Dependent Role="OcjenaKorisnici">
+              <PropertyRef Name="KorisnikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Odgovori_Korisnici">
+          <End Role="Korisnici" Type="WikipedModel.Store.Korisnici" Multiplicity="0..1" />
+          <End Role="Odgovori" Type="WikipedModel.Store.Odgovori" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnici">
+              <PropertyRef Name="KorisnikID" />
+            </Principal>
+            <Dependent Role="Odgovori">
+              <PropertyRef Name="KorisnikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Odgovori_Pitanja">
+          <End Role="Pitanja" Type="WikipedModel.Store.Pitanja" Multiplicity="0..1" />
+          <End Role="Odgovori" Type="WikipedModel.Store.Odgovori" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pitanja">
+              <PropertyRef Name="PitanjeID" />
+            </Principal>
+            <Dependent Role="Odgovori">
+              <PropertyRef Name="PitanjeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OdgovorNaOdgovor_Korisnici">
+          <End Role="Korisnici" Type="WikipedModel.Store.Korisnici" Multiplicity="0..1" />
+          <End Role="OdgovorNaOdgovor" Type="WikipedModel.Store.OdgovorNaOdgovor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnici">
+              <PropertyRef Name="KorisnikID" />
+            </Principal>
+            <Dependent Role="OdgovorNaOdgovor">
+              <PropertyRef Name="KorisnikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OdgovorNaOdgovor_Odgovori">
+          <End Role="Odgovori" Type="WikipedModel.Store.Odgovori" Multiplicity="0..1" />
+          <End Role="OdgovorNaOdgovor" Type="WikipedModel.Store.OdgovorNaOdgovor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Odgovori">
+              <PropertyRef Name="OdgovorID" />
+            </Principal>
+            <Dependent Role="OdgovorNaOdgovor">
+              <PropertyRef Name="OdgovorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pitanja_Korisnici">
+          <End Role="Korisnici" Type="WikipedModel.Store.Korisnici" Multiplicity="0..1" />
+          <End Role="Pitanja" Type="WikipedModel.Store.Pitanja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnici">
+              <PropertyRef Name="KorisnikID" />
+            </Principal>
+            <Dependent Role="Pitanja">
+              <PropertyRef Name="KorisnikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sadrzaji_Clanci">
+          <End Role="Clanci" Type="WikipedModel.Store.Clanci" Multiplicity="0..1" />
+          <End Role="Sadrzaji" Type="WikipedModel.Store.Sadrzaji" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clanci">
+              <PropertyRef Name="ClanakID" />
+            </Principal>
+            <Dependent Role="Sadrzaji">
+              <PropertyRef Name="ClanakID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sadrzaji_Jezici">
+          <End Role="Jezici" Type="WikipedModel.Store.Jezici" Multiplicity="0..1" />
+          <End Role="Sadrzaji" Type="WikipedModel.Store.Sadrzaji" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jezici">
+              <PropertyRef Name="JezikID" />
+            </Principal>
+            <Dependent Role="Sadrzaji">
+              <PropertyRef Name="JezikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TagClanci_Clanci">
+          <End Role="Clanci" Type="WikipedModel.Store.Clanci" Multiplicity="0..1" />
+          <End Role="TagClanci" Type="WikipedModel.Store.TagClanci" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clanci">
+              <PropertyRef Name="ClanakID" />
+            </Principal>
+            <Dependent Role="TagClanci">
+              <PropertyRef Name="ClanakID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TagClanci_Tags">
+          <End Role="Tags" Type="WikipedModel.Store.Tags" Multiplicity="0..1" />
+          <End Role="TagClanci" Type="WikipedModel.Store.TagClanci" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tags">
+              <PropertyRef Name="TagID" />
+            </Principal>
+            <Dependent Role="TagClanci">
+              <PropertyRef Name="TagID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TagoviPitanja_Pitanja">
+          <End Role="Pitanja" Type="WikipedModel.Store.Pitanja" Multiplicity="1" />
+          <End Role="TagoviPitanja" Type="WikipedModel.Store.TagoviPitanja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pitanja">
+              <PropertyRef Name="PitanjeID" />
+            </Principal>
+            <Dependent Role="TagoviPitanja">
+              <PropertyRef Name="PitanjeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TagoviPitanja_Tags">
+          <End Role="Tags" Type="WikipedModel.Store.Tags" Multiplicity="1" />
+          <End Role="TagoviPitanja" Type="WikipedModel.Store.TagoviPitanja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tags">
+              <PropertyRef Name="TagID" />
+            </Principal>
+            <Dependent Role="TagoviPitanja">
+              <PropertyRef Name="TagID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WikipedModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="WikipedEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Algoritmi" EntityType="WikipedModel.Algoritmi" />
+          <EntitySet Name="Drzave" EntityType="WikipedModel.Drzave" />
+          <EntitySet Name="GlasoviZaOdgovore" EntityType="WikipedModel.GlasoviZaOdgovore" />
+          <EntitySet Name="GlasoviZaPitanja" EntityType="WikipedModel.GlasoviZaPitanja" />
+          <EntitySet Name="Jezici" EntityType="WikipedModel.Jezici" />
+          <EntitySet Name="Komentari" EntityType="WikipedModel.Komentari" />
+          <EntitySet Name="Korisnici" EntityType="WikipedModel.Korisnici" />
+          <EntitySet Name="KorisnikVrste" EntityType="WikipedModel.KorisnikVrste" />
+          <EntitySet Name="OcjenaKorisnici" EntityType="WikipedModel.OcjenaKorisnici" />
+          <EntitySet Name="Odgovori" EntityType="WikipedModel.Odgovori" />
+          <EntitySet Name="OdgovorNaOdgovor" EntityType="WikipedModel.OdgovorNaOdgovor" />
+          <EntitySet Name="Pitanja" EntityType="WikipedModel.Pitanja" />
+          <EntitySet Name="Sadrzaji" EntityType="WikipedModel.Sadrzaji" />
+          <EntitySet Name="sysdiagrams" EntityType="WikipedModel.sysdiagrams" />
+          <EntitySet Name="TagoviPitanja" EntityType="WikipedModel.TagoviPitanja" />
+          <EntitySet Name="TagVrste" EntityType="WikipedModel.TagVrste" />
+          <AssociationSet Name="FK_Algoritmi_Korisnici" Association="WikipedModel.FK_Algoritmi_Korisnici">
+            <End Role="Korisnici" EntitySet="Korisnici" />
+            <End Role="Algoritmi" EntitySet="Algoritmi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Korisnici_Drzave" Association="WikipedModel.FK_Korisnici_Drzave">
+            <End Role="Drzave" EntitySet="Drzave" />
+            <End Role="Korisnici" EntitySet="Korisnici" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GlasoviZaOdgovore_Korisnici" Association="WikipedModel.FK_GlasoviZaOdgovore_Korisnici">
+            <End Role="Korisnici" EntitySet="Korisnici" />
+            <End Role="GlasoviZaOdgovore" EntitySet="GlasoviZaOdgovore" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GlasoviZaOdgovore_Odgovori" Association="WikipedModel.FK_GlasoviZaOdgovore_Odgovori">
+            <End Role="Odgovori" EntitySet="Odgovori" />
+            <End Role="GlasoviZaOdgovore" EntitySet="GlasoviZaOdgovore" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GlasoviZaPitanja_Korisnici" Association="WikipedModel.FK_GlasoviZaPitanja_Korisnici">
+            <End Role="Korisnici" EntitySet="Korisnici" />
+            <End Role="GlasoviZaPitanja" EntitySet="GlasoviZaPitanja" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GlasoviZaPitanja_Pitanja" Association="WikipedModel.FK_GlasoviZaPitanja_Pitanja">
+            <End Role="Pitanja" EntitySet="Pitanja" />
+            <End Role="GlasoviZaPitanja" EntitySet="GlasoviZaPitanja" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sadrzaji_Jezici" Association="WikipedModel.FK_Sadrzaji_Jezici">
+            <End Role="Jezici" EntitySet="Jezici" />
+            <End Role="Sadrzaji" EntitySet="Sadrzaji" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Komentari_Korisnici" Association="WikipedModel.FK_Komentari_Korisnici">
+            <End Role="Korisnici" EntitySet="Korisnici" />
+            <End Role="Komentari" EntitySet="Komentari" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Korisnici_KorisnikVrste" Association="WikipedModel.FK_Korisnici_KorisnikVrste">
+            <End Role="KorisnikVrste" EntitySet="KorisnikVrste" />
+            <End Role="Korisnici" EntitySet="Korisnici" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OcjenaKorisnici_Korisnici" Association="WikipedModel.FK_OcjenaKorisnici_Korisnici">
+            <End Role="Korisnici" EntitySet="Korisnici" />
+            <End Role="OcjenaKorisnici" EntitySet="OcjenaKorisnici" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Odgovori_Korisnici" Association="WikipedModel.FK_Odgovori_Korisnici">
+            <End Role="Korisnici" EntitySet="Korisnici" />
+            <End Role="Odgovori" EntitySet="Odgovori" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OdgovorNaOdgovor_Korisnici" Association="WikipedModel.FK_OdgovorNaOdgovor_Korisnici">
+            <End Role="Korisnici" EntitySet="Korisnici" />
+            <End Role="OdgovorNaOdgovor" EntitySet="OdgovorNaOdgovor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pitanja_Korisnici" Association="WikipedModel.FK_Pitanja_Korisnici">
+            <End Role="Korisnici" EntitySet="Korisnici" />
+            <End Role="Pitanja" EntitySet="Pitanja" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Odgovori_Pitanja" Association="WikipedModel.FK_Odgovori_Pitanja">
+            <End Role="Pitanja" EntitySet="Pitanja" />
+            <End Role="Odgovori" EntitySet="Odgovori" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OdgovorNaOdgovor_Odgovori" Association="WikipedModel.FK_OdgovorNaOdgovor_Odgovori">
+            <End Role="Odgovori" EntitySet="Odgovori" />
+            <End Role="OdgovorNaOdgovor" EntitySet="OdgovorNaOdgovor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TagoviPitanja_Pitanja" Association="WikipedModel.FK_TagoviPitanja_Pitanja">
+            <End Role="Pitanja" EntitySet="Pitanja" />
+            <End Role="TagoviPitanja" EntitySet="TagoviPitanja" />
+          </AssociationSet>
+          <EntitySet Name="Clanci" EntityType="WikipedModel.Clanci" />
+          <AssociationSet Name="FK_Clanci_TagVrste" Association="WikipedModel.FK_Clanci_TagVrste">
+            <End Role="TagVrste" EntitySet="TagVrste" />
+            <End Role="Clanci" EntitySet="Clanci" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Komentari_Clanci" Association="WikipedModel.FK_Komentari_Clanci">
+            <End Role="Clanci" EntitySet="Clanci" />
+            <End Role="Komentari" EntitySet="Komentari" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OcjenaKorisnici_Clanci" Association="WikipedModel.FK_OcjenaKorisnici_Clanci">
+            <End Role="Clanci" EntitySet="Clanci" />
+            <End Role="OcjenaKorisnici" EntitySet="OcjenaKorisnici" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sadrzaji_Clanci" Association="WikipedModel.FK_Sadrzaji_Clanci">
+            <End Role="Clanci" EntitySet="Clanci" />
+            <End Role="Sadrzaji" EntitySet="Sadrzaji" />
+          </AssociationSet>
+          <EntitySet Name="TagClanci" EntityType="WikipedModel.TagClanci" />
+          <AssociationSet Name="FK_TagClanci_Clanci" Association="WikipedModel.FK_TagClanci_Clanci">
+            <End Role="Clanci" EntitySet="Clanci" />
+            <End Role="TagClanci" EntitySet="TagClanci" />
+          </AssociationSet>
+          <EntitySet Name="Tags" EntityType="WikipedModel.Tags" />
+          <AssociationSet Name="FK_TagClanci_Tags" Association="WikipedModel.FK_TagClanci_Tags">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="TagClanci" EntitySet="TagClanci" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TagoviPitanja_Tags" Association="WikipedModel.FK_TagoviPitanja_Tags">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="TagoviPitanja" EntitySet="TagoviPitanja" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Algoritmi">
+          <Key>
+            <PropertyRef Name="AlgoritamID" />
+          </Key>
+          <Property Type="Int32" Name="AlgoritamID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Vrsta" />
+          <Property Type="String" Name="naziv" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Opis" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="KorisnikID" />
+          <Property Type="Int32" Name="Aktivan" />
+          <NavigationProperty Name="Korisnici" Relationship="WikipedModel.FK_Algoritmi_Korisnici" FromRole="Algoritmi" ToRole="Korisnici" />
+        </EntityType>
+        <EntityType Name="Drzave">
+          <Key>
+            <PropertyRef Name="DrzavaID" />
+          </Key>
+          <Property Type="Int32" Name="DrzavaID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Naziv" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Korisnici" Relationship="WikipedModel.FK_Korisnici_Drzave" FromRole="Drzave" ToRole="Korisnici" />
+        </EntityType>
+        <EntityType Name="GlasoviZaOdgovore">
+          <Key>
+            <PropertyRef Name="GlasoviZaOdgovorID" />
+          </Key>
+          <Property Type="Int32" Name="GlasoviZaOdgovorID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="OdgovorID" />
+          <Property Type="Int32" Name="KorisnikID" />
+          <Property Type="Int32" Name="Glas" />
+          <NavigationProperty Name="Korisnici" Relationship="WikipedModel.FK_GlasoviZaOdgovore_Korisnici" FromRole="GlasoviZaOdgovore" ToRole="Korisnici" />
+          <NavigationProperty Name="Odgovori" Relationship="WikipedModel.FK_GlasoviZaOdgovore_Odgovori" FromRole="GlasoviZaOdgovore" ToRole="Odgovori" />
+        </EntityType>
+        <EntityType Name="GlasoviZaPitanja">
+          <Key>
+            <PropertyRef Name="GlasoviZaPitanjeID" />
+          </Key>
+          <Property Type="Int32" Name="GlasoviZaPitanjeID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="PitanjeID" />
+          <Property Type="Int32" Name="KorisnikID" />
+          <Property Type="Int32" Name="Glas" />
+          <NavigationProperty Name="Korisnici" Relationship="WikipedModel.FK_GlasoviZaPitanja_Korisnici" FromRole="GlasoviZaPitanja" ToRole="Korisnici" />
+          <NavigationProperty Name="Pitanja" Relationship="WikipedModel.FK_GlasoviZaPitanja_Pitanja" FromRole="GlasoviZaPitanja" ToRole="Pitanja" />
+        </EntityType>
+        <EntityType Name="Jezici">
+          <Key>
+            <PropertyRef Name="JezikID" />
+          </Key>
+          <Property Type="Int32" Name="JezikID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Vrsta" />
+          <Property Type="String" Name="Naziv" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Sadrzaji" Relationship="WikipedModel.FK_Sadrzaji_Jezici" FromRole="Jezici" ToRole="Sadrzaji" />
+        </EntityType>
+        <EntityType Name="Komentari">
+          <Key>
+            <PropertyRef Name="KomentarID" />
+          </Key>
+          <Property Type="Int32" Name="KomentarID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Tekst" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="KorisnikID" />
+          <Property Type="Int32" Name="ClanakID" />
+          <Property Type="DateTime" Name="Datum" />
+          <NavigationProperty Name="Korisnici" Relationship="WikipedModel.FK_Komentari_Korisnici" FromRole="Komentari" ToRole="Korisnici" />
+          <NavigationProperty Name="Clanci" Relationship="WikipedModel.FK_Komentari_Clanci" FromRole="Komentari" ToRole="Clanci" />
+        </EntityType>
+        <EntityType Name="Korisnici">
+          <Key>
+            <PropertyRef Name="KorisnikID" />
+          </Key>
+          <Property Type="Int32" Name="KorisnikID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="UserName" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Password" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Ime" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Prezime" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Email" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="DrzavaID" />
+          <Property Type="String" Name="Grad" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Adresa" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Slika" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="KorisnikVrstaID" />
+          <NavigationProperty Name="Algoritmi" Relationship="WikipedModel.FK_Algoritmi_Korisnici" FromRole="Korisnici" ToRole="Algoritmi" />
+          <NavigationProperty Name="Drzave" Relationship="WikipedModel.FK_Korisnici_Drzave" FromRole="Korisnici" ToRole="Drzave" />
+          <NavigationProperty Name="GlasoviZaOdgovore" Relationship="WikipedModel.FK_GlasoviZaOdgovore_Korisnici" FromRole="Korisnici" ToRole="GlasoviZaOdgovore" />
+          <NavigationProperty Name="GlasoviZaPitanja" Relationship="WikipedModel.FK_GlasoviZaPitanja_Korisnici" FromRole="Korisnici" ToRole="GlasoviZaPitanja" />
+          <NavigationProperty Name="Komentari" Relationship="WikipedModel.FK_Komentari_Korisnici" FromRole="Korisnici" ToRole="Komentari" />
+          <NavigationProperty Name="KorisnikVrste" Relationship="WikipedModel.FK_Korisnici_KorisnikVrste" FromRole="Korisnici" ToRole="KorisnikVrste" />
+          <NavigationProperty Name="OcjenaKorisnici" Relationship="WikipedModel.FK_OcjenaKorisnici_Korisnici" FromRole="Korisnici" ToRole="OcjenaKorisnici" />
+          <NavigationProperty Name="Odgovori" Relationship="WikipedModel.FK_Odgovori_Korisnici" FromRole="Korisnici" ToRole="Odgovori" />
+          <NavigationProperty Name="OdgovorNaOdgovor" Relationship="WikipedModel.FK_OdgovorNaOdgovor_Korisnici" FromRole="Korisnici" ToRole="OdgovorNaOdgovor" />
+          <NavigationProperty Name="Pitanja" Relationship="WikipedModel.FK_Pitanja_Korisnici" FromRole="Korisnici" ToRole="Pitanja" />
+        </EntityType>
+        <EntityType Name="KorisnikVrste">
+          <Key>
+            <PropertyRef Name="KorisnikVrstaID" />
+          </Key>
+          <Property Type="Int32" Name="KorisnikVrstaID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Vrsta" />
+          <Property Type="String" Name="Opis" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Korisnici" Relationship="WikipedModel.FK_Korisnici_KorisnikVrste" FromRole="KorisnikVrste" ToRole="Korisnici" />
+        </EntityType>
+        <EntityType Name="OcjenaKorisnici">
+          <Key>
+            <PropertyRef Name="OcjenaKorisnik" />
+          </Key>
+          <Property Type="Int32" Name="OcjenaKorisnik" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="KorisnikID" />
+          <Property Type="Int32" Name="ClanakID" />
+          <NavigationProperty Name="Korisnici" Relationship="WikipedModel.FK_OcjenaKorisnici_Korisnici" FromRole="OcjenaKorisnici" ToRole="Korisnici" />
+          <Property Type="Double" Name="Ocjena" />
+          <NavigationProperty Name="Clanci" Relationship="WikipedModel.FK_OcjenaKorisnici_Clanci" FromRole="OcjenaKorisnici" ToRole="Clanci" />
+        </EntityType>
+        <EntityType Name="Odgovori">
+          <Key>
+            <PropertyRef Name="OdgovorID" />
+          </Key>
+          <Property Type="Int32" Name="OdgovorID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="PitanjeID" />
+          <Property Type="String" Name="Odgovor" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="BrojGlasova" />
+          <Property Type="DateTime" Name="Datum" />
+          <Property Type="Int32" Name="KorisnikID" />
+          <NavigationProperty Name="GlasoviZaOdgovore" Relationship="WikipedModel.FK_GlasoviZaOdgovore_Odgovori" FromRole="Odgovori" ToRole="GlasoviZaOdgovore" />
+          <NavigationProperty Name="Korisnici" Relationship="WikipedModel.FK_Odgovori_Korisnici" FromRole="Odgovori" ToRole="Korisnici" />
+          <NavigationProperty Name="Pitanja" Relationship="WikipedModel.FK_Odgovori_Pitanja" FromRole="Odgovori" ToRole="Pitanja" />
+          <NavigationProperty Name="OdgovorNaOdgovor" Relationship="WikipedModel.FK_OdgovorNaOdgovor_Odgovori" FromRole="Odgovori" ToRole="OdgovorNaOdgovor" />
+        </EntityType>
+        <EntityType Name="OdgovorNaOdgovor">
+          <Key>
+            <PropertyRef Name="OdgovorNaOdgovorID" />
+          </Key>
+          <Property Type="Int32" Name="OdgovorNaOdgovorID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="OdgovorID" />
+          <Property Type="String" Name="Odgovor" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="BrojGlasova" />
+          <Property Type="DateTime" Name="Datum" />
+          <Property Type="Int32" Name="KorisnikID" />
+          <NavigationProperty Name="Korisnici" Relationship="WikipedModel.FK_OdgovorNaOdgovor_Korisnici" FromRole="OdgovorNaOdgovor" ToRole="Korisnici" />
+          <NavigationProperty Name="Odgovori" Relationship="WikipedModel.FK_OdgovorNaOdgovor_Odgovori" FromRole="OdgovorNaOdgovor" ToRole="Odgovori" />
+        </EntityType>
+        <EntityType Name="Pitanja">
+          <Key>
+            <PropertyRef Name="PitanjeID" />
+          </Key>
+          <Property Type="Int32" Name="PitanjeID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Naziv" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Opis" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="Datum" />
+          <Property Type="Int32" Name="BrojGlasova" />
+          <Property Type="Int32" Name="BrojPregleda" />
+          <Property Type="Int32" Name="KorisnikID" />
+          <Property Type="Int32" Name="TemaID" />
+          <NavigationProperty Name="GlasoviZaPitanja" Relationship="WikipedModel.FK_GlasoviZaPitanja_Pitanja" FromRole="Pitanja" ToRole="GlasoviZaPitanja" />
+          <NavigationProperty Name="Korisnici" Relationship="WikipedModel.FK_Pitanja_Korisnici" FromRole="Pitanja" ToRole="Korisnici" />
+          <NavigationProperty Name="Odgovori" Relationship="WikipedModel.FK_Odgovori_Pitanja" FromRole="Pitanja" ToRole="Odgovori" />
+          <NavigationProperty Name="TagoviPitanja" Relationship="WikipedModel.FK_TagoviPitanja_Pitanja" FromRole="Pitanja" ToRole="TagoviPitanja" />
+        </EntityType>
+        <EntityType Name="Sadrzaji">
+          <Key>
+            <PropertyRef Name="SadrzajID" />
+          </Key>
+          <Property Type="Int32" Name="SadrzajID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Naslov" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Opis" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Tekst" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="JezikID" />
+          <Property Type="Int32" Name="ClanakID" />
+          <NavigationProperty Name="Jezici" Relationship="WikipedModel.FK_Sadrzaji_Jezici" FromRole="Sadrzaji" ToRole="Jezici" />
+          <NavigationProperty Name="Clanci" Relationship="WikipedModel.FK_Sadrzaji_Clanci" FromRole="Sadrzaji" ToRole="Clanci" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Type="String" Name="name" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="principal_id" Nullable="false" />
+          <Property Type="Int32" Name="diagram_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="version" />
+          <Property Type="Binary" Name="definition" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TagoviPitanja">
+          <Key>
+            <PropertyRef Name="TagoviPitanjeID" />
+          </Key>
+          <Property Type="Int32" Name="TagoviPitanjeID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="TagID" Nullable="false" />
+          <Property Type="Int32" Name="PitanjeID" Nullable="false" />
+          <NavigationProperty Name="Pitanja" Relationship="WikipedModel.FK_TagoviPitanja_Pitanja" FromRole="TagoviPitanja" ToRole="Pitanja" />
+          <NavigationProperty Name="Tags" Relationship="WikipedModel.FK_TagoviPitanja_Tags" FromRole="TagoviPitanja" ToRole="Tags" />
+        </EntityType>
+        <EntityType Name="TagVrste">
+          <Key>
+            <PropertyRef Name="TagVrstaID" />
+          </Key>
+          <Property Type="Int32" Name="TagVrstaID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Vrsta" />
+          <Property Type="String" Name="Opis" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Clanci" Relationship="WikipedModel.FK_Clanci_TagVrste" FromRole="TagVrste" ToRole="Clanci" />
+        </EntityType>
+        <Association Name="FK_Algoritmi_Korisnici">
+          <End Type="WikipedModel.Korisnici" Role="Korisnici" Multiplicity="0..1" />
+          <End Type="WikipedModel.Algoritmi" Role="Algoritmi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnici">
+              <PropertyRef Name="KorisnikID" />
+            </Principal>
+            <Dependent Role="Algoritmi">
+              <PropertyRef Name="KorisnikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Korisnici_Drzave">
+          <End Type="WikipedModel.Drzave" Role="Drzave" Multiplicity="0..1" />
+          <End Type="WikipedModel.Korisnici" Role="Korisnici" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drzave">
+              <PropertyRef Name="DrzavaID" />
+            </Principal>
+            <Dependent Role="Korisnici">
+              <PropertyRef Name="DrzavaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GlasoviZaOdgovore_Korisnici">
+          <End Type="WikipedModel.Korisnici" Role="Korisnici" Multiplicity="0..1" />
+          <End Type="WikipedModel.GlasoviZaOdgovore" Role="GlasoviZaOdgovore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnici">
+              <PropertyRef Name="KorisnikID" />
+            </Principal>
+            <Dependent Role="GlasoviZaOdgovore">
+              <PropertyRef Name="KorisnikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GlasoviZaOdgovore_Odgovori">
+          <End Type="WikipedModel.Odgovori" Role="Odgovori" Multiplicity="0..1" />
+          <End Type="WikipedModel.GlasoviZaOdgovore" Role="GlasoviZaOdgovore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Odgovori">
+              <PropertyRef Name="OdgovorID" />
+            </Principal>
+            <Dependent Role="GlasoviZaOdgovore">
+              <PropertyRef Name="OdgovorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GlasoviZaPitanja_Korisnici">
+          <End Type="WikipedModel.Korisnici" Role="Korisnici" Multiplicity="0..1" />
+          <End Type="WikipedModel.GlasoviZaPitanja" Role="GlasoviZaPitanja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnici">
+              <PropertyRef Name="KorisnikID" />
+            </Principal>
+            <Dependent Role="GlasoviZaPitanja">
+              <PropertyRef Name="KorisnikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GlasoviZaPitanja_Pitanja">
+          <End Type="WikipedModel.Pitanja" Role="Pitanja" Multiplicity="0..1" />
+          <End Type="WikipedModel.GlasoviZaPitanja" Role="GlasoviZaPitanja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pitanja">
+              <PropertyRef Name="PitanjeID" />
+            </Principal>
+            <Dependent Role="GlasoviZaPitanja">
+              <PropertyRef Name="PitanjeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sadrzaji_Jezici">
+          <End Type="WikipedModel.Jezici" Role="Jezici" Multiplicity="0..1" />
+          <End Type="WikipedModel.Sadrzaji" Role="Sadrzaji" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jezici">
+              <PropertyRef Name="JezikID" />
+            </Principal>
+            <Dependent Role="Sadrzaji">
+              <PropertyRef Name="JezikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Komentari_Korisnici">
+          <End Type="WikipedModel.Korisnici" Role="Korisnici" Multiplicity="0..1" />
+          <End Type="WikipedModel.Komentari" Role="Komentari" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnici">
+              <PropertyRef Name="KorisnikID" />
+            </Principal>
+            <Dependent Role="Komentari">
+              <PropertyRef Name="KorisnikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Korisnici_KorisnikVrste">
+          <End Type="WikipedModel.KorisnikVrste" Role="KorisnikVrste" Multiplicity="0..1" />
+          <End Type="WikipedModel.Korisnici" Role="Korisnici" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KorisnikVrste">
+              <PropertyRef Name="KorisnikVrstaID" />
+            </Principal>
+            <Dependent Role="Korisnici">
+              <PropertyRef Name="KorisnikVrstaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OcjenaKorisnici_Korisnici">
+          <End Type="WikipedModel.Korisnici" Role="Korisnici" Multiplicity="0..1" />
+          <End Type="WikipedModel.OcjenaKorisnici" Role="OcjenaKorisnici" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnici">
+              <PropertyRef Name="KorisnikID" />
+            </Principal>
+            <Dependent Role="OcjenaKorisnici">
+              <PropertyRef Name="KorisnikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Odgovori_Korisnici">
+          <End Type="WikipedModel.Korisnici" Role="Korisnici" Multiplicity="0..1" />
+          <End Type="WikipedModel.Odgovori" Role="Odgovori" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnici">
+              <PropertyRef Name="KorisnikID" />
+            </Principal>
+            <Dependent Role="Odgovori">
+              <PropertyRef Name="KorisnikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OdgovorNaOdgovor_Korisnici">
+          <End Type="WikipedModel.Korisnici" Role="Korisnici" Multiplicity="0..1" />
+          <End Type="WikipedModel.OdgovorNaOdgovor" Role="OdgovorNaOdgovor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnici">
+              <PropertyRef Name="KorisnikID" />
+            </Principal>
+            <Dependent Role="OdgovorNaOdgovor">
+              <PropertyRef Name="KorisnikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pitanja_Korisnici">
+          <End Type="WikipedModel.Korisnici" Role="Korisnici" Multiplicity="0..1" />
+          <End Type="WikipedModel.Pitanja" Role="Pitanja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnici">
+              <PropertyRef Name="KorisnikID" />
+            </Principal>
+            <Dependent Role="Pitanja">
+              <PropertyRef Name="KorisnikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Odgovori_Pitanja">
+          <End Type="WikipedModel.Pitanja" Role="Pitanja" Multiplicity="0..1" />
+          <End Type="WikipedModel.Odgovori" Role="Odgovori" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pitanja">
+              <PropertyRef Name="PitanjeID" />
+            </Principal>
+            <Dependent Role="Odgovori">
+              <PropertyRef Name="PitanjeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OdgovorNaOdgovor_Odgovori">
+          <End Type="WikipedModel.Odgovori" Role="Odgovori" Multiplicity="0..1" />
+          <End Type="WikipedModel.OdgovorNaOdgovor" Role="OdgovorNaOdgovor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Odgovori">
+              <PropertyRef Name="OdgovorID" />
+            </Principal>
+            <Dependent Role="OdgovorNaOdgovor">
+              <PropertyRef Name="OdgovorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TagoviPitanja_Pitanja">
+          <End Type="WikipedModel.Pitanja" Role="Pitanja" Multiplicity="1" />
+          <End Type="WikipedModel.TagoviPitanja" Role="TagoviPitanja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pitanja">
+              <PropertyRef Name="PitanjeID" />
+            </Principal>
+            <Dependent Role="TagoviPitanja">
+              <PropertyRef Name="PitanjeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Clanci">
+          <Key>
+            <PropertyRef Name="ClanakID" />
+          </Key>
+          <Property Type="Int32" Name="ClanakID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="TagVrstaID" />
+          <Property Type="Double" Name="Popularnost" />
+          <Property Type="Int32" Name="Ocjenjeno" />
+          <Property Type="String" Name="Slika" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Guid" Name="Guid" />
+          <NavigationProperty Name="TagVrste" Relationship="WikipedModel.FK_Clanci_TagVrste" FromRole="Clanci" ToRole="TagVrste" />
+          <NavigationProperty Name="Komentari" Relationship="WikipedModel.FK_Komentari_Clanci" FromRole="Clanci" ToRole="Komentari" />
+          <NavigationProperty Name="OcjenaKorisnici" Relationship="WikipedModel.FK_OcjenaKorisnici_Clanci" FromRole="Clanci" ToRole="OcjenaKorisnici" />
+          <NavigationProperty Name="Sadrzaji" Relationship="WikipedModel.FK_Sadrzaji_Clanci" FromRole="Clanci" ToRole="Sadrzaji" />
+          <NavigationProperty Name="TagClanci" Relationship="WikipedModel.FK_TagClanci_Clanci" FromRole="Clanci" ToRole="TagClanci" />
+        </EntityType>
+        <Association Name="FK_Clanci_TagVrste">
+          <End Type="WikipedModel.TagVrste" Role="TagVrste" Multiplicity="0..1" />
+          <End Type="WikipedModel.Clanci" Role="Clanci" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TagVrste">
+              <PropertyRef Name="TagVrstaID" />
+            </Principal>
+            <Dependent Role="Clanci">
+              <PropertyRef Name="TagVrstaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Komentari_Clanci">
+          <End Type="WikipedModel.Clanci" Role="Clanci" Multiplicity="0..1" />
+          <End Type="WikipedModel.Komentari" Role="Komentari" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clanci">
+              <PropertyRef Name="ClanakID" />
+            </Principal>
+            <Dependent Role="Komentari">
+              <PropertyRef Name="ClanakID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OcjenaKorisnici_Clanci">
+          <End Type="WikipedModel.Clanci" Role="Clanci" Multiplicity="0..1" />
+          <End Type="WikipedModel.OcjenaKorisnici" Role="OcjenaKorisnici" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clanci">
+              <PropertyRef Name="ClanakID" />
+            </Principal>
+            <Dependent Role="OcjenaKorisnici">
+              <PropertyRef Name="ClanakID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sadrzaji_Clanci">
+          <End Type="WikipedModel.Clanci" Role="Clanci" Multiplicity="0..1" />
+          <End Type="WikipedModel.Sadrzaji" Role="Sadrzaji" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clanci">
+              <PropertyRef Name="ClanakID" />
+            </Principal>
+            <Dependent Role="Sadrzaji">
+              <PropertyRef Name="ClanakID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TagClanci">
+          <Key>
+            <PropertyRef Name="TagClanakID" />
+          </Key>
+          <Property Type="Int32" Name="TagClanakID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="ClanakID" />
+          <Property Type="Int32" Name="TagID" />
+          <NavigationProperty Name="Clanci" Relationship="WikipedModel.FK_TagClanci_Clanci" FromRole="TagClanci" ToRole="Clanci" />
+          <NavigationProperty Name="Tags" Relationship="WikipedModel.FK_TagClanci_Tags" FromRole="TagClanci" ToRole="Tags" />
+        </EntityType>
+        <Association Name="FK_TagClanci_Clanci">
+          <End Type="WikipedModel.Clanci" Role="Clanci" Multiplicity="0..1" />
+          <End Type="WikipedModel.TagClanci" Role="TagClanci" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clanci">
+              <PropertyRef Name="ClanakID" />
+            </Principal>
+            <Dependent Role="TagClanci">
+              <PropertyRef Name="ClanakID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Tags">
+          <Key>
+            <PropertyRef Name="TagID" />
+          </Key>
+          <Property Type="Int32" Name="TagID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Ime" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Opis" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TagClanci" Relationship="WikipedModel.FK_TagClanci_Tags" FromRole="Tags" ToRole="TagClanci" />
+          <NavigationProperty Name="TagoviPitanja" Relationship="WikipedModel.FK_TagoviPitanja_Tags" FromRole="Tags" ToRole="TagoviPitanja" />
+        </EntityType>
+        <Association Name="FK_TagClanci_Tags">
+          <End Type="WikipedModel.Tags" Role="Tags" Multiplicity="0..1" />
+          <End Type="WikipedModel.TagClanci" Role="TagClanci" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tags">
+              <PropertyRef Name="TagID" />
+            </Principal>
+            <Dependent Role="TagClanci">
+              <PropertyRef Name="TagID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TagoviPitanja_Tags">
+          <End Type="WikipedModel.Tags" Role="Tags" Multiplicity="1" />
+          <End Type="WikipedModel.TagoviPitanja" Role="TagoviPitanja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tags">
+              <PropertyRef Name="TagID" />
+            </Principal>
+            <Dependent Role="TagoviPitanja">
+              <PropertyRef Name="TagID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WikipedModelStoreContainer" CdmEntityContainer="WikipedEntities">
+          <EntitySetMapping Name="Algoritmi">
+            <EntityTypeMapping TypeName="WikipedModel.Algoritmi">
+              <MappingFragment StoreEntitySet="Algoritmi">
+                <ScalarProperty Name="Aktivan" ColumnName="Aktivan" />
+                <ScalarProperty Name="KorisnikID" ColumnName="KorisnikID" />
+                <ScalarProperty Name="Opis" ColumnName="Opis" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="Vrsta" ColumnName="Vrsta" />
+                <ScalarProperty Name="AlgoritamID" ColumnName="AlgoritamID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Drzave">
+            <EntityTypeMapping TypeName="WikipedModel.Drzave">
+              <MappingFragment StoreEntitySet="Drzave">
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+                <ScalarProperty Name="DrzavaID" ColumnName="DrzavaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GlasoviZaOdgovore">
+            <EntityTypeMapping TypeName="WikipedModel.GlasoviZaOdgovore">
+              <MappingFragment StoreEntitySet="GlasoviZaOdgovore">
+                <ScalarProperty Name="Glas" ColumnName="Glas" />
+                <ScalarProperty Name="KorisnikID" ColumnName="KorisnikID" />
+                <ScalarProperty Name="OdgovorID" ColumnName="OdgovorID" />
+                <ScalarProperty Name="GlasoviZaOdgovorID" ColumnName="GlasoviZaOdgovorID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GlasoviZaPitanja">
+            <EntityTypeMapping TypeName="WikipedModel.GlasoviZaPitanja">
+              <MappingFragment StoreEntitySet="GlasoviZaPitanja">
+                <ScalarProperty Name="Glas" ColumnName="Glas" />
+                <ScalarProperty Name="KorisnikID" ColumnName="KorisnikID" />
+                <ScalarProperty Name="PitanjeID" ColumnName="PitanjeID" />
+                <ScalarProperty Name="GlasoviZaPitanjeID" ColumnName="GlasoviZaPitanjeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Jezici">
+            <EntityTypeMapping TypeName="WikipedModel.Jezici">
+              <MappingFragment StoreEntitySet="Jezici">
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+                <ScalarProperty Name="Vrsta" ColumnName="Vrsta" />
+                <ScalarProperty Name="JezikID" ColumnName="JezikID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Komentari">
+            <EntityTypeMapping TypeName="WikipedModel.Komentari">
+              <MappingFragment StoreEntitySet="Komentari">
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+                <ScalarProperty Name="ClanakID" ColumnName="ClanakID" />
+                <ScalarProperty Name="KorisnikID" ColumnName="KorisnikID" />
+                <ScalarProperty Name="Tekst" ColumnName="Tekst" />
+                <ScalarProperty Name="KomentarID" ColumnName="KomentarID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Korisnici">
+            <EntityTypeMapping TypeName="WikipedModel.Korisnici">
+              <MappingFragment StoreEntitySet="Korisnici">
+                <ScalarProperty Name="KorisnikVrstaID" ColumnName="KorisnikVrstaID" />
+                <ScalarProperty Name="Slika" ColumnName="Slika" />
+                <ScalarProperty Name="Adresa" ColumnName="Adresa" />
+                <ScalarProperty Name="Grad" ColumnName="Grad" />
+                <ScalarProperty Name="DrzavaID" ColumnName="DrzavaID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+                <ScalarProperty Name="Ime" ColumnName="Ime" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="KorisnikID" ColumnName="KorisnikID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KorisnikVrste">
+            <EntityTypeMapping TypeName="WikipedModel.KorisnikVrste">
+              <MappingFragment StoreEntitySet="KorisnikVrste">
+                <ScalarProperty Name="Opis" ColumnName="Opis" />
+                <ScalarProperty Name="Vrsta" ColumnName="Vrsta" />
+                <ScalarProperty Name="KorisnikVrstaID" ColumnName="KorisnikVrstaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OcjenaKorisnici">
+            <EntityTypeMapping TypeName="WikipedModel.OcjenaKorisnici">
+              <MappingFragment StoreEntitySet="OcjenaKorisnici">
+                <ScalarProperty Name="Ocjena" ColumnName="Ocjena" />
+                <ScalarProperty Name="ClanakID" ColumnName="ClanakID" />
+                <ScalarProperty Name="KorisnikID" ColumnName="KorisnikID" />
+                <ScalarProperty Name="OcjenaKorisnik" ColumnName="OcjenaKorisnik" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Odgovori">
+            <EntityTypeMapping TypeName="WikipedModel.Odgovori">
+              <MappingFragment StoreEntitySet="Odgovori">
+                <ScalarProperty Name="KorisnikID" ColumnName="KorisnikID" />
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+                <ScalarProperty Name="BrojGlasova" ColumnName="BrojGlasova" />
+                <ScalarProperty Name="Odgovor" ColumnName="Odgovor" />
+                <ScalarProperty Name="PitanjeID" ColumnName="PitanjeID" />
+                <ScalarProperty Name="OdgovorID" ColumnName="OdgovorID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OdgovorNaOdgovor">
+            <EntityTypeMapping TypeName="WikipedModel.OdgovorNaOdgovor">
+              <MappingFragment StoreEntitySet="OdgovorNaOdgovor">
+                <ScalarProperty Name="KorisnikID" ColumnName="KorisnikID" />
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+                <ScalarProperty Name="BrojGlasova" ColumnName="BrojGlasova" />
+                <ScalarProperty Name="Odgovor" ColumnName="Odgovor" />
+                <ScalarProperty Name="OdgovorID" ColumnName="OdgovorID" />
+                <ScalarProperty Name="OdgovorNaOdgovorID" ColumnName="OdgovorNaOdgovorID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pitanja">
+            <EntityTypeMapping TypeName="WikipedModel.Pitanja">
+              <MappingFragment StoreEntitySet="Pitanja">
+                <ScalarProperty Name="TemaID" ColumnName="TemaID" />
+                <ScalarProperty Name="KorisnikID" ColumnName="KorisnikID" />
+                <ScalarProperty Name="BrojPregleda" ColumnName="BrojPregleda" />
+                <ScalarProperty Name="BrojGlasova" ColumnName="BrojGlasova" />
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+                <ScalarProperty Name="Opis" ColumnName="Opis" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+                <ScalarProperty Name="PitanjeID" ColumnName="PitanjeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sadrzaji">
+            <EntityTypeMapping TypeName="WikipedModel.Sadrzaji">
+              <MappingFragment StoreEntitySet="Sadrzaji">
+                <ScalarProperty Name="ClanakID" ColumnName="ClanakID" />
+                <ScalarProperty Name="JezikID" ColumnName="JezikID" />
+                <ScalarProperty Name="Tekst" ColumnName="Tekst" />
+                <ScalarProperty Name="Opis" ColumnName="Opis" />
+                <ScalarProperty Name="Naslov" ColumnName="Naslov" />
+                <ScalarProperty Name="SadrzajID" ColumnName="SadrzajID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="WikipedModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TagoviPitanja">
+            <EntityTypeMapping TypeName="WikipedModel.TagoviPitanja">
+              <MappingFragment StoreEntitySet="TagoviPitanja">
+                <ScalarProperty Name="PitanjeID" ColumnName="PitanjeID" />
+                <ScalarProperty Name="TagID" ColumnName="TagID" />
+                <ScalarProperty Name="TagoviPitanjeID" ColumnName="TagoviPitanjeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TagVrste">
+            <EntityTypeMapping TypeName="WikipedModel.TagVrste">
+              <MappingFragment StoreEntitySet="TagVrste">
+                <ScalarProperty Name="Opis" ColumnName="Opis" />
+                <ScalarProperty Name="Vrsta" ColumnName="Vrsta" />
+                <ScalarProperty Name="TagVrstaID" ColumnName="TagVrstaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clanci">
+            <EntityTypeMapping TypeName="WikipedModel.Clanci">
+              <MappingFragment StoreEntitySet="Clanci">
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="Slika" ColumnName="Slika" />
+                <ScalarProperty Name="Ocjenjeno" ColumnName="Ocjenjeno" />
+                <ScalarProperty Name="Popularnost" ColumnName="Popularnost" />
+                <ScalarProperty Name="TagVrstaID" ColumnName="TagVrstaID" />
+                <ScalarProperty Name="ClanakID" ColumnName="ClanakID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TagClanci">
+            <EntityTypeMapping TypeName="WikipedModel.TagClanci">
+              <MappingFragment StoreEntitySet="TagClanci">
+                <ScalarProperty Name="TagID" ColumnName="TagID" />
+                <ScalarProperty Name="ClanakID" ColumnName="ClanakID" />
+                <ScalarProperty Name="TagClanakID" ColumnName="TagClanakID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tags">
+            <EntityTypeMapping TypeName="WikipedModel.Tags">
+              <MappingFragment StoreEntitySet="Tags">
+                <ScalarProperty Name="Opis" ColumnName="Opis" />
+                <ScalarProperty Name="Ime" ColumnName="Ime" />
+                <ScalarProperty Name="TagID" ColumnName="TagID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="WikipedModel">
+        <EntityTypeShape EntityType="WikipedModel.Algoritmi" Width="1.5" PointX="5.25" PointY="11.375" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="WikipedModel.Drzave" Width="1.5" PointX="0.75" PointY="13.875" Height="1.595683593749996" />
+        <EntityTypeShape EntityType="WikipedModel.GlasoviZaOdgovore" Width="1.5" PointX="5.25" PointY="14.5" Height="2.1725878906250102" />
+        <EntityTypeShape EntityType="WikipedModel.GlasoviZaPitanja" Width="1.5" PointX="7.5" PointY="21.75" Height="2.1725878906250102" />
+        <EntityTypeShape EntityType="WikipedModel.Jezici" Width="1.5" PointX="6" PointY="0.75" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="WikipedModel.Komentari" Width="1.5" PointX="8.25" PointY="13.5" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="WikipedModel.Korisnici" Width="1.5" PointX="3" PointY="12.125" Height="5.057109374999996" />
+        <EntityTypeShape EntityType="WikipedModel.KorisnikVrste" Width="1.5" PointX="0.75" PointY="10.75" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="WikipedModel.OcjenaKorisnici" Width="1.5" PointX="5.25" PointY="17.5" Height="2.1725878906250031" />
+        <EntityTypeShape EntityType="WikipedModel.Odgovori" Width="1.5" PointX="10.5" PointY="21.375" Height="2.9417936197916674" />
+        <EntityTypeShape EntityType="WikipedModel.OdgovorNaOdgovor" Width="1.5" PointX="12.75" PointY="17" Height="2.5571907552083388" />
+        <EntityTypeShape EntityType="WikipedModel.Pitanja" Width="1.5" PointX="5.25" PointY="30.25" Height="3.3263964843750031" />
+        <EntityTypeShape EntityType="WikipedModel.Sadrzaji" Width="1.5" PointX="8.25" PointY="7.375" Height="2.5571907552083388" />
+        <EntityTypeShape EntityType="WikipedModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="2.375" Height="1.9802864583333246" />
+        <EntityTypeShape EntityType="WikipedModel.TagoviPitanja" Width="1.5" PointX="7.5" PointY="31" Height="1.9802864583333424" />
+        <EntityTypeShape EntityType="WikipedModel.TagVrste" Width="1.5" PointX="3.75" PointY="7.75" Height="1.7879850260416674" />
+        <AssociationConnector Association="WikipedModel.FK_Algoritmi_Korisnici" >
+          <ConnectorPoint PointX="4.5" PointY="12.932444661458334" />
+          <ConnectorPoint PointX="5.25" PointY="12.932444661458334" />
+        </AssociationConnector>
+        <AssociationConnector Association="WikipedModel.FK_Korisnici_Drzave" >
+          <ConnectorPoint PointX="2.25" PointY="14.672841796874998" />
+          <ConnectorPoint PointX="3" PointY="14.672841796874998" />
+        </AssociationConnector>
+        <AssociationConnector Association="WikipedModel.FK_GlasoviZaOdgovore_Korisnici" >
+          <ConnectorPoint PointX="4.5" PointY="15.586293945312505" />
+          <ConnectorPoint PointX="5.25" PointY="15.586293945312505" />
+        </AssociationConnector>
+        <AssociationConnector Association="WikipedModel.FK_GlasoviZaOdgovore_Odgovori" >
+          <ConnectorPoint PointX="11.04687375" PointY="21.375" />
+          <ConnectorPoint PointX="11.04687375" PointY="16.203837890625003" />
+          <ConnectorPoint PointX="8.0833333333333339" PointY="16.203837890625003" />
+          <ConnectorPoint PointX="7.916666666666667" PointY="16.203837890625003" />
+          <ConnectorPoint PointX="7.3948597395833326" PointY="16.203837890625003" />
+          <ConnectorPoint PointX="7.2281930729166666" PointY="16.203837890625003" />
+          <ConnectorPoint PointX="6.9886047395833328" PointY="16.203837890625003" />
+          <ConnectorPoint PointX="6.8219380729166668" PointY="16.203837890625003" />
+          <ConnectorPoint PointX="6.75" PointY="16.203837890625003" />
+        </AssociationConnector>
+        <AssociationConnector Association="WikipedModel.FK_GlasoviZaPitanja_Korisnici" >
+          <ConnectorPoint PointX="4.3593779999999995" PointY="17.182109374999996" />
+          <ConnectorPoint PointX="4.3593779999999995" PointY="22.836293945312505" />
+          <ConnectorPoint PointX="7.5" PointY="22.836293945312505" />
+        </AssociationConnector>
+        <AssociationConnector Association="WikipedModel.FK_GlasoviZaPitanja_Pitanja" >
+          <ConnectorPoint PointX="6.75" PointY="30.251152846153843" />
+          <ConnectorPoint PointX="7.125" PointY="29.876152846153843" />
+          <ConnectorPoint PointX="7.125" PointY="22.836293945312505" />
+          <ConnectorPoint PointX="7.5" PointY="22.836293945312505" />
+        </AssociationConnector>
+        <AssociationConnector Association="WikipedModel.FK_Sadrzaji_Jezici" >
+          <ConnectorPoint PointX="7.5" PointY="1.6439925130208337" />
+          <ConnectorPoint PointX="9" PointY="1.6439925130208337" />
+          <ConnectorPoint PointX="9" PointY="7.375" />
+        </AssociationConnector>
+        <AssociationConnector Association="WikipedModel.FK_Komentari_Korisnici" >
+          <ConnectorPoint PointX="4.5" PointY="14.119944661458334" />
+          <ConnectorPoint PointX="6.8219380729166668" PointY="14.119944661458334" />
+          <ConnectorPoint PointX="6.9886047395833328" PointY="14.119944661458334" />
+          <ConnectorPoint PointX="7.2281930729166666" PointY="14.119944661458334" />
+          <ConnectorPoint PointX="7.3948597395833326" PointY="14.119944661458334" />
+          <ConnectorPoint PointX="8.25" PointY="14.119944661458334" />
+        </AssociationConnector>
+        <AssociationConnector Association="WikipedModel.FK_Korisnici_KorisnikVrste" >
+          <ConnectorPoint PointX="2.25" PointY="12.331492513020834" />
+          <ConnectorPoint PointX="3" PointY="12.331492513020834" />
+        </AssociationConnector>
+        <AssociationConnector Association="WikipedModel.FK_OcjenaKorisnici_Korisnici" >
+          <ConnectorPoint PointX="3.75" PointY="17.182109374999996" />
+          <ConnectorPoint PointX="3.75" PointY="18.850591634114583" />
+          <ConnectorPoint PointX="4.0729186666666672" PointY="18.850591634114583" />
+          <ConnectorPoint PointX="4.2395853333333333" PointY="18.850591634114583" />
+          <ConnectorPoint PointX="4.2760446666666665" PointY="18.850591634114583" />
+          <ConnectorPoint PointX="4.4427113333333326" PointY="18.850591634114583" />
+          <ConnectorPoint PointX="5.25" PointY="18.850591634114583" />
+        </AssociationConnector>
+        <AssociationConnector Association="WikipedModel.FK_Odgovori_Korisnici" >
+          <ConnectorPoint PointX="3.3437475" PointY="17.182109374999996" />
+          <ConnectorPoint PointX="3.3437475" PointY="21.53125" />
+          <ConnectorPoint PointX="4.0729186666666672" PointY="21.53125" />
+          <ConnectorPoint PointX="4.2395853333333333" PointY="21.53125" />
+          <ConnectorPoint PointX="4.2760446666666665" PointY="21.53125" />
+          <ConnectorPoint PointX="4.4427113333333326" PointY="21.53125" />
+          <ConnectorPoint PointX="9.3229166666666661" PointY="21.53125" />
+          <ConnectorPoint PointX="9.4895833333333339" PointY="21.53125" />
+          <ConnectorPoint PointX="10.5" PointY="21.53125" />
+        </AssociationConnector>
+        <AssociationConnector Association="WikipedModel.FK_OdgovorNaOdgovor_Korisnici" >
+          <ConnectorPoint PointX="4.5" PointY="14.653554687499998" />
+          <ConnectorPoint PointX="5" PointY="14.653554687499998" />
+          <ConnectorPoint PointX="5" PointY="16.92258789062501" />
+          <ConnectorPoint PointX="6.8219380729166668" PointY="16.92258789062501" />
+          <ConnectorPoint PointX="6.9886047395833328" PointY="16.92258789062501" />
+          <ConnectorPoint PointX="7.2281930729166666" PointY="16.92258789062501" />
+          <ConnectorPoint PointX="7.3948597395833326" PointY="16.92258789062501" />
+          <ConnectorPoint PointX="8" PointY="16.92258789062501" />
+          <ConnectorPoint PointX="8" PointY="15.989889322916667" />
+          <ConnectorPoint PointX="13.5" PointY="15.989889322916667" />
+          <ConnectorPoint PointX="13.5" PointY="17" />
+        </AssociationConnector>
+        <AssociationConnector Association="WikipedModel.FK_Pitanja_Korisnici" >
+          <ConnectorPoint PointX="4.156252" PointY="17.182109374999996" />
+          <ConnectorPoint PointX="4.156252" PointY="30.59375" />
+          <ConnectorPoint PointX="5.25" PointY="30.59375" />
+        </AssociationConnector>
+        <AssociationConnector Association="WikipedModel.FK_Odgovori_Pitanja" >
+          <ConnectorPoint PointX="6.75" PointY="30.625578923076915" />
+          <ConnectorPoint PointX="8.1666666666666661" PointY="30.625578923076915" />
+          <ConnectorPoint PointX="8.3333333333333339" PointY="30.625578923076915" />
+          <ConnectorPoint PointX="11.25" PointY="30.625578923076915" />
+          <ConnectorPoint PointX="11.25" PointY="24.316793619791667" />
+        </AssociationConnector>
+        <AssociationConnector Association="WikipedModel.FK_OdgovorNaOdgovor_Odgovori" >
+          <ConnectorPoint PointX="11.6562525" PointY="21.375" />
+          <ConnectorPoint PointX="11.6562525" PointY="18.278595377604169" />
+          <ConnectorPoint PointX="12.75" PointY="18.278595377604169" />
+        </AssociationConnector>
+        <AssociationConnector Association="WikipedModel.FK_TagoviPitanja_Pitanja" >
+          <ConnectorPoint PointX="6.75" PointY="31.990143229166669" />
+          <ConnectorPoint PointX="7.5" PointY="31.990143229166669" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="WikipedModel.Clanci" Width="1.5" PointX="6" PointY="7.125" Height="3.1340950520833388" />
+        <AssociationConnector Association="WikipedModel.FK_Clanci_TagVrste" >
+          <ConnectorPoint PointX="5.25" PointY="8.6439925130208337" />
+          <ConnectorPoint PointX="6" PointY="8.6439925130208337" />
+        </AssociationConnector>
+        <AssociationConnector Association="WikipedModel.FK_Komentari_Clanci" >
+          <ConnectorPoint PointX="7.0605478124999994" PointY="10.259095052083334" />
+          <ConnectorPoint PointX="7.0605478124999994" PointY="13.9299144921875" />
+          <ConnectorPoint PointX="7.2281930729166666" PointY="13.9299144921875" />
+          <ConnectorPoint PointX="7.3948597395833326" PointY="13.9299144921875" />
+          <ConnectorPoint PointX="8.25" PointY="13.9299144921875" />
+        </AssociationConnector>
+        <AssociationConnector Association="WikipedModel.FK_OcjenaKorisnici_Clanci" >
+          <ConnectorPoint PointX="7.31152640625" PointY="10.259095052083334" />
+          <ConnectorPoint PointX="7.31152640625" PointY="18.5862939453125" />
+          <ConnectorPoint PointX="6.75" PointY="18.5862939453125" />
+        </AssociationConnector>
+        <AssociationConnector Association="WikipedModel.FK_Sadrzaji_Clanci" >
+          <ConnectorPoint PointX="7.5" PointY="8.65359537760417" />
+          <ConnectorPoint PointX="8.25" PointY="8.65359537760417" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="WikipedModel.TagClanci" Width="1.5" PointX="8.25" PointY="17.375" Height="2.1725878906250031" />
+        <AssociationConnector Association="WikipedModel.FK_TagClanci_Clanci" >
+          <ConnectorPoint PointX="6.90527140625" PointY="10.259095052083339" />
+          <ConnectorPoint PointX="6.90527140625" PointY="17.40625" />
+          <ConnectorPoint PointX="7.2281930729166666" PointY="17.40625" />
+          <ConnectorPoint PointX="7.3948597395833326" PointY="17.40625" />
+          <ConnectorPoint PointX="8.25" PointY="17.40625" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="WikipedModel.Tags" Width="1.5" PointX="5.25" PointY="24.25" Height="1.9802864583333388" />
+        <AssociationConnector Association="WikipedModel.FK_TagClanci_Tags" >
+          <ConnectorPoint PointX="6.75" PointY="25.240143229166669" />
+          <ConnectorPoint PointX="7.041666666666667" PointY="25.240143229166669" />
+          <ConnectorPoint PointX="7.208333333333333" PointY="25.240143229166669" />
+          <ConnectorPoint PointX="9.40625" PointY="25.240143229166669" />
+          <ConnectorPoint PointX="9.40625" PointY="19.355286458333335" />
+        </AssociationConnector>
+        <AssociationConnector Association="WikipedModel.FK_TagoviPitanja_Tags" >
+          <ConnectorPoint PointX="6.75" PointY="25.766467343750005" />
+          <ConnectorPoint PointX="7.041666666666667" PointY="25.766467343750005" />
+          <ConnectorPoint PointX="7.208333333333333" PointY="25.766467343750005" />
+          <ConnectorPoint PointX="8.25" PointY="25.766467343750005" />
+          <ConnectorPoint PointX="8.25" PointY="31" />
+        </AssociationConnector>
+        </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

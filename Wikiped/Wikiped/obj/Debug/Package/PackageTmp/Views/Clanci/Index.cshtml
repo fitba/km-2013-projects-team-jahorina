@@ -1,0 +1,110 @@
+﻿@model IEnumerable<Wikiped.Models.ClanciServis>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Pocetna.cshtml";
+}
+<div class="clanak-wraper-left">
+<div class="clanak-naslov">
+Samuel Taylor Coleridge
+</div>
+
+
+<div class="clanak-text">
+
+<img src="/Images/wikitest.jpg" alt="wikitest" class="clanak-slika" />
+Bio je svestran i neprestano u letu za idejama, 
+a djelovao je kao pjesnik, 
+predavač, propovjedni, novinar, prevoditelj Schillerova "Wallensteina", 
+teolog, kritičar i esejist, davši svemu - sputavan neprilikam i ometan bolešću - 
+mnogo manje nego što je nosio u sebi. Najbolji je i najpoznatiji kao pjesnik triju izvrsnih pjesama: 
+"Pjesma o starom mornaru", "Christabel" i "Kubla Khan". 
+Po nekima on je najbolji književni
+<div class="clanak-read-more">Procitaj  vise...</div>
+
+</div>
+</div>
+
+
+
+<div class="clanak-wraper-right">
+<div class="clanak-naslov">Samuel Taylor Coleridge</div>
+
+
+<div class="clanak-text">
+
+<img src="/Images/wikitest.jpg" alt="wikitest" class="clanak-slika" />
+Bio je svestran i neprestano u letu za idejama, 
+a djelovao je kao pjesnik, 
+predavač, propovjedni, novinar, prevoditelj Schillerova "Wallensteina", 
+teolog, kritičar i esejist, davši svemu - sputavan neprilikam i ometan bolešću - 
+mnogo manje nego što je nosio u sebi. Najbolji je i najpoznatiji kao pjesnik triju izvrsnih pjesama: 
+"Pjesma o starom mornaru", "Christabel" i "Kubla Khan". 
+Po nekima on je najbolji književni
+<div class="clanak-read-more">Procitaj  vise...</div>
+
+</div>
+
+
+</div>
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+      
+       
+        <th>
+            @Html.DisplayNameFor(model => model.naslov)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.opis)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tekst)
+        </th>
+          <th>
+            @Html.DisplayNameFor(model => model.popularnost)
+        </th>
+         <th>
+            @Html.DisplayNameFor(model => model.ocjena)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.slika)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+   <tr>
+      
+   
+        <td>
+            @Html.DisplayFor(modelItem => item.naslov)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.opis)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tekst)
+        </td>
+          <td>
+            @Html.DisplayFor(modelItem => item.popularnost)
+        </td>
+             <td>
+            @Html.DisplayFor(modelItem => item.ocjena)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.slika)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.guid }) |
+            @Html.ActionLink("Details", "Details", new { id = item.guid }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.guid })
+        </td>
+    </tr>
+}
+
+</table>

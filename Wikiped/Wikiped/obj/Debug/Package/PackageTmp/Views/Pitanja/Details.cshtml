@@ -1,0 +1,124 @@
+﻿@model Wikiped.Models.Pitanja
+
+<script src="/Script/pitanja.js" type="text/javascript"></script>
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/Pocetna.cshtml";
+}
+<div class="votecell">
+    <div class="vote">
+        <input type="hidden" value="14584054">
+        <a class="vote-up-off" title="Ovaj odgovor je koristan (kliknite ponovo da poništite)"></a>
+        <span class="vote-count-post ">@Html.DisplayFor(model => model.PitanjaPost.BrojGlasova)</span>
+        <a class="vote-down-off" title="Ovaj odgovor nije koristan (kliknite ponovo da poništite)"></a>
+    </div>
+</div>
+
+<div class="question">
+ <div class="title">
+    <a>@Html.DisplayFor(model => model.PitanjaPost.Naziv)</a>
+ </div>
+ <div class="qusummary"> 
+    @Html.DisplayFor(model => model.PitanjaPost.Opis)
+ </div>
+     <div class="tags tagDetailMargin">
+            <a href="/questions/tagged/html" class="post-tag" title="" rel="tag">html</a> 
+            <a href="/questions/tagged/css" class="post-tag" title="" rel="tag">css</a> 
+            @*<a href="/questions/tagged/google-chrome" class="post-tag" title="" rel="tag"><img src="http://i.stack.imgur.com/dmHl0.png" height="16" width="18" alt="" class="sponsor-tag-img">google-chrome</a> *@
+            <a href="/questions/tagged/zurb-foundation" class="post-tag" title="" rel="tag">zurb-foundation</a> 
+   </div>
+
+   <div class="footerResp" style="clear: both;margin-left: 60px;">
+        <div class="helpful" style="color: rgb(110, 110, 110);">Je li ovaj post koristan za vas ? &nbsp;&nbsp;<input style="opacity: 0.08645971286271908;" class="anon-vote" type="button" value="Yes"> 
+        &nbsp;<input style="opacity: 0.08645971286271908;" class="anon-vote" type="button" value="No"></div>
+       
+        <div class="post-signature owner">
+        <div class="user-info ">
+            <div class="user-gravatar32">
+                <a href="/users/1644123/jim22150"><div class=""><img src="http://www.gravatar.com/avatar/e2b3c87d515c1bd878ac1b67877a265e?s=32&amp;d=identicon&amp;r=PG" alt="" width="32" height="32"></div></a>
+            </div>
+            <div class="user-action-time">
+            <span title="@Html.DisplayFor(model => model.PitanjaPost.Datum)" class="relativetime"> @Html.DisplayFor(model => model.PitanjaPost.Datum).ToString().Substring(0,10)</span>
+            </div>
+            
+            <div class="user-details">
+                <a href="/users/1644123/jim22150">@Model.Korisnik.UserName</a><br>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+<div class="clear"></div>
+
+<div class="response"> 
+    <div class="numberRes">@Model.Odgovori.Count odgovora</div> 
+   
+   @foreach (var item in Model.Odgovori)
+   {
+    <div class="summary">
+         <div class="votecell">
+            <div class="vote">
+                <input type="hidden" value="14584054">
+                <a class="vote-up-off" title="Ovaj odgovor je koristan (kliknite ponovo da poništite)"></a>
+                <span class="vote-count-post ">@item.OdgovoriGlavni.BrojGlasova</span>
+                <a class="vote-down-off" title="Ovaj odgovor nije koristan (kliknite ponovo da poništite)"></a>
+            </div>
+        </div>
+    @item.OdgovoriGlavni.Odgovor
+    </div>
+    <div class="footerResp">
+        <div class="helpful" style="color: rgb(110, 110, 110);">Je li ovaj post koristan za vas ? &nbsp;&nbsp;<input style="opacity: 0.08645971286271908;" class="anon-vote" type="button" value="Yes"> 
+        &nbsp;<input style="opacity: 0.08645971286271908;" class="anon-vote" type="button" value="No"></div>
+       
+        <div class="post-signature owner">
+        <div class="user-info ">
+            <div class="user-gravatar32">
+                <a href="/users/1644123/jim22150"><div class=""><img src="http://www.gravatar.com/avatar/e2b3c87d515c1bd878ac1b67877a265e?s=32&amp;d=identicon&amp;r=PG" alt="" width="32" height="32"></div></a>
+            </div>
+            <div class="user-action-time">
+            <span title="@item.OdgovoriGlavni.Datum" class="relativetime">@item.OdgovoriGlavni.Datum.ToString().Substring(0,10)</span>
+            </div>
+            
+            <div class="user-details">
+                <a href="/users/1644123/jim22150">@item.Korisnik.UserName</a><br>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+@*</div>*@
+       
+       if (item.OdgovoriNaOdgovor.Count > 0)
+       {
+     <div class="comments">
+        <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+            <tbody>
+               
+     @foreach (var odgovorNaOdg in item.OdgovoriNaOdgovor)
+     {
+         if(odgovorNaOdg!=null)
+         {
+             <tr class="comment">
+                   <td></td>
+                   <td class="comment-text">
+                      @odgovorNaOdg.OdgovoriNaPodOgovor.Odgovor
+                      –&nbsp; <a href="/users/1644123/jim22150"  class="comment-user owner">@odgovorNaOdg.Korisnik.UserName</a>
+                     <span title="@odgovorNaOdg.OdgovoriNaPodOgovor.Datum" class="relativetime-clean">@odgovorNaOdg.OdgovoriNaPodOgovor.Datum.ToString().Substring(0, 10)</span>
+                   </td>
+              </tr>
+         }
+     }
+
+            </tbody>
+        </table>
+        </div>
+       }
+   }
+       
+
+
+
+
+

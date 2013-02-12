@@ -1,0 +1,92 @@
+﻿@model List<Wikiped.Models.ClanciServisObrada>
+@using Wikiped.Models
+<script src="../../Script/jquery.masonry.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $("document").ready(function () {
+        $('#main-wbg').masonry({
+            itemSelector: '.clanak-wraper'
+        });
+
+        function setRating(span, rating) {
+            var slike = span.find('img');
+            for (var i = 0; i < slike.length; i++) {
+
+                var value = parseFloat($(slike[i]).attr("value"));
+                var imgSrc = $(slike[i]).attr("src");
+
+                if (value <= rating) {
+                    $(slike[i]).attr("src", imgSrc.replace("OFF.gif", "ON.gif"));
+                }
+                else
+                    $(slike[i]).attr("src", imgSrc.replace("ON.gif", "OFF.gif"));
+            }
+        }
+
+        $(".star").mouseover(function () {
+            var span = $(this).parent("span");
+            var newRating = $(this).attr("value");
+            setRating(span, newRating);
+        });
+        $(".star").mouseout(function () {
+            var span = $(this).parent("span");
+            var rating = span.attr("rating");
+
+            setRating(span, rating);
+        });
+
+
+        $(".star").click(function () {
+
+            var span = $(this).parent("span");
+            var newRating = $(this).attr("value");
+            var postID = span.attr("post");
+            var text = span.children("span");
+            $.post("/Clanci/SetOcjena", { clanakId: postID, rating: newRating },
+        function (obj) {
+            if (obj.Success) {
+                text.html("Currently rated " + obj.Result.Rating + " by " + obj.Result.Raters + " people"); //modify the text
+                span.attr("rating", obj.Result.Rating); //set the rating attribute
+                setRating(span, obj.Result.Rating); //update the display
+                alert("Uspjesno ste glasali za ovaj clanak.");
+            }
+            else {
+                alert(obj.Message); //failure, show message
+            }
+        }
+    );
+        });
+
+    });
+</script>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Pocetna.cshtml";
+}
+@foreach (var it1 in Model)
+{
+    <div class="clanak-wraper @(it1.klasa)">
+
+        @foreach (var it2 in it1.ClanciOrig) {
+
+        <div class="clanak-naslov  @(it1.klasa)">
+            @Html.DisplayFor(modelItem => it2.naslov)
+        </div>
+        <div class="clanak-text">
+            <img src="@Html.DisplayFor(modelItem => it2.slika)" alt="wikitest" class="clanak-slika" />
+            @MvcHtmlString.Create(it2.tekst)
+            <div class="clanak-read-more">
+                @Html.ActionLink("Procitaj vise...", "ClanciPregled", new { clID = it2.ClanakId })
+                
+                </div>
+            <div class="Ocjene-Wraper">@Html.Ratings(it2.popularnost,it2.ClanakId,it2.ocjena)<div class="clanak-komentari">Komentari (@it2.komentari)</div></div>
+           
+                
+
+                
+               
+        </div>
+
+        }
+
+    </div>
+}

@@ -1,0 +1,193 @@
+﻿@model Wikiped.Models.Pitanja
+
+<script src="/Script/pitanja.js" type="text/javascript"></script>
+<script src="/Script/tiny_mce/tiny_mce.js" type="text/javascript"></script>
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/Pocetna.cshtml";
+}
+<div class="votecell">
+    <div class="vote mainQuestion">
+        <input type="hidden" value="@Html.DisplayFor(model => model.PitanjaPost.PitanjeID)">
+        <a class="vote-up-off" title="Ovaj odgovor je koristan (kliknite ponovo da poništite)"></a>
+        <span class="vote-count-post ">@Html.DisplayFor(model => model.PitanjaPost.BrojGlasova)</span>
+        <a class="vote-down-off" title="Ovaj odgovor nije koristan (kliknite ponovo da poništite)"></a>
+    </div>
+</div>
+
+<div class="question">
+ <div class="title">
+    <a>@Html.DisplayFor(model => model.PitanjaPost.Naziv)</a>
+ </div>
+ <div class="qusummary"> 
+    @Html.DisplayFor(model => model.PitanjaPost.Opis)
+ </div>
+   
+
+   <div class="footerResp" style="clear: both;margin-left: 60px;">
+   
+   <div class="tags tagDetailMargin">
+            <a href="/questions/tagged/html" class="post-tag" title="" rel="tag">html</a> 
+            <a href="/questions/tagged/css" class="post-tag" title="" rel="tag">css</a> 
+            @*<a href="/questions/tagged/google-chrome" class="post-tag" title="" rel="tag"><img src="http://i.stack.imgur.com/dmHl0.png" height="16" width="18" alt="" class="sponsor-tag-img">google-chrome</a> *@
+            <a href="/questions/tagged/zurb-foundation" class="post-tag" title="" rel="tag">zurb-foundation</a> 
+   </div>
+       
+        <div class="post-signature owner">
+        <div class="user-info ">
+            <div class="user-gravatar32">
+                <a href="/users/1644123/jim22150"><div class=""><img src="http://www.gravatar.com/avatar/e2b3c87d515c1bd878ac1b67877a265e?s=32&amp;d=identicon&amp;r=PG" alt="" width="32" height="32"></div></a>
+            </div>
+            <div class="user-action-time">
+            <span title="@Html.DisplayFor(model => model.PitanjaPost.Datum)" class="relativetime"> @Html.DisplayFor(model => model.PitanjaPost.Datum).ToString().Substring(0,10)</span>
+            </div>
+            
+            <div class="user-details">
+                <a href="/users/1644123/jim22150">@Model.Korisnik.UserName</a><br>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+<div class="clear"></div>
+
+<div class="response"> 
+    <div class="numberRes">@Model.Odgovori.Count odgovora</div> 
+   
+   @foreach (var item in Model.Odgovori)
+   {
+    <div class="summary">
+         <div class="votecell">
+            <div class="vote">
+                <input type="hidden" value="@item.OdgovoriGlavni.OdgovorID">
+                <a class="vote-up-off" title="Ovaj odgovor je koristan (kliknite ponovo da poništite)"></a>
+                <span class="vote-count-post ">@item.OdgovoriGlavni.BrojGlasova</span>
+                <a class="vote-down-off" title="Ovaj odgovor nije koristan (kliknite ponovo da poništite)"></a>
+            </div>
+        </div>
+        <div style="margin-left:59px;">
+          @Html.Raw(@item.OdgovoriGlavni.Odgovor)
+        </div>
+
+    </div>
+    <div class="footerResp">
+        <div class="textComment">
+            <a class="text">Vaš komentar...</a>
+       
+            <div class="comment" style="display:none;">
+                <input type="hidden" value="@item.OdgovoriGlavni.OdgovorID">
+                <textarea class="commentText"></textarea>
+                
+                <button type="button" class="btnComment">Komentiraj</button>
+            </div>
+         </div>
+        
+        
+        <div class="post-signature owner">
+        <div class="user-info ">
+            <div class="user-gravatar32">
+                <a href="/users/1644123/jim22150"><div class=""><img src="http://www.gravatar.com/avatar/e2b3c87d515c1bd878ac1b67877a265e?s=32&amp;d=identicon&amp;r=PG" alt="" width="32" height="32"></div></a>
+            </div>
+            <div class="user-action-time">
+            <span title="@item.OdgovoriGlavni.Datum" class="relativetime">@item.OdgovoriGlavni.Datum.ToString().Substring(0, 10)</span>
+            </div>
+            
+            <div class="user-details">
+                <a href="/users/1644123/jim22150">@item.Korisnik.UserName</a><br>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+@*</div>*@
+       
+       if (item.OdgovoriNaOdgovor.Count > 0)
+       {
+     <div class="comments">
+        <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+            <tbody>
+               
+     @foreach (var odgovorNaOdg in item.OdgovoriNaOdgovor)
+     {
+         if (odgovorNaOdg != null)
+         {
+             <tr class="comment">
+                   <td></td>
+                   <td class="comment-text">
+                      @odgovorNaOdg.OdgovoriNaPodOgovor.Odgovor
+                      –&nbsp; <a href="/users/1644123/jim22150"  class="comment-user owner">@odgovorNaOdg.Korisnik.UserName</a>
+                     <span title="@odgovorNaOdg.OdgovoriNaPodOgovor.Datum" class="relativetime-clean">@odgovorNaOdg.OdgovoriNaPodOgovor.Datum.ToString().Substring(0, 10)</span>
+                   </td>
+              </tr>
+         }
+     }
+
+            </tbody>
+        </table>
+        </div>
+       }
+   }
+   <div class="summary">
+   </div>
+   <div class="mainComment">
+   @using (Html.BeginForm())
+   {
+   <div style="font-weight: bold;font-size: 18px;font-style: italic;margin-bottom: 10px;">Vaš odgovor ?</div>
+      <div class="wmd-panel">
+                    <textarea class="myTextEditor" id="wmd-input" name="txtComment">
+                    </textarea>
+      </div>
+     <input type="submit" class="mainCommentBtn" value="Vaš odgovor"/>
+   }
+   </div>
+        
+        <script type="text/javascript">
+            tinyMCE.init({
+                // General options
+                //mode: "textareas",
+                mode: "specific_textareas",
+                editor_selector: "myTextEditor",
+                theme: "advanced",
+                plugins: "autolink,lists,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
+                // Theme options
+                theme_advanced_buttons1: "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",
+                theme_advanced_buttons2: "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+                theme_advanced_buttons3: "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
+                //theme_advanced_buttons4: "insertlayer,moveforward,movebackward,absolute,|,styleprops,spellchecker,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,blockquote,pagebreak,|,insertfile,insertimage",
+                theme_advanced_toolbar_location: "top",
+                theme_advanced_toolbar_align: "left",
+                theme_advanced_statusbar_location: "bottom",
+                theme_advanced_resizing: true,
+
+                // Skin options
+                skin: "o2k7",
+                //skin_variant: "silver", black
+
+                // Example content CSS (should be your site CSS)
+                //content_css: "css/example.css",
+
+                // Drop lists for link/image/media/template dialogs
+                //        template_external_list_url: "js/template_list.js",
+                //        external_link_list_url: "js/link_list.js",
+                //        external_image_list_url: "js/image_list.js",
+                //        media_external_list_url: "js/media_list.js",
+
+                // Replace values for the template plugin
+                template_replace_values: {
+                    username: "Some User",
+                    staffid: "991234"
+                }
+            });
+</script>
+  
+
+
+      
+	
+
+
+
+
+
+

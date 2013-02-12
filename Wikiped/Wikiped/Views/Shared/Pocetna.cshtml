@@ -1,1 +1,193 @@
-test
+﻿@script("jquery-1.8.3.js")
+@css("normalize.css")
+@css("main.css")
+@css("controls.css")
+@css("global.css")
+@css("jquery-ui-1.9.0.custom.css")
+<link href="@Url.Content("~/Script/validacija/validationEngine.jquery.css")" rel="stylesheet" type="text/css" />
+
+@script("jquery-ui-1.9.0.custom.js")
+@script("Public/registracija.js")
+@script("validacija/languages/jquery.validationEngine-en.js")
+@script("validacija/jquery.validationEngine.js")
+
+ @helper script(string scriptname){
+     
+     <script src= "@Url.Content("/Script/" + scriptname)" type="text/javascript"></script>
+     
+ }
+ @helper css(string cssname){
+     <link href="@Url.Content("/Content/" + cssname)" rel="stylesheet" type="text/css" />
+    
+ }
+<script type="text/javascript">
+    $("document").ready(
+        function () {
+            $('#btnOdustaniProfPass').click(function () {
+                $("#registracijskaForma").dialog('close');
+
+            });
+            $('#btnOdustaniPrijava').click(function () {
+
+                $("#LoginForma").dialog('close');
+            });
+
+            $("#btnPrijavise").click(
+            function () {
+                AtachValidaciju("#frmLogin");
+                PrijavaL();
+            });
+
+            $("#RegID").click(
+            function () {
+                AtachValidaciju("#frmReg");
+
+                promSifre2();
+            });
+
+        });
+
+</script>
+@{
+    ViewBag.Title = "Pocetna";
+}
+<div id="page_head">
+    <div class="headPomocni">
+    <div id="btnLogo" class="OkolicaMenijaLogo">
+        <div class="headLogo">
+       <img src="/Images/logo.jpg" alt="Alternate Text" height="75px;" >
+
+        </div>
+        </div>
+          @Html.Action("Prijavljen", "Pocetna")
+    </div>
+
+    <div class="GlMeni">
+        <div class="OkolicaMenijaHome">
+        <div class="GdjeTacka"></div>
+        <div class="GdjeText">Pitanja</div>
+        </div>
+
+        <div class="OkolicaMenijaHome">
+        <div class="GdjeTacka"></div>
+        <div class="GdjeText">Clanci</div>
+        </div>
+
+        <div class="OkolicaMenijaHome">
+        <div class="GdjeTacka"></div>
+        <div class="GdjeText">Obavijesti</div>
+        </div>
+
+        <div class="OkolicaMenijaHome">
+        <div class="GdjeTacka"></div>
+        <div class="GdjeText">Teme</div>
+        </div>
+
+        <div class="OkolicaMenijaHome">
+        <div class="GdjeTacka"></div>
+        <div class="GdjeText">Najnovije</div>
+        </div>
+    </div>
+</div>
+
+
+<div id="main-wrapper">
+    <div id="main-wbg">
+     @RenderBody()
+    </div>
+</div>
+
+@*<div class="foothers">
+    <div class="OkolicaMenijaHomeFoot">
+               <div class="GdjeTextFoot">Privacy</div>
+        </div>
+    <div class="OkolicaMenijaHomeFoot">
+               <div class="GdjeTextFoot">Contact</div>
+        </div>
+    <div class="OkolicaMenijaHomeFootRight">
+   <div class="GdjeTextFoot"> 
+   @Html.ActionLink("Copyright © FIT", "Fit")
+   </div>
+               
+        </div>
+</div>*@
+@using (Html.BeginForm("Index","Index",FormMethod.Post, new { id="frmReg"}))
+{
+    <div id="registracijskaForma">
+   <div class="ProfNaslov">Registracija</div>
+   <div class="regDivPolje">
+<div class="regTextPolje">Korisničko ime:</div>
+<input name="regUser" type="text" class="ProfPPolja validate[required,minSize[4]]" />
+
+
+</div>
+
+<div class="regDivPolje">
+<div class="regTextPolje">E-mail:</div>
+    <input name="regEmail" type="text" class="ProfPPolja validate[required,custom[email],minSize[6]]" />
+</div>
+
+<div class="regDivPolje">
+<div class="regTextPolje">Šifra:</div>
+<input name="regPass" type="password" class="ProfPPolja validate[required,minSize[6]]" />
+
+</div>
+
+<div id="btnOdustaniProfPass" class="ProfBtnIzlaz2" >Odustani</div>
+<input  type="submit" name="regBut" class="ProfBtnSnimi2" value="Potvrdi" />
+
+<div id="lblGreskaPass" class="profgreska">@ViewBag.regGreska</div>
+         
+   </div>
+}
+
+
+ @using (Html.BeginForm("Login", "Index", FormMethod.Post, new { id="frmLogin"}))
+ {
+ 
+    <div id="LoginForma">
+   <div class="ProfNaslov">Registracija</div>
+   <div class="regDivPolje">
+<div class="regTextPolje">Korisničko ime:</div>
+<input name="LogUser" type="text" class="ProfPPolja validate[required]" />
+
+
+</div>
+
+<div class="regDivPolje">
+<div class="regTextPolje">Šifra:</div>
+<input name="LogPass" type="password" class="ProfPPolja validate[required]" />
+
+</div>
+
+<div id="btnOdustaniPrijava" class="ProfBtnIzlaz2" >Odustani</div>
+<input  type="submit" class="ProfBtnSnimi2" value="Potvrdi" />
+
+<div id="lblGreskaPrijava" class="profgreska" >@ViewBag.uspjesno</div>
+         
+   </div>
+ 
+ }
+
+ @if (@ViewBag.regGreska != string.Empty && @ViewBag.regGreska != null)
+ {
+ <script type="text/javascript">
+     $("document").ready(
+        function () {
+            promSifre2();
+        })
+        
+ </script>
+
+ }
+ 
+ @if (@ViewBag.uspjesno != string.Empty && @ViewBag.uspjesno != null)
+ {
+ <script type="text/javascript">
+     $("document").ready(
+        function () {
+            PrijavaL();
+        })
+ </script>
+
+ }
