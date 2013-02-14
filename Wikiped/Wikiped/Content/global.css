@@ -418,7 +418,7 @@ text-align: center;
     display: block;
     font-size: 24px;
 }
-.vote-up-off, .vote-up-on, .vote-down-off, .vote-down-on {
+.vote-up-off, .vote-up-on, .vote-down-off, .vote-down-on,clanak-greska {
     display: block;
     margin: 0 auto;
     width: 41px;
@@ -714,4 +714,77 @@ text-decoration:underline;
  float:left;   
  
 }
+.clanak-komentar-wraper
+{
+ float:left;
+ overflow:hidden;
+ width:599px;
+ min-height:20px;   
+ height:auto;
+ border-top:1px solid #cccccc;
+ margin:5px 0px 0px 0px;
+}
 
+.clanak-komentar-evidencija
+{
+ float:left;
+ width:130px;
+ height:60px;   
+}
+
+.clanak-komentar-ko
+{
+ float:left;
+ width:130px;
+ height:20px;   
+}
+.clanak-komentar-tekst
+{
+ float:left;
+ width:420px;
+ min-height:60px;  
+ height:auto;
+  text-align:justify;
+}
+.clanak-komentar-dojam
+{
+ float:left;
+ width:49px;
+ height:auto;   
+}
+.vote-count-post-clanak {
+    display: block;
+    font-size: 24px;
+     margin:0px 0px 0px 17px;
+}
+.clanci-head
+{
+background: #E5EFFD;
+color: #333;
+font-size: 14px;
+height: 22px;
+overflow: visible;
+border:1px solid #abc6dd;
+width:591px;
+border-bottom:none;
+font-style: italic;
+font-weight: bold;
+margin:10px 0px 0px 0px;
+padding:3px;
+}
+
+.clanak-greska{
+    background-image: url('/Images/greska.png');
+    background-repeat: no-repeat;
+    overflow: hidden;
+    height:20px;
+    width:23px;
+    float:right;
+    margin:3px;
+}
+.clanci-poruka-poslano
+{
+    float: left;
+    margin-top: 17px;
+    font-size: 13px!important;
+}

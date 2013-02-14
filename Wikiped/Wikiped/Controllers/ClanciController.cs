@@ -32,16 +32,16 @@ namespace Wikiped.Controllers
                     {
                         Success = false,
                         Message = "Morate biti logovani"
-                    });;
+                    }); ;
             }
             else
             {
-                Korisnici kor= Session["Korisnik"] as Korisnici;
+                Korisnici kor = Session["Korisnik"] as Korisnici;
                 using (Spajanje sp = new Spajanje())
                 {
                     OcjenaKorisnici glasanje = (from co in sp.Context.OcjenaKorisnici
                                                 where co.ClanakID == clanakId && co.KorisnikID == kor.KorisnikID
-                                    select co).FirstOrDefault();
+                                                select co).FirstOrDefault();
 
                     if (glasanje != null)
                     {
@@ -51,7 +51,7 @@ namespace Wikiped.Controllers
                             Message = "Glasali ste za ovaj clanak"
                         });
                     }
-                                                                  
+
 
 
                 }
@@ -69,6 +69,7 @@ namespace Wikiped.Controllers
 
             return View(clanak);
         }
+
         public JsonResult SetOcjena(int clanakId, double rating)
         {
             try
@@ -85,9 +86,9 @@ namespace Wikiped.Controllers
                     OcjenaKorisnici oc = new OcjenaKorisnici();
                     oc.KorisnikID = kor.KorisnikID;
                     oc.ClanakID = clanakId;
-                    oc.Ocjena = (rating/2);
+                    oc.Ocjena = (rating / 2);
                     s.Context.OcjenaKorisnici.AddObject(oc);
-                 
+
 
                     Clanci clanakTemp = (from c in s.Context.Clanci where c.ClanakID == clanakId select c).FirstOrDefault();
                     if (clanakTemp.Ocjenjeno > 0)
@@ -98,7 +99,7 @@ namespace Wikiped.Controllers
 
                         clanakTemp.Popularnost = novaProsjecna;
                         clanakTemp.Ocjenjeno++;
-                        
+
                     }
                     else
                     {
@@ -107,15 +108,15 @@ namespace Wikiped.Controllers
                     }
                     s.Context.SaveChanges();
 
-                return Json(new JsonServis
-                {
-                    Success = true,
-                    Message = "Uspjesno ste glasali",
-                    Result = new { Rating = (clanakTemp.Popularnost*2), Raters = clanakTemp.Ocjenjeno }
-                });
+                    return Json(new JsonServis
+                    {
+                        Success = true,
+                        Message = "Uspjesno ste glasali",
+                        Result = new { Rating = (clanakTemp.Popularnost * 2), Raters = clanakTemp.Ocjenjeno }
+                    });
                 }
                 //PostModel post = Engine.Posts.SetRating(id, rating);
-                
+
             }
             catch (Exception ex)
             {
@@ -127,6 +128,64 @@ namespace Wikiped.Controllers
             }
         }
 
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult NoviKomentar(string text, int clanakID)
+        {
+            try
+            {
+
+                using (Spajanje s = new Spajanje())
+                {
+                    Korisnici k = Session["Korisnik"] as Korisnici;
+                    if (k == null)
+                    {
+                        return Json(new
+                        {
+                            Success = false,
+                            poruka = "* Morate biti logovani"
+                        });
+                    }
+                    else
+                    {
+                        if (text.Length > 11)
+                        {
+
+                            ClanciServisObrada.InsertComment(clanakID, k, text);
+                            return Json(new
+                            {
+                                tekst = text,
+                                datum = DateTime.Now.ToString(),
+                                korisnik = k.UserName,
+                                poruka = "Uspješno objavljen komentar",
+                                Success = true
+                            });
+                        }
+                        else
+                        {
+                            return Json(new
+                            {
+                                Success = false,
+                                poruka = "* Morate unijeti minimalno 5 slova"
+                            });
+
+                        }
+                        
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+                return Json(new
+                {
+                    Success = false,
+                    poruka = "* Desila se pogreška"
+                });
+
+            }
+
+        }
 
     }
 }
