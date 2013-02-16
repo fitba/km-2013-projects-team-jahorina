@@ -6,56 +6,6 @@
         $('#main-wbg').masonry({
             itemSelector: '.clanak-wraper'
         });
-
-        function setRating(span, rating) {
-            var slike = span.find('img');
-            for (var i = 0; i < slike.length; i++) {
-
-                var value = parseFloat($(slike[i]).attr("value"));
-                var imgSrc = $(slike[i]).attr("src");
-
-                if (value <= rating) {
-                    $(slike[i]).attr("src", imgSrc.replace("OFF.gif", "ON.gif"));
-                }
-                else
-                    $(slike[i]).attr("src", imgSrc.replace("ON.gif", "OFF.gif"));
-            }
-        }
-
-        $(".star").mouseover(function () {
-            var span = $(this).parent("span");
-            var newRating = $(this).attr("value");
-            setRating(span, newRating);
-        });
-        $(".star").mouseout(function () {
-            var span = $(this).parent("span");
-            var rating = span.attr("rating");
-
-            setRating(span, rating);
-        });
-
-
-        $(".star").click(function () {
-
-            var span = $(this).parent("span");
-            var newRating = $(this).attr("value");
-            var postID = span.attr("post");
-            var text = span.children("span");
-            $.post("/Clanci/SetOcjena", { clanakId: postID, rating: newRating },
-        function (obj) {
-            if (obj.Success) {
-                text.html("Currently rated " + obj.Result.Rating + " by " + obj.Result.Raters + " people"); //modify the text
-                span.attr("rating", obj.Result.Rating); //set the rating attribute
-                setRating(span, obj.Result.Rating); //update the display
-                alert("Uspjesno ste glasali za ovaj clanak.");
-            }
-            else {
-                alert(obj.Message); //failure, show message
-            }
-        }
-    );
-        });
-
     });
 </script>
 @{

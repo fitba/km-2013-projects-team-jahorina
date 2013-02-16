@@ -12,7 +12,7 @@ namespace Wikiped.Models
         public static MvcHtmlString Ratings(this HtmlHelper helper, double rating, int idClanka, int Iduser)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("<span class='rating' rating='{0}' post='{1}' title='Click to cast vote'>", rating*2, idClanka);
+            sb.AppendFormat("<span class='rating' rating='{0}' post='{1}' title='ocjena: {2}'>", rating * 2, idClanka, rating);
 
             string formatStr = "<img src='/Images/{0}' alt='star'  width='7' height='12' class='star' value='{1}' />";
             int brojac = 0;

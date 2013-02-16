@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Wikiped.Models;
 using Wikiped.DBBL.DAL;
 using Wikiped.DBBL.BLL;
+using System.Web.Script.Serialization;
 
 namespace Wikiped.Controllers
 {
@@ -24,15 +25,16 @@ namespace Wikiped.Controllers
             ClanciServisObrada c = new ClanciServisObrada();
             return View(ClanciServisObrada.getClanakById(id));
         }
-        public JsonServis MogucnostGlasanja(int clanakId)
+        public JsonResult MogucnostGlasanja(int clanakId)
         {
             if (Session["Korisnik"] == null)
             {
-                return (new JsonServis
+                return Json(new
                     {
                         Success = false,
-                        Message = "Morate biti logovani"
-                    }); ;
+                        Message = "* Morate biti logovani",
+                        color = ""
+                    });
             }
             else
             {
@@ -45,10 +47,12 @@ namespace Wikiped.Controllers
 
                     if (glasanje != null)
                     {
-                        return (new JsonServis
+                        return Json(new
                         {
                             Success = false,
-                            Message = "Glasali ste za ovaj clanak"
+                            Message = "* Glasali ste za ovaj clanak",
+                            color = ""
+
                         });
                     }
 
@@ -57,10 +61,11 @@ namespace Wikiped.Controllers
                 }
 
             }
-            return (new JsonServis
+            return Json(new
             {
                 Success = true,
-                Message = ""
+                Message = "",
+                color = ""
             });
         }
         public ActionResult ClanciPregled(int clID)
@@ -74,11 +79,11 @@ namespace Wikiped.Controllers
         {
             try
             {
-                JsonServis jso = MogucnostGlasanja(clanakId);
-                if (jso.Success == false)
-                {
+                dynamic mogucnost = MogucnostGlasanja(clanakId).Data;
 
-                    return Json(jso);
+                if (mogucnost.Success == false)
+                {
+                    return Json(mogucnost);
                 }
                 Korisnici kor = Session["Korisnik"] as Korisnici;
                 using (Spajanje s = new Spajanje())
@@ -108,11 +113,13 @@ namespace Wikiped.Controllers
                     }
                     s.Context.SaveChanges();
 
-                    return Json(new JsonServis
+                    return Json(new
                     {
                         Success = true,
                         Message = "Uspjesno ste glasali",
-                        Result = new { Rating = (clanakTemp.Popularnost * 2), Raters = clanakTemp.Ocjenjeno }
+                        Result = new { Rating = (clanakTemp.Popularnost * 2), Raters =("(od " + clanakTemp.Ocjenjeno + " korisnika)")  },
+                        color=""
+
                     });
                 }
                 //PostModel post = Engine.Posts.SetRating(id, rating);
@@ -120,7 +127,7 @@ namespace Wikiped.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new JsonServis
+                return Json(new 
                 {
                     Success = false,
                     Message = ex.Message
@@ -170,7 +177,7 @@ namespace Wikiped.Controllers
                             });
 
                         }
-                        
+
                     }
 
                 }

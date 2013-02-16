@@ -696,6 +696,16 @@ text-decoration:underline;
  height:20px;
  float:left;   
  font-weight:bold;
+ overflow:hidden;
+}
+.clanak-details-namefor-error
+{
+ width:220px;
+ height:20px;
+ float:left;   
+ font-weight:bold;
+ margin:0px 0px 0px 5px;
+ display:none;
 }
 .clanak-details-preporuka
 {

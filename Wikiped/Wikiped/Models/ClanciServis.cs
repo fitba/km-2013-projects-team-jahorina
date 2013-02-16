@@ -176,7 +176,7 @@ namespace Wikiped.Models
                                     {
                                         ClanakId = c.ClanakID,
                                         slika = c.Slika,
-                                        popularnost = (int)c.Popularnost,
+                                        popularnost = (double)c.Popularnost,
                                         ocjena = (int)c.Ocjenjeno,
                                         naslov = sa.Naslov,
                                         opis = sa.Opis,
