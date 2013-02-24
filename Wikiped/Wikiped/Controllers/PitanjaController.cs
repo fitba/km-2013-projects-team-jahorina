@@ -14,27 +14,45 @@ namespace Wikiped.Controllers
         public ActionResult Index()
         {
             List<DBBL.DAL.Pitanja> pitanja;
-            using (Pitanja pt= new Pitanja())
+            using (Pitanja pt = new Pitanja())
             {
-                pitanja= pt.GetAllPitanja();
+                pitanja = pt.GetAllPitanja();
             }
             return View(pitanja);
         }
+
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(string tags)
+        {
+            string[] tagsA = null;
+            if (tags != String.Empty)
+            {
+                tagsA = tags.Split(',');
+            };
+
+            return Content(tags);
+        }
+
         public ActionResult Details(int id)
         {
-            Pitanja pitanje=new Pitanja();
+            Pitanja pitanje = new Pitanja();
             using (Pitanja pt = new Pitanja())
             {
                 pt.SetAllDetaByPitanjeID(id);
                 pitanje = pt;
             }
-            
+
             return View(pitanje);
         }
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Details(int id,string txtComment)
+        public ActionResult Details(int id, string txtComment)
         {
             if (!String.IsNullOrEmpty(txtComment))
             {
@@ -64,6 +82,8 @@ namespace Wikiped.Controllers
 
             return View(pitanje2);
         }
+        #region Ajax Vote and Comment
+
         public ActionResult VoteUp(int id, bool mainQuestion)
         {
             int korisnikId = 1;
@@ -79,7 +99,7 @@ namespace Wikiped.Controllers
                     voteNumber = pt.OdgovorVoteUp(id, korisnikId);
                 }
             }
-            
+
             return Json(new { voteNumber = voteNumber });
         }
         public ActionResult VoteDown(int id, bool mainQuestion)
@@ -116,6 +136,37 @@ namespace Wikiped.Controllers
             }
             return View();
         }
+
+        #endregion
+        //povis clase mora biti [Serializable]
+        public ActionResult GetTags(string id)
+        {
+            List<DBBL.DAL.Tags> lstTags;
+            using (Pitanja pt = new Pitanja())
+            {
+                lstTags = pt.GetAllTags();
+            }
+            List<string> lstTagovi = new List<string>();
+
+            List<MyTags> lstMTasg = new List<MyTags>();
+            foreach (var item in lstTags)
+            {
+                MyTags temp = new MyTags();
+                temp.Id = item.TagID;
+                temp.Name = item.Ime;
+                lstMTasg.Add(temp);
+            }
+
+            //return Json(lstTagovi);
+            return Json(lstMTasg);
+            // JavaScriptSerializer serializer = new JavaScriptSerializer();
+            //var temp = lstTags;
+            //return Json(lstTags, JsonRequestBehavior.AllowGet);
+            //return Json(new { admir = "test" });
+            // return Json(MvcHtmlString.Create(serializer.Serialize(lstTags)));
+            // return Json(new { "Name" = "Ghost Bar", "Address" = "2440 Victory Park Lane", "OpenDate"="Open"});
+
+        }
         //public static MvcHtmlString ToJson(this HtmlHelper html, object obj)
         //{
         //    JavaScriptSerializer serializer = new JavaScriptSerializer();
@@ -131,5 +182,12 @@ namespace Wikiped.Controllers
         // <script>
         // var s = @(Html.ToJson(Model.Content));
         //</script>
+    }
+
+    [Serializable]
+    public class MyTags
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }

@@ -6,14 +6,14 @@ using Wikiped.DBBL.DAL;
 
 namespace Wikiped.Models
 {
-    public class Pitanja:IDisposable
+    public class Pitanja : IDisposable
     {
         #region Property
 
         private Wikiped.DBBL.DAL.Pitanja pitanjaPost;
         private Wikiped.DBBL.DAL.Korisnici korisnik;
         private List<OdgovoriSaO> odgovori;
-        private List<Wikiped.DBBL.DAL.Tags> tagovi;
+        private List<Wikiped.DBBL.DAL.Tagovi> tagovi;
 
         public Wikiped.DBBL.DAL.Korisnici Korisnik
         {
@@ -30,7 +30,7 @@ namespace Wikiped.Models
             get { return pitanjaPost; }
             set { pitanjaPost = value; }
         }
-        public List<Wikiped.DBBL.DAL.Tags> Tagovi
+        public List<Wikiped.DBBL.DAL.Tagovi> Tagovi
         {
             get { return tagovi; }
             set { tagovi = value; }
@@ -70,37 +70,37 @@ namespace Wikiped.Models
                 {
                     tempOdgovorO = new COdgovorNaOdgovor();
                     tempOdgovorO.OdgovoriNaPodOgovor = odg;
-                    tempOdgovorO.Korisnik = context.Korisnici.Where(x =>x.KorisnikID== odg.KorisnikID).FirstOrDefault();
+                    tempOdgovorO.Korisnik = context.Korisnici.Where(x => x.KorisnikID == odg.KorisnikID).FirstOrDefault();
                     odgovoriAll.OdgovoriNaOdgovor.Add(tempOdgovorO);
                 }
                 odgovori.Add(odgovoriAll);
             }
         }
 
-        public int OdgovorVoteUp(int odgovorId,int korisnikId)
+        public int OdgovorVoteUp(int odgovorId, int korisnikId)
         {
-           GlasoviZaOdgovore temp= context.GlasoviZaOdgovore.Where(x => x.OdgovorID == odgovorId && x.KorisnikID == korisnikId).FirstOrDefault();
-           if (temp == null)
-           {
-               temp = new GlasoviZaOdgovore();
-               temp.KorisnikID = korisnikId;
-               temp.OdgovorID = odgovorId;
-               temp.Glas = 1;
-               context.GlasoviZaOdgovore.AddObject(temp);
-               context.SaveChanges();
-           }
-           else
-           {
-               if (temp.Glas < 1)
-               {
-                   temp.Glas++;
-                   context.SaveChanges();
-               }
-           }
-           DBBL.DAL.Odgovori odg = context.Odgovori.Where(x => x.OdgovorID == odgovorId).FirstOrDefault();
-           odg.BrojGlasova = context.GlasoviZaOdgovore.Where(x => x.KorisnikID == korisnikId && x.OdgovorID == odgovorId).Sum(x => x.Glas).Value;
-           context.SaveChanges();
-           return odg.BrojGlasova.Value;
+            GlasoviZaOdgovore temp = context.GlasoviZaOdgovore.Where(x => x.OdgovorID == odgovorId && x.KorisnikID == korisnikId).FirstOrDefault();
+            if (temp == null)
+            {
+                temp = new GlasoviZaOdgovore();
+                temp.KorisnikID = korisnikId;
+                temp.OdgovorID = odgovorId;
+                temp.Glas = 1;
+                context.GlasoviZaOdgovore.AddObject(temp);
+                context.SaveChanges();
+            }
+            else
+            {
+                if (temp.Glas < 1)
+                {
+                    temp.Glas++;
+                    context.SaveChanges();
+                }
+            }
+            DBBL.DAL.Odgovori odg = context.Odgovori.Where(x => x.OdgovorID == odgovorId).FirstOrDefault();
+            odg.BrojGlasova = context.GlasoviZaOdgovore.Where(x => x.KorisnikID == korisnikId && x.OdgovorID == odgovorId).Sum(x => x.Glas).Value;
+            context.SaveChanges();
+            return odg.BrojGlasova.Value;
         }
         public int OdgovorVoteDown(int odgovorId, int korisnikId)
         {
@@ -189,6 +189,14 @@ namespace Wikiped.Models
         {
             context.Odgovori.AddObject(odg);
             context.SaveChanges();
+        }
+        public List<Tags> GetAllTags()
+        {
+            return context.Tags.ToList();
+        }
+        public Tags GetTagByID(int id)
+        {
+            return context.Tags.Where(x => x.TagID == id).FirstOrDefault();
         }
         public void Dispose()
         {
