@@ -31,16 +31,17 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_GlasoviZaPitanja_Pitanja", "Pitanja", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Pitanja), "GlasoviZaPitanja", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.GlasoviZaPitanja), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_Sadrzaji_Jezici", "Jezici", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Jezici), "Sadrzaji", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.Sadrzaji), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_Komentari_Korisnici", "Korisnici", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Korisnici), "Komentari", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.Komentari), true)]
+[assembly: EdmRelationshipAttribute("WikipedModel", "FK_Zloupotrebe_Komentari", "Komentari", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Wikiped.DBBL.DAL.Komentari), "Zloupotrebe", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.Zloupotrebe), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_Korisnici_KorisnikVrste", "KorisnikVrste", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.KorisnikVrste), "Korisnici", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.Korisnici), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_OcjenaKorisnici_Korisnici", "Korisnici", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Korisnici), "OcjenaKorisnici", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.OcjenaKorisnici), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_Odgovori_Korisnici", "Korisnici", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Korisnici), "Odgovori", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.Odgovori), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_OdgovorNaOdgovor_Korisnici", "Korisnici", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Korisnici), "OdgovorNaOdgovor", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.OdgovorNaOdgovor), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_Pitanja_Korisnici", "Korisnici", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Korisnici), "Pitanja", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.Pitanja), true)]
-[assembly: EdmRelationshipAttribute("WikipedModel", "FK_OcjenaKorisnici_Ocjene", "Ocjene", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Ocjene), "OcjenaKorisnici", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.OcjenaKorisnici), true)]
+[assembly: EdmRelationshipAttribute("WikipedModel", "FK_Zloupotrebe_Korisnici", "Korisnici", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Wikiped.DBBL.DAL.Korisnici), "Zloupotrebe", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.Zloupotrebe), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_Odgovori_Pitanja", "Pitanja", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Pitanja), "Odgovori", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.Odgovori), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_OdgovorNaOdgovor_Odgovori", "Odgovori", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Odgovori), "OdgovorNaOdgovor", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.OdgovorNaOdgovor), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_TagoviPitanja_Pitanja", "Pitanja", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Wikiped.DBBL.DAL.Pitanja), "TagoviPitanja", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.TagoviPitanja), true)]
-[assembly: EdmRelationshipAttribute("WikipedModel", "FK_TagClanci_Tagovi", "Tagovi", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Tagovi), "TagClanci", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.TagClanci), true)]
+[assembly: EdmRelationshipAttribute("WikipedModel", "FK_TagClanci_Tags", "Tags", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Tags), "TagClanci", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.TagClanci), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_TagoviPitanja_Tags", "Tags", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Wikiped.DBBL.DAL.Tags), "TagoviPitanja", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.TagoviPitanja), true)]
 
 #endregion
@@ -256,22 +257,6 @@ namespace Wikiped.DBBL.DAL
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<Ocjene> Ocjene
-        {
-            get
-            {
-                if ((_Ocjene == null))
-                {
-                    _Ocjene = base.CreateObjectSet<Ocjene>("Ocjene");
-                }
-                return _Ocjene;
-            }
-        }
-        private ObjectSet<Ocjene> _Ocjene;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<Odgovori> Odgovori
         {
             get
@@ -368,22 +353,6 @@ namespace Wikiped.DBBL.DAL
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<Tagovi> Tagovi
-        {
-            get
-            {
-                if ((_Tagovi == null))
-                {
-                    _Tagovi = base.CreateObjectSet<Tagovi>("Tagovi");
-                }
-                return _Tagovi;
-            }
-        }
-        private ObjectSet<Tagovi> _Tagovi;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<TagoviPitanja> TagoviPitanja
         {
             get
@@ -428,6 +397,22 @@ namespace Wikiped.DBBL.DAL
             }
         }
         private ObjectSet<TagVrste> _TagVrste;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Zloupotrebe> Zloupotrebe
+        {
+            get
+            {
+                if ((_Zloupotrebe == null))
+                {
+                    _Zloupotrebe = base.CreateObjectSet<Zloupotrebe>("Zloupotrebe");
+                }
+                return _Zloupotrebe;
+            }
+        }
+        private ObjectSet<Zloupotrebe> _Zloupotrebe;
 
         #endregion
         #region AddTo Methods
@@ -513,14 +498,6 @@ namespace Wikiped.DBBL.DAL
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the Ocjene EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToOcjene(Ocjene ocjene)
-        {
-            base.AddObject("Ocjene", ocjene);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the Odgovori EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToOdgovori(Odgovori odgovori)
@@ -569,14 +546,6 @@ namespace Wikiped.DBBL.DAL
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the Tagovi EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToTagovi(Tagovi tagovi)
-        {
-            base.AddObject("Tagovi", tagovi);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the TagoviPitanja EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToTagoviPitanja(TagoviPitanja tagoviPitanja)
@@ -598,6 +567,14 @@ namespace Wikiped.DBBL.DAL
         public void AddToTagVrste(TagVrste tagVrste)
         {
             base.AddObject("TagVrste", tagVrste);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Zloupotrebe EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToZloupotrebe(Zloupotrebe zloupotrebe)
+        {
+            base.AddObject("Zloupotrebe", zloupotrebe);
         }
 
         #endregion
@@ -904,7 +881,7 @@ namespace Wikiped.DBBL.DAL
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> Popularnost
+        public Nullable<global::System.Double> Popularnost
         {
             get
             {
@@ -919,8 +896,8 @@ namespace Wikiped.DBBL.DAL
                 OnPopularnostChanged();
             }
         }
-        private Nullable<global::System.Int32> _Popularnost;
-        partial void OnPopularnostChanging(Nullable<global::System.Int32> value);
+        private Nullable<global::System.Double> _Popularnost;
+        partial void OnPopularnostChanging(Nullable<global::System.Double> value);
         partial void OnPopularnostChanged();
     
         /// <summary>
@@ -1998,6 +1975,28 @@ namespace Wikiped.DBBL.DAL
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("WikipedModel", "FK_Zloupotrebe_Komentari", "Zloupotrebe")]
+        public EntityCollection<Zloupotrebe> Zloupotrebe
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Zloupotrebe>("WikipedModel.FK_Zloupotrebe_Komentari", "Zloupotrebe");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Zloupotrebe>("WikipedModel.FK_Zloupotrebe_Komentari", "Zloupotrebe", value);
+                }
+            }
+        }
 
         #endregion
     }
@@ -2548,6 +2547,28 @@ namespace Wikiped.DBBL.DAL
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("WikipedModel", "FK_Zloupotrebe_Korisnici", "Zloupotrebe")]
+        public EntityCollection<Zloupotrebe> Zloupotrebe
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Zloupotrebe>("WikipedModel.FK_Zloupotrebe_Korisnici", "Zloupotrebe");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Zloupotrebe>("WikipedModel.FK_Zloupotrebe_Korisnici", "Zloupotrebe", value);
+                }
+            }
+        }
 
         #endregion
     }
@@ -2784,24 +2805,24 @@ namespace Wikiped.DBBL.DAL
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> OcjenaID
+        public Nullable<global::System.Double> Ocjena
         {
             get
             {
-                return _OcjenaID;
+                return _Ocjena;
             }
             set
             {
-                OnOcjenaIDChanging(value);
-                ReportPropertyChanging("OcjenaID");
-                _OcjenaID = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("OcjenaID");
-                OnOcjenaIDChanged();
+                OnOcjenaChanging(value);
+                ReportPropertyChanging("Ocjena");
+                _Ocjena = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Ocjena");
+                OnOcjenaChanged();
             }
         }
-        private Nullable<global::System.Int32> _OcjenaID;
-        partial void OnOcjenaIDChanging(Nullable<global::System.Int32> value);
-        partial void OnOcjenaIDChanged();
+        private Nullable<global::System.Double> _Ocjena;
+        partial void OnOcjenaChanging(Nullable<global::System.Double> value);
+        partial void OnOcjenaChanged();
 
         #endregion
     
@@ -2879,172 +2900,6 @@ namespace Wikiped.DBBL.DAL
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Korisnici>("WikipedModel.FK_OcjenaKorisnici_Korisnici", "Korisnici", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("WikipedModel", "FK_OcjenaKorisnici_Ocjene", "Ocjene")]
-        public Ocjene Ocjene
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Ocjene>("WikipedModel.FK_OcjenaKorisnici_Ocjene", "Ocjene").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Ocjene>("WikipedModel.FK_OcjenaKorisnici_Ocjene", "Ocjene").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Ocjene> OcjeneReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Ocjene>("WikipedModel.FK_OcjenaKorisnici_Ocjene", "Ocjene");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Ocjene>("WikipedModel.FK_OcjenaKorisnici_Ocjene", "Ocjene", value);
-                }
-            }
-        }
-
-        #endregion
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="WikipedModel", Name="Ocjene")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class Ocjene : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new Ocjene object.
-        /// </summary>
-        /// <param name="ocjenaID">Initial value of the OcjenaID property.</param>
-        public static Ocjene CreateOcjene(global::System.Int32 ocjenaID)
-        {
-            Ocjene ocjene = new Ocjene();
-            ocjene.OcjenaID = ocjenaID;
-            return ocjene;
-        }
-
-        #endregion
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 OcjenaID
-        {
-            get
-            {
-                return _OcjenaID;
-            }
-            set
-            {
-                if (_OcjenaID != value)
-                {
-                    OnOcjenaIDChanging(value);
-                    ReportPropertyChanging("OcjenaID");
-                    _OcjenaID = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("OcjenaID");
-                    OnOcjenaIDChanged();
-                }
-            }
-        }
-        private global::System.Int32 _OcjenaID;
-        partial void OnOcjenaIDChanging(global::System.Int32 value);
-        partial void OnOcjenaIDChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> Ocjena
-        {
-            get
-            {
-                return _Ocjena;
-            }
-            set
-            {
-                OnOcjenaChanging(value);
-                ReportPropertyChanging("Ocjena");
-                _Ocjena = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Ocjena");
-                OnOcjenaChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _Ocjena;
-        partial void OnOcjenaChanging(Nullable<global::System.Int32> value);
-        partial void OnOcjenaChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> Opis
-        {
-            get
-            {
-                return _Opis;
-            }
-            set
-            {
-                OnOpisChanging(value);
-                ReportPropertyChanging("Opis");
-                _Opis = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Opis");
-                OnOpisChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _Opis;
-        partial void OnOpisChanging(Nullable<global::System.Int32> value);
-        partial void OnOpisChanged();
-
-        #endregion
-    
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("WikipedModel", "FK_OcjenaKorisnici_Ocjene", "OcjenaKorisnici")]
-        public EntityCollection<OcjenaKorisnici> OcjenaKorisnici
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<OcjenaKorisnici>("WikipedModel.FK_OcjenaKorisnici_Ocjene", "OcjenaKorisnici");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<OcjenaKorisnici>("WikipedModel.FK_OcjenaKorisnici_Ocjene", "OcjenaKorisnici", value);
                 }
             }
         }
@@ -4490,16 +4345,16 @@ namespace Wikiped.DBBL.DAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("WikipedModel", "FK_TagClanci_Tagovi", "Tagovi")]
-        public Tagovi Tagovi
+        [EdmRelationshipNavigationPropertyAttribute("WikipedModel", "FK_TagClanci_Tags", "Tags")]
+        public Tags Tags
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Tagovi>("WikipedModel.FK_TagClanci_Tagovi", "Tagovi").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Tags>("WikipedModel.FK_TagClanci_Tags", "Tags").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Tagovi>("WikipedModel.FK_TagClanci_Tagovi", "Tagovi").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Tags>("WikipedModel.FK_TagClanci_Tags", "Tags").Value = value;
             }
         }
         /// <summary>
@@ -4507,121 +4362,17 @@ namespace Wikiped.DBBL.DAL
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<Tagovi> TagoviReference
+        public EntityReference<Tags> TagsReference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Tagovi>("WikipedModel.FK_TagClanci_Tagovi", "Tagovi");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Tags>("WikipedModel.FK_TagClanci_Tags", "Tags");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Tagovi>("WikipedModel.FK_TagClanci_Tagovi", "Tagovi", value);
-                }
-            }
-        }
-
-        #endregion
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="WikipedModel", Name="Tagovi")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class Tagovi : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new Tagovi object.
-        /// </summary>
-        /// <param name="tagID">Initial value of the TagID property.</param>
-        public static Tagovi CreateTagovi(global::System.Int32 tagID)
-        {
-            Tagovi tagovi = new Tagovi();
-            tagovi.TagID = tagID;
-            return tagovi;
-        }
-
-        #endregion
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 TagID
-        {
-            get
-            {
-                return _TagID;
-            }
-            set
-            {
-                if (_TagID != value)
-                {
-                    OnTagIDChanging(value);
-                    ReportPropertyChanging("TagID");
-                    _TagID = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("TagID");
-                    OnTagIDChanged();
-                }
-            }
-        }
-        private global::System.Int32 _TagID;
-        partial void OnTagIDChanging(global::System.Int32 value);
-        partial void OnTagIDChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String Opis
-        {
-            get
-            {
-                return _Opis;
-            }
-            set
-            {
-                OnOpisChanging(value);
-                ReportPropertyChanging("Opis");
-                _Opis = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("Opis");
-                OnOpisChanged();
-            }
-        }
-        private global::System.String _Opis;
-        partial void OnOpisChanging(global::System.String value);
-        partial void OnOpisChanged();
-
-        #endregion
-    
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("WikipedModel", "FK_TagClanci_Tagovi", "TagClanci")]
-        public EntityCollection<TagClanci> TagClanci
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<TagClanci>("WikipedModel.FK_TagClanci_Tagovi", "TagClanci");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TagClanci>("WikipedModel.FK_TagClanci_Tagovi", "TagClanci", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Tags>("WikipedModel.FK_TagClanci_Tags", "Tags", value);
                 }
             }
         }
@@ -4924,6 +4675,28 @@ namespace Wikiped.DBBL.DAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("WikipedModel", "FK_TagClanci_Tags", "TagClanci")]
+        public EntityCollection<TagClanci> TagClanci
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<TagClanci>("WikipedModel.FK_TagClanci_Tags", "TagClanci");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TagClanci>("WikipedModel.FK_TagClanci_Tags", "TagClanci", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("WikipedModel", "FK_TagoviPitanja_Tags", "TagoviPitanja")]
         public EntityCollection<TagoviPitanja> TagoviPitanja
         {
@@ -5064,6 +4837,192 @@ namespace Wikiped.DBBL.DAL
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Clanci>("WikipedModel.FK_Clanci_TagVrste", "Clanci", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="WikipedModel", Name="Zloupotrebe")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Zloupotrebe : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Zloupotrebe object.
+        /// </summary>
+        /// <param name="zloupotrebaID">Initial value of the ZloupotrebaID property.</param>
+        /// <param name="komentarID">Initial value of the KomentarID property.</param>
+        /// <param name="korisnikID">Initial value of the KorisnikID property.</param>
+        public static Zloupotrebe CreateZloupotrebe(global::System.Int32 zloupotrebaID, global::System.Int32 komentarID, global::System.Int32 korisnikID)
+        {
+            Zloupotrebe zloupotrebe = new Zloupotrebe();
+            zloupotrebe.ZloupotrebaID = zloupotrebaID;
+            zloupotrebe.KomentarID = komentarID;
+            zloupotrebe.KorisnikID = korisnikID;
+            return zloupotrebe;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ZloupotrebaID
+        {
+            get
+            {
+                return _ZloupotrebaID;
+            }
+            set
+            {
+                if (_ZloupotrebaID != value)
+                {
+                    OnZloupotrebaIDChanging(value);
+                    ReportPropertyChanging("ZloupotrebaID");
+                    _ZloupotrebaID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ZloupotrebaID");
+                    OnZloupotrebaIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ZloupotrebaID;
+        partial void OnZloupotrebaIDChanging(global::System.Int32 value);
+        partial void OnZloupotrebaIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 KomentarID
+        {
+            get
+            {
+                return _KomentarID;
+            }
+            set
+            {
+                OnKomentarIDChanging(value);
+                ReportPropertyChanging("KomentarID");
+                _KomentarID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("KomentarID");
+                OnKomentarIDChanged();
+            }
+        }
+        private global::System.Int32 _KomentarID;
+        partial void OnKomentarIDChanging(global::System.Int32 value);
+        partial void OnKomentarIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 KorisnikID
+        {
+            get
+            {
+                return _KorisnikID;
+            }
+            set
+            {
+                OnKorisnikIDChanging(value);
+                ReportPropertyChanging("KorisnikID");
+                _KorisnikID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("KorisnikID");
+                OnKorisnikIDChanged();
+            }
+        }
+        private global::System.Int32 _KorisnikID;
+        partial void OnKorisnikIDChanging(global::System.Int32 value);
+        partial void OnKorisnikIDChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("WikipedModel", "FK_Zloupotrebe_Komentari", "Komentari")]
+        public Komentari Komentari
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Komentari>("WikipedModel.FK_Zloupotrebe_Komentari", "Komentari").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Komentari>("WikipedModel.FK_Zloupotrebe_Komentari", "Komentari").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Komentari> KomentariReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Komentari>("WikipedModel.FK_Zloupotrebe_Komentari", "Komentari");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Komentari>("WikipedModel.FK_Zloupotrebe_Komentari", "Komentari", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("WikipedModel", "FK_Zloupotrebe_Korisnici", "Korisnici")]
+        public Korisnici Korisnici
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Korisnici>("WikipedModel.FK_Zloupotrebe_Korisnici", "Korisnici").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Korisnici>("WikipedModel.FK_Zloupotrebe_Korisnici", "Korisnici").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Korisnici> KorisniciReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Korisnici>("WikipedModel.FK_Zloupotrebe_Korisnici", "Korisnici");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Korisnici>("WikipedModel.FK_Zloupotrebe_Korisnici", "Korisnici", value);
                 }
             }
         }

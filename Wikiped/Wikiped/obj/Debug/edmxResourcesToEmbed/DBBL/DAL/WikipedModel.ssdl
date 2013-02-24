@@ -11,17 +11,16 @@
     <EntitySet Name="Korisnici" EntityType="WikipedModel.Store.Korisnici" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="KorisnikVrste" EntityType="WikipedModel.Store.KorisnikVrste" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="OcjenaKorisnici" EntityType="WikipedModel.Store.OcjenaKorisnici" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Ocjene" EntityType="WikipedModel.Store.Ocjene" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Odgovori" EntityType="WikipedModel.Store.Odgovori" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="OdgovorNaOdgovor" EntityType="WikipedModel.Store.OdgovorNaOdgovor" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Pitanja" EntityType="WikipedModel.Store.Pitanja" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Sadrzaji" EntityType="WikipedModel.Store.Sadrzaji" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="sysdiagrams" EntityType="WikipedModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="TagClanci" EntityType="WikipedModel.Store.TagClanci" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Tagovi" EntityType="WikipedModel.Store.Tagovi" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="TagoviPitanja" EntityType="WikipedModel.Store.TagoviPitanja" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Tags" EntityType="WikipedModel.Store.Tags" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="TagVrste" EntityType="WikipedModel.Store.TagVrste" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Zloupotrebe" EntityType="WikipedModel.Store.Zloupotrebe" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="FK_Algoritmi_Korisnici" Association="WikipedModel.Store.FK_Algoritmi_Korisnici">
       <End Role="Korisnici" EntitySet="Korisnici" />
       <End Role="Algoritmi" EntitySet="Algoritmi" />
@@ -70,10 +69,6 @@
       <End Role="Korisnici" EntitySet="Korisnici" />
       <End Role="OcjenaKorisnici" EntitySet="OcjenaKorisnici" />
     </AssociationSet>
-    <AssociationSet Name="FK_OcjenaKorisnici_Ocjene" Association="WikipedModel.Store.FK_OcjenaKorisnici_Ocjene">
-      <End Role="Ocjene" EntitySet="Ocjene" />
-      <End Role="OcjenaKorisnici" EntitySet="OcjenaKorisnici" />
-    </AssociationSet>
     <AssociationSet Name="FK_Odgovori_Korisnici" Association="WikipedModel.Store.FK_Odgovori_Korisnici">
       <End Role="Korisnici" EntitySet="Korisnici" />
       <End Role="Odgovori" EntitySet="Odgovori" />
@@ -106,8 +101,8 @@
       <End Role="Clanci" EntitySet="Clanci" />
       <End Role="TagClanci" EntitySet="TagClanci" />
     </AssociationSet>
-    <AssociationSet Name="FK_TagClanci_Tagovi" Association="WikipedModel.Store.FK_TagClanci_Tagovi">
-      <End Role="Tagovi" EntitySet="Tagovi" />
+    <AssociationSet Name="FK_TagClanci_Tags" Association="WikipedModel.Store.FK_TagClanci_Tags">
+      <End Role="Tags" EntitySet="Tags" />
       <End Role="TagClanci" EntitySet="TagClanci" />
     </AssociationSet>
     <AssociationSet Name="FK_TagoviPitanja_Pitanja" Association="WikipedModel.Store.FK_TagoviPitanja_Pitanja">
@@ -117,6 +112,14 @@
     <AssociationSet Name="FK_TagoviPitanja_Tags" Association="WikipedModel.Store.FK_TagoviPitanja_Tags">
       <End Role="Tags" EntitySet="Tags" />
       <End Role="TagoviPitanja" EntitySet="TagoviPitanja" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zloupotrebe_Komentari" Association="WikipedModel.Store.FK_Zloupotrebe_Komentari">
+      <End Role="Komentari" EntitySet="Komentari" />
+      <End Role="Zloupotrebe" EntitySet="Zloupotrebe" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zloupotrebe_Korisnici" Association="WikipedModel.Store.FK_Zloupotrebe_Korisnici">
+      <End Role="Korisnici" EntitySet="Korisnici" />
+      <End Role="Zloupotrebe" EntitySet="Zloupotrebe" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Algoritmi">
@@ -136,7 +139,7 @@
     </Key>
     <Property Name="ClanakID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="TagVrstaID" Type="int" />
-    <Property Name="Popularnost" Type="int" />
+    <Property Name="Popularnost" Type="float" />
     <Property Name="Ocjenjeno" Type="int" />
     <Property Name="Slika" Type="nvarchar(max)" />
     <Property Name="Guid" Type="uniqueidentifier" />
@@ -215,15 +218,7 @@
     <Property Name="OcjenaKorisnik" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="KorisnikID" Type="int" />
     <Property Name="ClanakID" Type="int" />
-    <Property Name="OcjenaID" Type="int" />
-  </EntityType>
-  <EntityType Name="Ocjene">
-    <Key>
-      <PropertyRef Name="OcjenaID" />
-    </Key>
-    <Property Name="OcjenaID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="Ocjena" Type="int" />
-    <Property Name="Opis" Type="int" />
+    <Property Name="Ocjena" Type="float" />
   </EntityType>
   <EntityType Name="Odgovori">
     <Key>
@@ -289,13 +284,6 @@
     <Property Name="ClanakID" Type="int" />
     <Property Name="TagID" Type="int" />
   </EntityType>
-  <EntityType Name="Tagovi">
-    <Key>
-      <PropertyRef Name="TagID" />
-    </Key>
-    <Property Name="TagID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="Opis" Type="nvarchar(max)" />
-  </EntityType>
   <EntityType Name="TagoviPitanja">
     <Key>
       <PropertyRef Name="TagoviPitanjeID" />
@@ -319,6 +307,14 @@
     <Property Name="TagVrstaID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="Vrsta" Type="int" />
     <Property Name="Opis" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Zloupotrebe">
+    <Key>
+      <PropertyRef Name="ZloupotrebaID" />
+    </Key>
+    <Property Name="ZloupotrebaID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="KomentarID" Type="int" Nullable="false" />
+    <Property Name="KorisnikID" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="FK_Algoritmi_Korisnici">
     <End Role="Korisnici" Type="WikipedModel.Store.Korisnici" Multiplicity="0..1" />
@@ -464,18 +460,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_OcjenaKorisnici_Ocjene">
-    <End Role="Ocjene" Type="WikipedModel.Store.Ocjene" Multiplicity="0..1" />
-    <End Role="OcjenaKorisnici" Type="WikipedModel.Store.OcjenaKorisnici" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Ocjene">
-        <PropertyRef Name="OcjenaID" />
-      </Principal>
-      <Dependent Role="OcjenaKorisnici">
-        <PropertyRef Name="OcjenaID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Odgovori_Korisnici">
     <End Role="Korisnici" Type="WikipedModel.Store.Korisnici" Multiplicity="0..1" />
     <End Role="Odgovori" Type="WikipedModel.Store.Odgovori" Multiplicity="*" />
@@ -572,11 +556,11 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_TagClanci_Tagovi">
-    <End Role="Tagovi" Type="WikipedModel.Store.Tagovi" Multiplicity="0..1" />
+  <Association Name="FK_TagClanci_Tags">
+    <End Role="Tags" Type="WikipedModel.Store.Tags" Multiplicity="0..1" />
     <End Role="TagClanci" Type="WikipedModel.Store.TagClanci" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Tagovi">
+      <Principal Role="Tags">
         <PropertyRef Name="TagID" />
       </Principal>
       <Dependent Role="TagClanci">
@@ -605,6 +589,30 @@
       </Principal>
       <Dependent Role="TagoviPitanja">
         <PropertyRef Name="TagID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zloupotrebe_Komentari">
+    <End Role="Komentari" Type="WikipedModel.Store.Komentari" Multiplicity="1" />
+    <End Role="Zloupotrebe" Type="WikipedModel.Store.Zloupotrebe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Komentari">
+        <PropertyRef Name="KomentarID" />
+      </Principal>
+      <Dependent Role="Zloupotrebe">
+        <PropertyRef Name="KomentarID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zloupotrebe_Korisnici">
+    <End Role="Korisnici" Type="WikipedModel.Store.Korisnici" Multiplicity="1" />
+    <End Role="Zloupotrebe" Type="WikipedModel.Store.Zloupotrebe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Korisnici">
+        <PropertyRef Name="KorisnikID" />
+      </Principal>
+      <Dependent Role="Zloupotrebe">
+        <PropertyRef Name="KorisnikID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

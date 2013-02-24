@@ -13,7 +13,7 @@ namespace Wikiped.Models
         private Wikiped.DBBL.DAL.Pitanja pitanjaPost;
         private Wikiped.DBBL.DAL.Korisnici korisnik;
         private List<OdgovoriSaO> odgovori;
-        private List<Wikiped.DBBL.DAL.Tagovi> tagovi;
+        private List<Wikiped.DBBL.DAL.Tags> tagovi;
 
         public Wikiped.DBBL.DAL.Korisnici Korisnik
         {
@@ -30,7 +30,7 @@ namespace Wikiped.Models
             get { return pitanjaPost; }
             set { pitanjaPost = value; }
         }
-        public List<Wikiped.DBBL.DAL.Tagovi> Tagovi
+        public List<Wikiped.DBBL.DAL.Tags> Tagovi
         {
             get { return tagovi; }
             set { tagovi = value; }

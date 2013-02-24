@@ -145,7 +145,6 @@ D:\SeminarskiUZ\km-2013-projects-team-jahorina\Wikiped\Wikiped\bin\System.Web.Ra
 D:\SeminarskiUZ\km-2013-projects-team-jahorina\Wikiped\Wikiped\bin\System.Web.WebPages.xml
 D:\SeminarskiUZ\km-2013-projects-team-jahorina\Wikiped\Wikiped\bin\System.Web.WebPages.Deployment.xml
 D:\SeminarskiUZ\km-2013-projects-team-jahorina\Wikiped\Wikiped\bin\System.Web.WebPages.Razor.xml
-D:\SeminarskiUZ\km-2013-projects-team-jahorina\Wikiped\Wikiped\obj\Debug\Wikiped.csprojResolveAssemblyReference.cache
 D:\SeminarskiUZ\km-2013-projects-team-jahorina\Wikiped\Wikiped\obj\Debug\Wikiped.dll
 D:\SeminarskiUZ\km-2013-projects-team-jahorina\Wikiped\Wikiped\obj\Debug\Wikiped.pdb
 D:\SeminarskiUZ\km-2013-projects-team-jahorina\Wikiped\Wikiped\obj\Debug\ResolveAssemblyReference.cache

@@ -102,19 +102,10 @@
     <EntitySetMapping Name="OcjenaKorisnici">
       <EntityTypeMapping TypeName="WikipedModel.OcjenaKorisnici">
         <MappingFragment StoreEntitySet="OcjenaKorisnici">
-          <ScalarProperty Name="OcjenaID" ColumnName="OcjenaID" />
+          <ScalarProperty Name="Ocjena" ColumnName="Ocjena" />
           <ScalarProperty Name="ClanakID" ColumnName="ClanakID" />
           <ScalarProperty Name="KorisnikID" ColumnName="KorisnikID" />
           <ScalarProperty Name="OcjenaKorisnik" ColumnName="OcjenaKorisnik" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Ocjene">
-      <EntityTypeMapping TypeName="WikipedModel.Ocjene">
-        <MappingFragment StoreEntitySet="Ocjene">
-          <ScalarProperty Name="Opis" ColumnName="Opis" />
-          <ScalarProperty Name="Ocjena" ColumnName="Ocjena" />
-          <ScalarProperty Name="OcjenaID" ColumnName="OcjenaID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -188,14 +179,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Tagovi">
-      <EntityTypeMapping TypeName="WikipedModel.Tagovi">
-        <MappingFragment StoreEntitySet="Tagovi">
-          <ScalarProperty Name="Opis" ColumnName="Opis" />
-          <ScalarProperty Name="TagID" ColumnName="TagID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="TagoviPitanja">
       <EntityTypeMapping TypeName="WikipedModel.TagoviPitanja">
         <MappingFragment StoreEntitySet="TagoviPitanja">
@@ -220,6 +203,15 @@
           <ScalarProperty Name="Opis" ColumnName="Opis" />
           <ScalarProperty Name="Vrsta" ColumnName="Vrsta" />
           <ScalarProperty Name="TagVrstaID" ColumnName="TagVrstaID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Zloupotrebe">
+      <EntityTypeMapping TypeName="WikipedModel.Zloupotrebe">
+        <MappingFragment StoreEntitySet="Zloupotrebe">
+          <ScalarProperty Name="KorisnikID" ColumnName="KorisnikID" />
+          <ScalarProperty Name="KomentarID" ColumnName="KomentarID" />
+          <ScalarProperty Name="ZloupotrebaID" ColumnName="ZloupotrebaID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
