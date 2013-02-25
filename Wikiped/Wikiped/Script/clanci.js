@@ -1,4 +1,31 @@
-﻿
+﻿function zloupotreba(clanakID) {
+    var clanakIDint = clanakID.replace("cl", "");
+
+    $.ajax({
+        url: '/Clanci/zloupotreba',
+        data: { 'zlID': clanakIDint },
+        type: "post",
+        cache: false,
+        success: function (data) {
+            if (data.Success == true) {
+
+            }
+            $("#zl" + clanakIDint).text(data.message);
+            $("#zl" + clanakIDint).slideDown();
+            setTimeout(function () {
+                $($("#zl" + clanakIDint)).slideUp();
+            }, 3000);
+
+
+
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert("Problem");
+            console.log(xhr);
+        }
+    });
+
+}
 
 function NoviKomentar(text, clanakID) {
 
@@ -22,16 +49,7 @@ function NoviKomentar(text, clanakID) {
 
 }
 
-$(".mainCommentBtn").click(function () {
 
-    var tekst = tinyMCE.activeEditor.getContent();
-
-    var clanakid = $("#clanakIDs").val();
-
-    NoviKomentar(tekst, clanakid);
-
-
-});
 function Postano(uspjesno, poruka) {
 
     if (uspjesno == true) {

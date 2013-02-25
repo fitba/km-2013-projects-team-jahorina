@@ -22,12 +22,7 @@
             Ocjena</div>@Html.Ratings(Model.popularnost, Model.ClanakId, Model.ocjena)<div class="clanak-details-namefor-error">
             </div>
     </div>
-    <div class="clanak-details-opis">
-        <div class="clanak-details-namefor">
-            Jezici</div>
-        <select id="Select1" class="clanak-details-DropDown">
-            <option></option>
-        </select></div>
+    
     <div class="clanak-details-opis">
         <div class="clanak-details-namefor">
             Tagovi</div>
@@ -46,7 +41,8 @@
         <div class="clanci-poruka-poslano">
         </div>
         <div class="mainCommentBtn">
-            Vaš komentar</div>
+            Vaš komentar
+            </div>
         <input type="hidden" id="clanakIDs" value="@Model.ClanakId" />
         @foreach (KomentariServis kom in Model.komentariLista)
         {
@@ -59,11 +55,33 @@
                     <div class="clanak-komentar-ko">
                         @kom.datum</div>
                 </div>
-                <div class="clanak-komentar-tekst">
-                    @MvcHtmlString.Create(kom.tekst)</div>
+                @{
+                    string nesto="";
+                if(kom.zloupotreba>0){
+                nesto="none";
+
+                }else{
+                nesto="block";
+
+                }
+                } 
+                @if(kom.zloupotreba>0){
+                    <div  class="clanak-komentar-tekst-skriven" style="color:#7d7d7d; font-style:italic">Komentar je sakriven. <div id="@string.Format("sk{0}",@kom.komentarID)" class="clanci-prikazi-sakriven">Prikaži!</div> </div>
+                    
+                }
+                <div id="@string.Format("cltx{0}",@kom.komentarID)" class="clanak-komentar-tekst" style="display:@nesto">
+                <div id="@string.Format("zl{0}",@kom.komentarID)" class="clanci-komentar-zloupotreba"></div>
+                
+                    @MvcHtmlString.Create(kom.tekst)
+                    
+                    </div>
+                     @if (kom.zloupotreba < 1)
+                     {
                 <div class="clanak-komentar-dojam">
-                    <a class="clanak-greska" title="Prijavi komentar"></a>
+                
+                    <a id="@string.Format("cl{0}", @kom.komentarID)" class="clanak-greska" title="Prijavi komentar"></a>
                 </div>
+                     }
             </div>
         
         }
@@ -72,9 +90,41 @@
 <p style="float: left">
     @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
     @Html.ActionLink("Back to List", "Index")
+    
 </p>
 <script type="text/javascript">
     $("document").ready(function () {
+
+        $(".clanci-prikazi-sakriven").click(function () {
+            var id = this.id.replace("sk", "");
+
+            if ($(this).text() == "Prikaži!") {
+
+                $("#cltx" + id).show();
+                $(this).text("Sakrij!");
+            }
+            else {
+                $("#cltx" + id).hide();
+                $(this).text("Prikaži!");
+            }
+
+
+        });
+        $(".clanak-greska").click(function () {
+            zloupotreba(this.id);
+
+
+        });
+        $(".mainCommentBtn").click(function () {
+
+            var tekst = tinyMCE.activeEditor.getContent();
+
+            var clanakid = $("#clanakIDs").val();
+
+            NoviKomentar(tekst, clanakid);
+
+        });
+
         function setRating(span, rating) {
             var slike = span.find('img');
             for (var i = 0; i < slike.length; i++) {

@@ -10,9 +10,11 @@ namespace Wikiped.Models
 {
     public class KomentariServis
     {
+        public int komentarID { get; set; }
         public string tekst { get; set; }
         public string Korisnik { get; set; }
         public DateTime datum { get; set; }
+        public int zloupotreba { get; set; }
 
 
     }
@@ -184,12 +186,12 @@ namespace Wikiped.Models
 
                                     }).FirstOrDefault();
 
-                List<KomentariServis> koms= (from kom in s.Context.Komentari
-                                             join kr in s.Context.Korisnici
-                                             on kom.KorisnikID equals kr.KorisnikID
-                                             where kom.ClanakID == id
-                                             orderby kom.Datum
-                                             select new KomentariServis { tekst = kom.Tekst, Korisnik = kr.UserName,datum=(DateTime)kom.Datum }).ToList();
+                List<KomentariServis> koms = (from kom in s.Context.Komentari
+                                              join kr in s.Context.Korisnici
+                                              on kom.KorisnikID equals kr.KorisnikID
+                                              where kom.ClanakID == id
+                                              orderby kom.Datum
+                                              select new KomentariServis { komentarID = kom.KomentarID, tekst = kom.Tekst, Korisnik = kr.UserName, datum = (DateTime)kom.Datum, zloupotreba = (from zl in s.Context.Zloupotrebe where zl.KomentarID == kom.KomentarID select zl).Count() }).ToList();
                 tst.komentariLista = koms;
                 return tst;
 

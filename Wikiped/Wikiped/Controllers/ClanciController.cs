@@ -30,11 +30,11 @@ namespace Wikiped.Controllers
             if (Session["Korisnik"] == null)
             {
                 return Json(new
-                    {
-                        Success = false,
-                        Message = "* Morate biti logovani",
-                        color = ""
-                    });
+                {
+                    Success = false,
+                    Message = "* Morate biti logovani",
+                    color = ""
+                });
             }
             else
             {
@@ -74,7 +74,61 @@ namespace Wikiped.Controllers
 
             return View(clanak);
         }
+        public ActionResult zloupotreba(int zlID)
+        {
+            try
+            {
+                string poruka = "";
+                bool uspjeh = false;
+                if (Session["Korisnik"] != null)
+                {
+                    using (Spajanje s = new Spajanje())
+                    {
+                        Zloupotrebe zl = (from z in s.Context.Zloupotrebe where z.KomentarID == zlID select z).FirstOrDefault();
 
+                        if (zl == null)
+                        {
+
+                            zl = new Zloupotrebe();
+                            zl.KomentarID = zlID;
+                            Korisnici kor = Session["Korisnik"] as Korisnici;
+                            zl.KorisnikID = kor.KorisnikID;
+                            s.Context.Zloupotrebe.AddObject(zl);
+                            s.Context.SaveChanges();
+
+                            uspjeh = true;
+                            poruka = "Uspješno prijavljen komentar";
+                            //spremi u bazu i vrati stanje
+                        }
+                        else
+                        {
+                            poruka = "Prijavili ste ovaj komentar";
+                            //error vec ste glasali
+                        }
+                    }
+                }
+                else
+                {
+                    //error morate se logovati
+                    poruka = "Morate se prijaviti";
+                }
+
+                return Json(new
+                {
+                    success = uspjeh,
+                    message = poruka
+
+
+                });
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+
+
+        }
         public JsonResult SetOcjena(int clanakId, double rating)
         {
             try
@@ -117,8 +171,8 @@ namespace Wikiped.Controllers
                     {
                         Success = true,
                         Message = "Uspjesno ste glasali",
-                        Result = new { Rating = (clanakTemp.Popularnost * 2), Raters =("(od " + clanakTemp.Ocjenjeno + " korisnika)")  },
-                        color=""
+                        Result = new { Rating = (clanakTemp.Popularnost * 2), Raters = ("(od " + clanakTemp.Ocjenjeno + " korisnika)") },
+                        color = ""
 
                     });
                 }
@@ -127,7 +181,7 @@ namespace Wikiped.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new 
+                return Json(new
                 {
                     Success = false,
                     Message = ex.Message

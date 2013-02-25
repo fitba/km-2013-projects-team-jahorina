@@ -798,6 +798,54 @@ padding:3px;
     margin-top: 17px;
     font-size: 13px!important;
 }
+.clanci-komentar-zloupotreba{
+    width: 100px;
+	background: #E5EFFD;
+	color: #ee0101;
+	width: 406px;
+	font-size: 11px;
+	border: 2px solid #ddd;
+	border-top:none;
+	
+	box-shadow: 0 0 6px #000;
+	-moz-box-shadow: 0 0 6px #000;
+	-webkit-box-shadow: 0 0 6px #000;
+	padding: 4px 10px 4px 10px;
+	border-radius: 6px;
+	
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-top-left-radius:0px;
+	border-top-right-radius:0px;
+	float:right;
+	position:absolute;
+	display:none;
+	font-size: 13px!important;
+}
+.clanci-prikazi-sakriven
+{
+    color:#7d7d7d;
+    text-decoration:underline;
+    display:inline;
+    font-style:italic;
+    
+}
+.clanci-prikazi-sakriven:hover
+{
+    cursor:pointer;
+    color:#333333;
+}
+.clanak-komentar-tekst-skriven
+{
+    float:left;
+ width:420px;
+ min-height:20px;  
+ height:auto;
+  text-align:justify;
+  position:relative;
+  text-decoration:underline;
+}
+
 .form-row {
     width: 100%;
     min-height: 2px;
