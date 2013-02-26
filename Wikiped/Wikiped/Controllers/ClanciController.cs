@@ -248,5 +248,10 @@ namespace Wikiped.Controllers
 
         }
 
+        public ActionResult Create()
+        {
+
+            return View();
+        }
     }
 }

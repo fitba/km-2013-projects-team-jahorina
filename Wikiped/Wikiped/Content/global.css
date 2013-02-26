@@ -690,6 +690,21 @@ text-decoration:underline;
 	background-color: transparent;
   font-family:Helvetica,Arial,serif;
 }
+.clanak-details-wrap-tag
+{
+    float:left;
+    width:474px;
+    min-height:20px;
+    height:auto;
+    overflow:hidden;
+    background:#cef2e0;
+    font-size:14px;
+    font-size:13px;
+  line-height: 1.5;
+  color: #333;
+	background-color: transparent;
+  font-family:Helvetica,Arial,serif;
+}
 .clanak-details-namefor
 {
  width:100px;
@@ -772,7 +787,8 @@ text-decoration:underline;
 background: #E5EFFD;
 color: #333;
 font-size: 14px;
-height: 22px;
+min-height: 22px;
+height:auto;
 overflow: visible;
 border:1px solid #abc6dd;
 width:591px;
@@ -781,6 +797,7 @@ font-style: italic;
 font-weight: bold;
 margin:10px 0px 0px 0px;
 padding:3px;
+display:block;
 }
 
 .clanak-greska{
@@ -897,4 +914,97 @@ padding:3px;
     margin-left: 507px;
     margin-top: 20px;
     margin-bottom: 20px;
+}
+.clanak-create-textBox
+{
+    width:599px;
+    height:30px;
+    float:left;
+    border:1px solid #ABC6DD;
+   
+}
+.clanci-create-head
+{
+ width:610px;
+ height:40px;
+ background:#c8e2ed; 
+ float:left;  
+  border:1px solid #cef2e0;
+  border-bottom:none;
+  overflow:hidden;
+}
+.clanak-create-meni
+{
+    width:150px;
+ height:25px;
+ background:#abd5dd; 
+ float:left;  
+ margin:10px 0px 0px 5px;
+ border:1px solid #cef2e0;
+ border-top-right-radius:3px;
+ border-top-left-radius:3px;
+ color: #333;
+font-size: 14px;
+font-style: italic;
+font-weight: bold;
+text-align:center;
+padding:5px 0px 0px 0px;
+}
+.clanak-create-meni:hover
+{
+    cursor:pointer;
+    margin:7px 0px 0px 5px;
+    height:28px;
+    background:#8dc8cc;
+    color:#8a38d0;
+}
+.clanak-nova-kategorija
+{
+ width:120px;
+ height:16px;
+ background:#abd5dd; 
+ float:right;  
+
+ border:1px solid #cef2e0;
+ border-radius:3px;
+
+ color: #333;
+font-size: 13px;
+font-style: italic;
+
+text-align:center;
+
+moz-box-shadow: 0 0 1px 1px #888;
+ -webkit-box-shadow: 0 0 1px 1px #888;
+ box-shadow: 0 0 1px 1px #888;
+ top:0px;
+ position:absolute;
+  right:28px;
+  top:4px;
+}
+.clanak-nova-kategorija:hover
+{
+    cursor:pointer;
+
+    background:#8dc8cc;
+    color:#8a38d0;
+}
+.clanak-skriveno
+{
+    display:none;
+}
+.clanak-otkriveno
+{
+    display:block;
+}
+.clanci-change
+{
+    font-size:13px;
+    text-decoration:underline;
+    color:#ee0101;
+    display:inline;  
+}
+.clanci-change:hover
+{
+    cursor:pointer; 
 }

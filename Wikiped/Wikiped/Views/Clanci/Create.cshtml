@@ -1,0 +1,127 @@
+﻿@model Wikiped.Models.ClanciServisObrada
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/Pocetna.cshtml";
+}
+<script src="/Script/tiny_mce/tiny_mce.js" type="text/javascript"></script>
+
+<link href="/Script/autocomplete/css/jquery.tagit.clanak.css" rel="stylesheet" type="text/css" />
+<script src="/Script/autocomplete/tag-it.js" type="text/javascript"></script>
+<script src="/Script/autocomplete/autocomplete-tags.js" type="text/javascript"></script>
+<link href="../../Script/chosen/chosen.css" rel="stylesheet" type="text/css" />
+<script src="../../Script/chosen/chosen.jquery.js" type="text/javascript"></script>
+
+<div class="clanci-create-head">
+<div class="clanak-create-meni">Novi clanak</div>
+<div class="clanak-create-meni">Moji clanci</div>
+</div>
+
+
+<div class="clanak-details-preporuka"></div>
+<div class="clanak-details-content">
+<div class="clanci-head">Naslov</div>
+<input type="text" class="clanak-create-textBox" />
+
+<div class="clanak-otkriveno">
+<div class="clanci-head">Kategorija</div>
+
+    <select id="ddlkategorije" class="clanak-create-textBox">
+    <option value=""></option> 
+        <option>ehhehe</option>
+         <option>ehhehe</option>
+    </select>
+    </div>
+
+
+    <div class="clanak-skriveno">
+    <div id="slKat"class="clanci-head"></div>
+    <select id="ddlSlkategorije" class="clanak-create-textBox">
+    <option value="0">Ostalo</option> 
+        <option>ehhehe</option>
+         <option>ehhehe</option>
+    </select>
+</div>
+  <div class="clanci-head">
+            Vaš komentar</div>
+        <div class="wmd-panel">
+            <textarea class="myTextEditor" style="width: 400px" id="wmd-input" name="txtComment">
+
+                    </textarea>
+        </div>
+
+<div class="clanci-head">Slika</div>
+<input type="file" class="clanak-create-textBox" name="fuSlika" />
+
+<div class="clanci-head">Tagovi</div>
+<input type="text" class="clanak-create-textBox" id="txtTagsClanci" name="tags"/>
+
+<div class="mainCommentBtn">
+            Vaš komentar
+            </div>
+</div>
+
+
+<h2>Create</h2>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script type="text/javascript">
+    $("document").ready(function () {
+        $("#ddlkategorije").chosen({ no_results_text: "Kategorija ne postoji" + '<div id="btnNovaKat" class="clanak-nova-kategorija">Dodaj kategoriju</div>' });
+        $("#ddlSlkategorije").chosen({ no_results_text: "Trenutno odabrana kategorija: Ostalo - " });
+
+        $("#btnNovaKat").live('click', function () {
+            var novaKategorija = $(".no-results").find("span").text();
+            $(".clanak-otkriveno").hide();
+            $("#slKat").text("Slicna kategorija za " + novaKategorija + " - ").append("<div class='clanci-change'>Promjeni</div>");
+            $(".clanak-skriveno").show();
+
+
+        });
+        $(".clanci-change").live('click',function () {
+            $(".clanak-skriveno").hide();
+            $(".clanak-otkriveno").show();
+        });
+
+        tinyMCE.init({
+            // General options
+            //mode: "textareas",
+            mode: "specific_textareas",
+            title: 'Make h1',
+            width: "599px",
+            editor_selector: "myTextEditor",
+            theme: "advanced",
+            plugins: "autolink,lists,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
+            // Theme options
+            theme_advanced_buttons1: "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|formatselect,fontselect,fontsizeselect,|,undo,redo,|,forecolor,backcolor,|,emotions,fullscreen",
+
+            //theme_advanced_buttons4: "insertlayer,moveforward,movebackward,absolute,|,styleprops,spellchecker,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,blockquote,pagebreak,|,insertfile,insertimage",
+            theme_advanced_toolbar_location: "top",
+            theme_advanced_toolbar_align: "left",
+            theme_advanced_statusbar_location: "bottom",
+            theme_advanced_resizing: false,
+            // Skin options
+            skin: "o2k7",
+            //skin_variant: "silver", black
+
+            // Example content CSS (should be your site CSS)
+            //content_css: "css/example.css",
+
+            // Drop lists for link/image/media/template dialogs
+            //        template_external_list_url: "js/template_list.js",
+            //        external_link_list_url: "js/link_list.js",
+            //        external_image_list_url: "js/image_list.js",
+            //        media_external_list_url: "js/media_list.js",
+
+            // Replace values for the template plugin
+            template_replace_values: {
+                username: "Some User",
+                staffid: "991234"
+            }
+        });
+    });
+
+</script>

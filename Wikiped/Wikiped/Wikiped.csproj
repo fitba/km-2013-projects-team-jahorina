@@ -163,8 +163,16 @@
     <Content Include="Images\wikitest.jpg" />
     <Content Include="README.jQuery.vsdoc.txt" />
     <Content Include="Script\autocomplete\autocomplete-tags.js" />
+    <Content Include="Script\autocomplete\css\jquery.tagit.clanak.css" />
     <Content Include="Script\autocomplete\css\jquery.tagit.css" />
     <Content Include="Script\autocomplete\tag-it.js" />
+    <Content Include="Script\chosen\chosen-sprite%402x.png" />
+    <Content Include="Script\chosen\chosen-sprite.png" />
+    <Content Include="Script\chosen\chosen.css" />
+    <Content Include="Script\chosen\chosen.jquery.js" />
+    <Content Include="Script\chosen\chosen.jquery.min.js" />
+    <Content Include="Script\chosen\chosen.proto.js" />
+    <Content Include="Script\chosen\chosen.proto.min.js" />
     <Content Include="Script\clanci.js" />
     <Content Include="Script\jquery-1.8.3.js" />
     <Content Include="Script\jquery-ui-1.9.0.custom.js" />
@@ -532,6 +540,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Pitanja\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Clanci\Create.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
