@@ -8,12 +8,13 @@
 //------------------------------------------------------------------------------
 
 using System;
+using System.ComponentModel;
+using System.Data.EntityClient;
 using System.Data.Objects;
 using System.Data.Objects.DataClasses;
-using System.Data.EntityClient;
-using System.ComponentModel;
-using System.Xml.Serialization;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
@@ -29,7 +30,6 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_GlasoviZaOdgovore_Odgovori", "Odgovori", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Odgovori), "GlasoviZaOdgovore", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.GlasoviZaOdgovore), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_GlasoviZaPitanja_Korisnici", "Korisnici", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Korisnici), "GlasoviZaPitanja", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.GlasoviZaPitanja), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_GlasoviZaPitanja_Pitanja", "Pitanja", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Pitanja), "GlasoviZaPitanja", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.GlasoviZaPitanja), true)]
-[assembly: EdmRelationshipAttribute("WikipedModel", "FK_Sadrzaji_Jezici", "Jezici", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Jezici), "Sadrzaji", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.Sadrzaji), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_Komentari_Korisnici", "Korisnici", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Korisnici), "Komentari", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.Komentari), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_Zloupotrebe_Komentari", "Komentari", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Wikiped.DBBL.DAL.Komentari), "Zloupotrebe", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.Zloupotrebe), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_Korisnici_KorisnikVrste", "KorisnikVrste", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.KorisnikVrste), "Korisnici", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.Korisnici), true)]
@@ -173,22 +173,6 @@ namespace Wikiped.DBBL.DAL
             }
         }
         private ObjectSet<GlasoviZaPitanja> _GlasoviZaPitanja;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<Jezici> Jezici
-        {
-            get
-            {
-                if ((_Jezici == null))
-                {
-                    _Jezici = base.CreateObjectSet<Jezici>("Jezici");
-                }
-                return _Jezici;
-            }
-        }
-        private ObjectSet<Jezici> _Jezici;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -415,6 +399,7 @@ namespace Wikiped.DBBL.DAL
         private ObjectSet<Zloupotrebe> _Zloupotrebe;
 
         #endregion
+
         #region AddTo Methods
     
         /// <summary>
@@ -455,14 +440,6 @@ namespace Wikiped.DBBL.DAL
         public void AddToGlasoviZaPitanja(GlasoviZaPitanja glasoviZaPitanja)
         {
             base.AddObject("GlasoviZaPitanja", glasoviZaPitanja);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the Jezici EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToJezici(Jezici jezici)
-        {
-            base.AddObject("Jezici", jezici);
         }
     
         /// <summary>
@@ -578,11 +555,11 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
+
     }
-    
 
     #endregion
-    
+
     #region Entities
     
     /// <summary>
@@ -607,6 +584,7 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -757,6 +735,7 @@ namespace Wikiped.DBBL.DAL
         partial void OnAktivanChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -799,6 +778,7 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -823,6 +803,7 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -973,6 +954,7 @@ namespace Wikiped.DBBL.DAL
         partial void OnGuidChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -1103,6 +1085,7 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -1127,6 +1110,7 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -1181,6 +1165,7 @@ namespace Wikiped.DBBL.DAL
         partial void OnNazivChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -1207,6 +1192,7 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -1231,6 +1217,7 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -1333,6 +1320,7 @@ namespace Wikiped.DBBL.DAL
         partial void OnGlasChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -1413,6 +1401,7 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -1437,6 +1426,7 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -1539,6 +1529,7 @@ namespace Wikiped.DBBL.DAL
         partial void OnGlasChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -1619,134 +1610,7 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="WikipedModel", Name="Jezici")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class Jezici : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new Jezici object.
-        /// </summary>
-        /// <param name="jezikID">Initial value of the JezikID property.</param>
-        public static Jezici CreateJezici(global::System.Int32 jezikID)
-        {
-            Jezici jezici = new Jezici();
-            jezici.JezikID = jezikID;
-            return jezici;
-        }
 
-        #endregion
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 JezikID
-        {
-            get
-            {
-                return _JezikID;
-            }
-            set
-            {
-                if (_JezikID != value)
-                {
-                    OnJezikIDChanging(value);
-                    ReportPropertyChanging("JezikID");
-                    _JezikID = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("JezikID");
-                    OnJezikIDChanged();
-                }
-            }
-        }
-        private global::System.Int32 _JezikID;
-        partial void OnJezikIDChanging(global::System.Int32 value);
-        partial void OnJezikIDChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> Vrsta
-        {
-            get
-            {
-                return _Vrsta;
-            }
-            set
-            {
-                OnVrstaChanging(value);
-                ReportPropertyChanging("Vrsta");
-                _Vrsta = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Vrsta");
-                OnVrstaChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _Vrsta;
-        partial void OnVrstaChanging(Nullable<global::System.Int32> value);
-        partial void OnVrstaChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String Naziv
-        {
-            get
-            {
-                return _Naziv;
-            }
-            set
-            {
-                OnNazivChanging(value);
-                ReportPropertyChanging("Naziv");
-                _Naziv = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("Naziv");
-                OnNazivChanged();
-            }
-        }
-        private global::System.String _Naziv;
-        partial void OnNazivChanging(global::System.String value);
-        partial void OnNazivChanged();
-
-        #endregion
-    
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("WikipedModel", "FK_Sadrzaji_Jezici", "Sadrzaji")]
-        public EntityCollection<Sadrzaji> Sadrzaji
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Sadrzaji>("WikipedModel.FK_Sadrzaji_Jezici", "Sadrzaji");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Sadrzaji>("WikipedModel.FK_Sadrzaji_Jezici", "Sadrzaji", value);
-                }
-            }
-        }
-
-        #endregion
     }
     
     /// <summary>
@@ -1771,6 +1635,7 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -1897,6 +1762,7 @@ namespace Wikiped.DBBL.DAL
         partial void OnDatumChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -1999,6 +1865,7 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -2023,6 +1890,7 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -2293,6 +2161,7 @@ namespace Wikiped.DBBL.DAL
         partial void OnKorisnikVrstaIDChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -2571,6 +2440,7 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -2595,6 +2465,7 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -2673,6 +2544,7 @@ namespace Wikiped.DBBL.DAL
         partial void OnOpisChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -2699,6 +2571,7 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -2723,6 +2596,7 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -2825,6 +2699,7 @@ namespace Wikiped.DBBL.DAL
         partial void OnOcjenaChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -2905,6 +2780,7 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -2929,6 +2805,7 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -3079,6 +2956,7 @@ namespace Wikiped.DBBL.DAL
         partial void OnKorisnikIDChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -3203,6 +3081,7 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -3227,6 +3106,7 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -3377,6 +3257,7 @@ namespace Wikiped.DBBL.DAL
         partial void OnKorisnikIDChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -3457,6 +3338,7 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -3481,6 +3363,7 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -3679,6 +3562,7 @@ namespace Wikiped.DBBL.DAL
         partial void OnTemaIDChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -3787,6 +3671,7 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -3811,6 +3696,7 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -3917,30 +3803,6 @@ namespace Wikiped.DBBL.DAL
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> JezikID
-        {
-            get
-            {
-                return _JezikID;
-            }
-            set
-            {
-                OnJezikIDChanging(value);
-                ReportPropertyChanging("JezikID");
-                _JezikID = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("JezikID");
-                OnJezikIDChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _JezikID;
-        partial void OnJezikIDChanging(Nullable<global::System.Int32> value);
-        partial void OnJezikIDChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
         public Nullable<global::System.Int32> ClanakID
         {
             get
@@ -3959,8 +3821,33 @@ namespace Wikiped.DBBL.DAL
         private Nullable<global::System.Int32> _ClanakID;
         partial void OnClanakIDChanging(Nullable<global::System.Int32> value);
         partial void OnClanakIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> Datum
+        {
+            get
+            {
+                return _Datum;
+            }
+            set
+            {
+                OnDatumChanging(value);
+                ReportPropertyChanging("Datum");
+                _Datum = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Datum");
+                OnDatumChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _Datum;
+        partial void OnDatumChanging(Nullable<global::System.DateTime> value);
+        partial void OnDatumChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -4001,46 +3888,9 @@ namespace Wikiped.DBBL.DAL
                 }
             }
         }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("WikipedModel", "FK_Sadrzaji_Jezici", "Jezici")]
-        public Jezici Jezici
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Jezici>("WikipedModel.FK_Sadrzaji_Jezici", "Jezici").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Jezici>("WikipedModel.FK_Sadrzaji_Jezici", "Jezici").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Jezici> JeziciReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Jezici>("WikipedModel.FK_Sadrzaji_Jezici", "Jezici");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Jezici>("WikipedModel.FK_Sadrzaji_Jezici", "Jezici", value);
-                }
-            }
-        }
 
         #endregion
+
     }
     
     /// <summary>
@@ -4069,6 +3919,7 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -4195,6 +4046,7 @@ namespace Wikiped.DBBL.DAL
         partial void OndefinitionChanged();
 
         #endregion
+
     
     }
     
@@ -4220,6 +4072,7 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -4298,6 +4151,7 @@ namespace Wikiped.DBBL.DAL
         partial void OnTagIDChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -4378,6 +4232,7 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -4406,6 +4261,7 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -4484,6 +4340,7 @@ namespace Wikiped.DBBL.DAL
         partial void OnPitanjeIDChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -4564,6 +4421,7 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -4588,6 +4446,7 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -4666,6 +4525,7 @@ namespace Wikiped.DBBL.DAL
         partial void OnOpisChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -4714,6 +4574,7 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -4738,6 +4599,7 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -4816,6 +4678,7 @@ namespace Wikiped.DBBL.DAL
         partial void OnOpisChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -4842,6 +4705,7 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -4870,6 +4734,7 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -4948,6 +4813,7 @@ namespace Wikiped.DBBL.DAL
         partial void OnKorisnikIDChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -5028,8 +4894,10 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
+
     }
 
     #endregion
+
     
 }

@@ -6,7 +6,6 @@
     <EntitySet Name="Drzave" EntityType="WikipedModel.Store.Drzave" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="GlasoviZaOdgovore" EntityType="WikipedModel.Store.GlasoviZaOdgovore" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="GlasoviZaPitanja" EntityType="WikipedModel.Store.GlasoviZaPitanja" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Jezici" EntityType="WikipedModel.Store.Jezici" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Komentari" EntityType="WikipedModel.Store.Komentari" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Korisnici" EntityType="WikipedModel.Store.Korisnici" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="KorisnikVrste" EntityType="WikipedModel.Store.KorisnikVrste" store:Type="Tables" Schema="dbo" />
@@ -93,10 +92,6 @@
       <End Role="Clanci" EntitySet="Clanci" />
       <End Role="Sadrzaji" EntitySet="Sadrzaji" />
     </AssociationSet>
-    <AssociationSet Name="FK_Sadrzaji_Jezici" Association="WikipedModel.Store.FK_Sadrzaji_Jezici">
-      <End Role="Jezici" EntitySet="Jezici" />
-      <End Role="Sadrzaji" EntitySet="Sadrzaji" />
-    </AssociationSet>
     <AssociationSet Name="FK_TagClanci_Clanci" Association="WikipedModel.Store.FK_TagClanci_Clanci">
       <End Role="Clanci" EntitySet="Clanci" />
       <End Role="TagClanci" EntitySet="TagClanci" />
@@ -168,14 +163,6 @@
     <Property Name="PitanjeID" Type="int" />
     <Property Name="KorisnikID" Type="int" />
     <Property Name="Glas" Type="int" />
-  </EntityType>
-  <EntityType Name="Jezici">
-    <Key>
-      <PropertyRef Name="JezikID" />
-    </Key>
-    <Property Name="JezikID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="Vrsta" Type="int" />
-    <Property Name="Naziv" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="Komentari">
     <Key>
@@ -263,8 +250,8 @@
     <Property Name="Naslov" Type="nvarchar(max)" />
     <Property Name="Opis" Type="text" />
     <Property Name="Tekst" Type="text" />
-    <Property Name="JezikID" Type="int" />
     <Property Name="ClanakID" Type="int" />
+    <Property Name="Datum" Type="datetime" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -529,18 +516,6 @@
       </Principal>
       <Dependent Role="Sadrzaji">
         <PropertyRef Name="ClanakID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Sadrzaji_Jezici">
-    <End Role="Jezici" Type="WikipedModel.Store.Jezici" Multiplicity="0..1" />
-    <End Role="Sadrzaji" Type="WikipedModel.Store.Sadrzaji" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Jezici">
-        <PropertyRef Name="JezikID" />
-      </Principal>
-      <Dependent Role="Sadrzaji">
-        <PropertyRef Name="JezikID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

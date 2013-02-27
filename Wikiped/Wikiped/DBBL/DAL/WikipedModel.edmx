@@ -11,7 +11,6 @@
           <EntitySet Name="Drzave" EntityType="WikipedModel.Store.Drzave" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="GlasoviZaOdgovore" EntityType="WikipedModel.Store.GlasoviZaOdgovore" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="GlasoviZaPitanja" EntityType="WikipedModel.Store.GlasoviZaPitanja" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Jezici" EntityType="WikipedModel.Store.Jezici" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Komentari" EntityType="WikipedModel.Store.Komentari" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Korisnici" EntityType="WikipedModel.Store.Korisnici" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="KorisnikVrste" EntityType="WikipedModel.Store.KorisnikVrste" store:Type="Tables" Schema="dbo" />
@@ -98,10 +97,6 @@
             <End Role="Clanci" EntitySet="Clanci" />
             <End Role="Sadrzaji" EntitySet="Sadrzaji" />
           </AssociationSet>
-          <AssociationSet Name="FK_Sadrzaji_Jezici" Association="WikipedModel.Store.FK_Sadrzaji_Jezici">
-            <End Role="Jezici" EntitySet="Jezici" />
-            <End Role="Sadrzaji" EntitySet="Sadrzaji" />
-          </AssociationSet>
           <AssociationSet Name="FK_TagClanci_Clanci" Association="WikipedModel.Store.FK_TagClanci_Clanci">
             <End Role="Clanci" EntitySet="Clanci" />
             <End Role="TagClanci" EntitySet="TagClanci" />
@@ -173,14 +168,6 @@
           <Property Name="PitanjeID" Type="int" />
           <Property Name="KorisnikID" Type="int" />
           <Property Name="Glas" Type="int" />
-        </EntityType>
-        <EntityType Name="Jezici">
-          <Key>
-            <PropertyRef Name="JezikID" />
-          </Key>
-          <Property Name="JezikID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Vrsta" Type="int" />
-          <Property Name="Naziv" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Komentari">
           <Key>
@@ -268,8 +255,8 @@
           <Property Name="Naslov" Type="nvarchar(max)" />
           <Property Name="Opis" Type="text" />
           <Property Name="Tekst" Type="text" />
-          <Property Name="JezikID" Type="int" />
           <Property Name="ClanakID" Type="int" />
+          <Property Name="Datum" Type="datetime" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -537,18 +524,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Sadrzaji_Jezici">
-          <End Role="Jezici" Type="WikipedModel.Store.Jezici" Multiplicity="0..1" />
-          <End Role="Sadrzaji" Type="WikipedModel.Store.Sadrzaji" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Jezici">
-              <PropertyRef Name="JezikID" />
-            </Principal>
-            <Dependent Role="Sadrzaji">
-              <PropertyRef Name="JezikID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_TagClanci_Clanci">
           <End Role="Clanci" Type="WikipedModel.Store.Clanci" Multiplicity="0..1" />
           <End Role="TagClanci" Type="WikipedModel.Store.TagClanci" Multiplicity="*" />
@@ -631,7 +606,6 @@
           <EntitySet Name="Drzave" EntityType="WikipedModel.Drzave" />
           <EntitySet Name="GlasoviZaOdgovore" EntityType="WikipedModel.GlasoviZaOdgovore" />
           <EntitySet Name="GlasoviZaPitanja" EntityType="WikipedModel.GlasoviZaPitanja" />
-          <EntitySet Name="Jezici" EntityType="WikipedModel.Jezici" />
           <EntitySet Name="Komentari" EntityType="WikipedModel.Komentari" />
           <EntitySet Name="Korisnici" EntityType="WikipedModel.Korisnici" />
           <EntitySet Name="KorisnikVrste" EntityType="WikipedModel.KorisnikVrste" />
@@ -689,10 +663,6 @@
           <AssociationSet Name="FK_GlasoviZaPitanja_Pitanja" Association="WikipedModel.FK_GlasoviZaPitanja_Pitanja">
             <End Role="Pitanja" EntitySet="Pitanja" />
             <End Role="GlasoviZaPitanja" EntitySet="GlasoviZaPitanja" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Sadrzaji_Jezici" Association="WikipedModel.FK_Sadrzaji_Jezici">
-            <End Role="Jezici" EntitySet="Jezici" />
-            <End Role="Sadrzaji" EntitySet="Sadrzaji" />
           </AssociationSet>
           <AssociationSet Name="FK_Komentari_Korisnici" Association="WikipedModel.FK_Komentari_Korisnici">
             <End Role="Korisnici" EntitySet="Korisnici" />
@@ -804,15 +774,6 @@
           <Property Type="Int32" Name="Glas" />
           <NavigationProperty Name="Korisnici" Relationship="WikipedModel.FK_GlasoviZaPitanja_Korisnici" FromRole="GlasoviZaPitanja" ToRole="Korisnici" />
           <NavigationProperty Name="Pitanja" Relationship="WikipedModel.FK_GlasoviZaPitanja_Pitanja" FromRole="GlasoviZaPitanja" ToRole="Pitanja" />
-        </EntityType>
-        <EntityType Name="Jezici">
-          <Key>
-            <PropertyRef Name="JezikID" />
-          </Key>
-          <Property Type="Int32" Name="JezikID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="Vrsta" />
-          <Property Type="String" Name="Naziv" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Sadrzaji" Relationship="WikipedModel.FK_Sadrzaji_Jezici" FromRole="Jezici" ToRole="Sadrzaji" />
         </EntityType>
         <EntityType Name="Komentari">
           <Key>
@@ -927,10 +888,9 @@
           <Property Type="String" Name="Naslov" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Opis" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Tekst" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="JezikID" />
           <Property Type="Int32" Name="ClanakID" />
           <NavigationProperty Name="Clanci" Relationship="WikipedModel.FK_Sadrzaji_Clanci" FromRole="Sadrzaji" ToRole="Clanci" />
-          <NavigationProperty Name="Jezici" Relationship="WikipedModel.FK_Sadrzaji_Jezici" FromRole="Sadrzaji" ToRole="Jezici" />
+          <Property Type="DateTime" Name="Datum" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -1120,18 +1080,6 @@
             </Principal>
             <Dependent Role="GlasoviZaPitanja">
               <PropertyRef Name="PitanjeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Sadrzaji_Jezici">
-          <End Type="WikipedModel.Jezici" Role="Jezici" Multiplicity="0..1" />
-          <End Type="WikipedModel.Sadrzaji" Role="Sadrzaji" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Jezici">
-              <PropertyRef Name="JezikID" />
-            </Principal>
-            <Dependent Role="Sadrzaji">
-              <PropertyRef Name="JezikID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1349,15 +1297,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Jezici">
-            <EntityTypeMapping TypeName="WikipedModel.Jezici">
-              <MappingFragment StoreEntitySet="Jezici">
-                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
-                <ScalarProperty Name="Vrsta" ColumnName="Vrsta" />
-                <ScalarProperty Name="JezikID" ColumnName="JezikID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Komentari">
             <EntityTypeMapping TypeName="WikipedModel.Komentari">
               <MappingFragment StoreEntitySet="Komentari">
@@ -1446,8 +1385,8 @@
           <EntitySetMapping Name="Sadrzaji">
             <EntityTypeMapping TypeName="WikipedModel.Sadrzaji">
               <MappingFragment StoreEntitySet="Sadrzaji">
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
                 <ScalarProperty Name="ClanakID" ColumnName="ClanakID" />
-                <ScalarProperty Name="JezikID" ColumnName="JezikID" />
                 <ScalarProperty Name="Tekst" ColumnName="Tekst" />
                 <ScalarProperty Name="Opis" ColumnName="Opis" />
                 <ScalarProperty Name="Naslov" ColumnName="Naslov" />
@@ -1537,7 +1476,6 @@
         <EntityTypeShape EntityType="WikipedModel.Drzave" Width="1.5" PointX="0.75" PointY="12.25" Height="1.5956835937499818" />
         <EntityTypeShape EntityType="WikipedModel.GlasoviZaOdgovore" Width="1.5" PointX="5.25" PointY="13" Height="2.1725878906249818" />
         <EntityTypeShape EntityType="WikipedModel.GlasoviZaPitanja" Width="1.5" PointX="7.5" PointY="20.125" Height="2.1725878906250102" />
-        <EntityTypeShape EntityType="WikipedModel.Jezici" Width="1.5" PointX="6" PointY="2.125" Height="1.7879850260416248" />
         <EntityTypeShape EntityType="WikipedModel.Komentari" Width="1.5" PointX="8.25" PointY="11.75" Height="2.557190755208353" />
         <EntityTypeShape EntityType="WikipedModel.Korisnici" Width="1.5" PointX="3" PointY="10.375" Height="5.2494108072916674" />
         <EntityTypeShape EntityType="WikipedModel.KorisnikVrste" Width="1.5" PointX="0.75" PointY="9.125" Height="1.7879850260416106" />
@@ -1545,7 +1483,7 @@
         <EntityTypeShape EntityType="WikipedModel.Odgovori" Width="1.5" PointX="10.5" PointY="19.75" Height="2.9417936197916106" />
         <EntityTypeShape EntityType="WikipedModel.OdgovorNaOdgovor" Width="1.5" PointX="12.75" PointY="15.25" Height="2.557190755208353" />
         <EntityTypeShape EntityType="WikipedModel.Pitanja" Width="1.5" PointX="5.25" PointY="28.75" Height="3.3263964843749818" />
-        <EntityTypeShape EntityType="WikipedModel.Sadrzaji" Width="1.5" PointX="8.25" PointY="5.75" Height="2.557190755208353" />
+        <EntityTypeShape EntityType="WikipedModel.Sadrzaji" Width="1.5" PointX="8.25" PointY="5.75" Height="2.1725878906249996" />
         <EntityTypeShape EntityType="WikipedModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" Height="1.980286458333353" />
         <EntityTypeShape EntityType="WikipedModel.TagClanci" Width="1.5" PointX="8.25" PointY="15.375" Height="1.980286458333353" />
         <EntityTypeShape EntityType="WikipedModel.TagoviPitanja" Width="1.5" PointX="7.5" PointY="29.375" Height="1.980286458333353" />
@@ -1575,8 +1513,8 @@
           <ConnectorPoint PointX="6.75" PointY="17.086293945312491" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_Sadrzaji_Clanci" >
-          <ConnectorPoint PointX="7.5" PointY="7.0285953776041765" />
-          <ConnectorPoint PointX="8.25" PointY="7.0285953776041765" />
+          <ConnectorPoint PointX="7.5" PointY="6.8362939453125" />
+          <ConnectorPoint PointX="8.25" PointY="6.8362939453125" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_TagClanci_Clanci" >
           <ConnectorPoint PointX="6.9531225" PointY="8.6340950520833246" />
@@ -1618,11 +1556,6 @@
           <ConnectorPoint PointX="7.125" PointY="28.376152846153843" />
           <ConnectorPoint PointX="7.125" PointY="21.785692917968753" />
           <ConnectorPoint PointX="7.5" PointY="21.785692917968753" />
-        </AssociationConnector>
-        <AssociationConnector Association="WikipedModel.FK_Sadrzaji_Jezici" >
-          <ConnectorPoint PointX="7.5" PointY="3.0189925130208124" />
-          <ConnectorPoint PointX="9" PointY="3.0189925130208124" />
-          <ConnectorPoint PointX="9" PointY="5.75" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_Komentari_Korisnici" >
           <ConnectorPoint PointX="4.5" PointY="12.841222330729167" />

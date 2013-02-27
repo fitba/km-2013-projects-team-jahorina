@@ -53,15 +53,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Jezici">
-      <EntityTypeMapping TypeName="WikipedModel.Jezici">
-        <MappingFragment StoreEntitySet="Jezici">
-          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
-          <ScalarProperty Name="Vrsta" ColumnName="Vrsta" />
-          <ScalarProperty Name="JezikID" ColumnName="JezikID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Komentari">
       <EntityTypeMapping TypeName="WikipedModel.Komentari">
         <MappingFragment StoreEntitySet="Komentari">
@@ -150,8 +141,8 @@
     <EntitySetMapping Name="Sadrzaji">
       <EntityTypeMapping TypeName="WikipedModel.Sadrzaji">
         <MappingFragment StoreEntitySet="Sadrzaji">
+          <ScalarProperty Name="Datum" ColumnName="Datum" />
           <ScalarProperty Name="ClanakID" ColumnName="ClanakID" />
-          <ScalarProperty Name="JezikID" ColumnName="JezikID" />
           <ScalarProperty Name="Tekst" ColumnName="Tekst" />
           <ScalarProperty Name="Opis" ColumnName="Opis" />
           <ScalarProperty Name="Naslov" ColumnName="Naslov" />

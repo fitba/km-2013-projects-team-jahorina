@@ -7,6 +7,8 @@ using Wikiped.Models;
 using Wikiped.DBBL.DAL;
 using Wikiped.DBBL.BLL;
 using System.Web.Script.Serialization;
+using System.IO;
+using System.Drawing;
 
 namespace Wikiped.Controllers
 {
@@ -251,6 +253,81 @@ namespace Wikiped.Controllers
         public ActionResult Create()
         {
 
+            return View();
+        }
+        [ValidateInput(false)]
+        [HttpPost]
+        public ActionResult Create(string naslov, string kategorija, string slicnaKat, string tekst, HttpPostedFileBase slika, string tagovi, bool update)
+        {
+            if (update == true)
+            {
+                if (slika != null && slika.ContentLength > 0)
+                {
+
+                    var fileName = Path.GetFileName(slika.FileName);
+
+                    var path = Path.Combine(Server.MapPath("~/Images/clanci/"), fileName);
+                    slika.SaveAs(path);
+
+                    Image ss = System.Drawing.Image.FromFile(path);
+
+                    using (ss)
+                    {
+                        ss = SlikeServices.ResizeSlikePravilno(ss, 120, 120);
+                        ss.Save(Server.MapPath("~/Images/clanci/dd.jpg"));
+
+                    }
+
+                    System.IO.File.Delete(path);
+
+
+                    using (Spajanje s = new Spajanje())
+                    {
+                        Clanci novi = new Clanci();
+                        novi.Popularnost = 0;
+                        novi.Ocjenjeno = 0;
+                        novi.Slika = path.ToString();
+                        novi.Guid = Guid.NewGuid();
+                        
+                        s.Context.Clanci.AddObject(novi);
+                        s.Context.SaveChanges();
+
+                        Clanci ClanakS =s.Context.Clanci.ToList().Last();
+
+                        Sadrzaji sadrzajS = new Sadrzaji();
+                        sadrzajS.ClanakID = ClanakS.ClanakID;
+                        sadrzajS.Naslov = naslov;
+                        sadrzajS.Tekst = tekst;
+                        sadrzajS.Datum = DateTime.Now;
+                        s.Context.Sadrzaji.AddObject(sadrzajS);
+
+                        List<string> tegs = tagovi.Split(',').ToList();
+                        List<Tags> Tagtemp = new List<Tags>();
+                        Tags tgtmp;
+                        foreach (string it in tegs)
+                        {
+                            tgtmp = new Tags();
+                            tgtmp.Ime = it;
+                            tgtmp.Opis = it;
+                            Tagtemp.Add(tgtmp);
+                            
+                        }
+                        foreach (Tags tgs in Tagtemp)
+                        {
+                            s.Context.Tags.AddObject(tgs);
+                            s.Context.SaveChanges();
+                        }
+                        s.Context.SaveChanges();
+
+                    }
+                    
+
+                }
+            }
+            else
+            {
+
+            }
             return View();
         }
     }

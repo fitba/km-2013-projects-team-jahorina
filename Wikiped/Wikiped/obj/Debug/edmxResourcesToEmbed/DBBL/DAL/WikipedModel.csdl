@@ -6,7 +6,6 @@
     <EntitySet Name="Drzave" EntityType="WikipedModel.Drzave" />
     <EntitySet Name="GlasoviZaOdgovore" EntityType="WikipedModel.GlasoviZaOdgovore" />
     <EntitySet Name="GlasoviZaPitanja" EntityType="WikipedModel.GlasoviZaPitanja" />
-    <EntitySet Name="Jezici" EntityType="WikipedModel.Jezici" />
     <EntitySet Name="Komentari" EntityType="WikipedModel.Komentari" />
     <EntitySet Name="Korisnici" EntityType="WikipedModel.Korisnici" />
     <EntitySet Name="KorisnikVrste" EntityType="WikipedModel.KorisnikVrste" />
@@ -64,10 +63,6 @@
     <AssociationSet Name="FK_GlasoviZaPitanja_Pitanja" Association="WikipedModel.FK_GlasoviZaPitanja_Pitanja">
       <End Role="Pitanja" EntitySet="Pitanja" />
       <End Role="GlasoviZaPitanja" EntitySet="GlasoviZaPitanja" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Sadrzaji_Jezici" Association="WikipedModel.FK_Sadrzaji_Jezici">
-      <End Role="Jezici" EntitySet="Jezici" />
-      <End Role="Sadrzaji" EntitySet="Sadrzaji" />
     </AssociationSet>
     <AssociationSet Name="FK_Komentari_Korisnici" Association="WikipedModel.FK_Komentari_Korisnici">
       <End Role="Korisnici" EntitySet="Korisnici" />
@@ -179,15 +174,6 @@
     <Property Type="Int32" Name="Glas" />
     <NavigationProperty Name="Korisnici" Relationship="WikipedModel.FK_GlasoviZaPitanja_Korisnici" FromRole="GlasoviZaPitanja" ToRole="Korisnici" />
     <NavigationProperty Name="Pitanja" Relationship="WikipedModel.FK_GlasoviZaPitanja_Pitanja" FromRole="GlasoviZaPitanja" ToRole="Pitanja" />
-  </EntityType>
-  <EntityType Name="Jezici">
-    <Key>
-      <PropertyRef Name="JezikID" />
-    </Key>
-    <Property Type="Int32" Name="JezikID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Type="Int32" Name="Vrsta" />
-    <Property Type="String" Name="Naziv" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Sadrzaji" Relationship="WikipedModel.FK_Sadrzaji_Jezici" FromRole="Jezici" ToRole="Sadrzaji" />
   </EntityType>
   <EntityType Name="Komentari">
     <Key>
@@ -302,10 +288,9 @@
     <Property Type="String" Name="Naslov" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="Opis" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Type="String" Name="Tekst" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Type="Int32" Name="JezikID" />
     <Property Type="Int32" Name="ClanakID" />
     <NavigationProperty Name="Clanci" Relationship="WikipedModel.FK_Sadrzaji_Clanci" FromRole="Sadrzaji" ToRole="Clanci" />
-    <NavigationProperty Name="Jezici" Relationship="WikipedModel.FK_Sadrzaji_Jezici" FromRole="Sadrzaji" ToRole="Jezici" />
+    <Property Type="DateTime" Name="Datum" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -495,18 +480,6 @@
       </Principal>
       <Dependent Role="GlasoviZaPitanja">
         <PropertyRef Name="PitanjeID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Sadrzaji_Jezici">
-    <End Type="WikipedModel.Jezici" Role="Jezici" Multiplicity="0..1" />
-    <End Type="WikipedModel.Sadrzaji" Role="Sadrzaji" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Jezici">
-        <PropertyRef Name="JezikID" />
-      </Principal>
-      <Dependent Role="Sadrzaji">
-        <PropertyRef Name="JezikID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

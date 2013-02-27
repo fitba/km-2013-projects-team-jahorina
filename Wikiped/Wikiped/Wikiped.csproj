@@ -129,6 +129,7 @@
     <Compile Include="Models\OcjeneServis.cs" />
     <Compile Include="Models\OdgovoriSaO.cs" />
     <Compile Include="Models\Pitanja.cs" />
+    <Compile Include="Models\SlikeServis.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -498,6 +499,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Images\clanci\" />
     <Folder Include="Script\tiny_mce\plugins\spellchecker\classes\utils\" />
     <Folder Include="Script\tiny_mce\plugins\spellchecker\includes\" />
   </ItemGroup>

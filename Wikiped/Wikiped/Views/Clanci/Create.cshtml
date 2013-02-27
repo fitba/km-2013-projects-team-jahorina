@@ -19,14 +19,17 @@
 
 
 <div class="clanak-details-preporuka"></div>
+@using (Html.BeginForm("create","Clanci",FormMethod.Post,new {enctype = "multipart/form-data" }))
+
+{
 <div class="clanak-details-content">
 <div class="clanci-head">Naslov</div>
-<input type="text" class="clanak-create-textBox" />
+<input name="naslov" type="text" class="clanak-create-textBox" />
 
 <div class="clanak-otkriveno">
 <div class="clanci-head">Kategorija</div>
 
-    <select id="ddlkategorije" class="clanak-create-textBox">
+    <select name="kategorija" id="ddlkategorije" class="clanak-create-textBox">
     <option value=""></option> 
         <option>ehhehe</option>
          <option>ehhehe</option>
@@ -36,31 +39,31 @@
 
     <div class="clanak-skriveno">
     <div id="slKat"class="clanci-head"></div>
-    <select id="ddlSlkategorije" class="clanak-create-textBox">
+    <select name="slicnaKat" id="ddlSlkategorije" class="clanak-create-textBox">
     <option value="0">Ostalo</option> 
         <option>ehhehe</option>
          <option>ehhehe</option>
     </select>
 </div>
   <div class="clanci-head">
-            Vaš komentar</div>
+            Vaš tekst</div>
         <div class="wmd-panel">
-            <textarea class="myTextEditor" style="width: 400px" id="wmd-input" name="txtComment">
+            <textarea name="tekst" class="myTextEditor" style="width: 400px" id="wmd-input" name="txtComment">
 
                     </textarea>
         </div>
 
 <div class="clanci-head">Slika</div>
-<input type="file" class="clanak-create-textBox" name="fuSlika" />
+<input name="slika" type="file" class="clanak-create-textBox" name="fuSlika" />
 
 <div class="clanci-head">Tagovi</div>
-<input type="text" class="clanak-create-textBox" id="txtTagsClanci" name="tags"/>
+<input name="tagovi" type="text" class="clanak-create-textBox" id="txtTagsClanci" name="tags"/>
+<input name="update" type="hidden" value="true"/>
 
-<div class="mainCommentBtn">
-            Vaš komentar
-            </div>
+<input class="mainCommentBtn" type="submit" value="Objavi clanak" />
+
 </div>
-
+}
 
 <h2>Create</h2>
 
@@ -76,7 +79,7 @@
         $("#btnNovaKat").live('click', function () {
             var novaKategorija = $(".no-results").find("span").text();
             $(".clanak-otkriveno").hide();
-            $("#slKat").text("Slicna kategorija za " + novaKategorija + " - ").append("<div class='clanci-change'>Promjeni</div>");
+            $("#slKat").text("Odaberite slicnu kategoriju za " + novaKategorija + " - ").append("<div class='clanci-change'>Promjeni</div>");
             $(".clanak-skriveno").show();
 
 
