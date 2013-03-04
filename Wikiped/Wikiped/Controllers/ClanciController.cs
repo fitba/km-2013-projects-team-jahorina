@@ -252,42 +252,107 @@ namespace Wikiped.Controllers
 
         public ActionResult Create()
         {
+            using (Spajanje s = new Spajanje())
+            {
 
-            return View();
+               
+                List<TagVrste> tgs = (from tg in s.Context.TagVrste where tg.Vrsta!=1 orderby tg.Opis ascending select tg).ToList();
+               ViewBag.clanci=(from cl in s.Context.Clanci join sa in s.Context.Sadrzaji on 
+                               cl.ClanakID equals sa.ClanakID select
+                   sa).ToList();
+
+                return View(tgs);
+            }
+            
         }
         [ValidateInput(false)]
         [HttpPost]
-        public ActionResult Create(string naslov, string kategorija, string slicnaKat, string tekst, HttpPostedFileBase slika, string tagovi, bool update)
+        public ActionResult Create(string naslov, int kategorija,string novaKat, int slicnaKat, string tekst, HttpPostedFileBase slika, string tagovi, bool update)
         {
-            if (update == true)
+            if (update != true)
             {
-                if (slika != null && slika.ContentLength > 0)
-                {
-
-                    var fileName = Path.GetFileName(slika.FileName);
-
-                    var path = Path.Combine(Server.MapPath("~/Images/clanci/"), fileName);
-                    slika.SaveAs(path);
-
-                    Image ss = System.Drawing.Image.FromFile(path);
-
-                    using (ss)
-                    {
-                        ss = SlikeServices.ResizeSlikePravilno(ss, 120, 120);
-                        ss.Save(Server.MapPath("~/Images/clanci/dd.jpg"));
-
-                    }
-
-                    System.IO.File.Delete(path);
-
-
+                
                     using (Spajanje s = new Spajanje())
                     {
                         Clanci novi = new Clanci();
                         novi.Popularnost = 0;
                         novi.Ocjenjeno = 0;
-                        novi.Slika = path.ToString();
+                        
                         novi.Guid = Guid.NewGuid();
+                        string putanja = "";
+                        if (slika != null && slika.ContentLength > 0)
+                        {
+
+                            var fileName = novi.Guid.ToString().Substring(0, 9);
+                            string ext = Path.GetExtension(slika.FileName);
+                            var path = Path.Combine(Server.MapPath("~/Images/clanci/"), fileName + ext);
+                            slika.SaveAs(path);
+
+                            Image ss = System.Drawing.Image.FromFile(path);
+
+                            using (ss)
+                            {
+                                ss = SlikeServices.ResizeSlikePravilno(ss, 120, 120);
+                                ss.Save(Server.MapPath("~/Images/clanci/" + fileName + "2" + ext));
+
+                            }
+
+                            System.IO.File.Delete(path);
+                            putanja = "~/Images/clanci/" + fileName + "2" + ext;
+
+                        }
+                        if (putanja != string.Empty)
+                        {
+                            novi.Slika = putanja;
+                        }
+                        else
+                        {
+                            novi.Slika = null;
+
+                        }
+
+                        if (kategorija == 0)
+                        {
+                            if (novaKat != string.Empty)
+                            {
+                                TagVrste tg = new TagVrste();
+                                if (slicnaKat == 0)
+                                {
+                                    tg.Vrsta = 1;
+                                    tg.Opis = novaKat;
+
+                                }
+                                else
+                                {
+                                    TagVrste tgtmp2 = (from tv in s.Context.TagVrste where tv.TagVrstaID == slicnaKat select tv).FirstOrDefault();
+                                    tg.Vrsta = tgtmp2.Vrsta;
+                                    tg.Opis = novaKat;
+
+
+                                }
+                                s.Context.TagVrste.AddObject(tg);
+                                s.Context.SaveChanges();
+                                tg = null;
+                                tg = s.Context.TagVrste.ToList().Last();
+                                novi.TagVrstaID = tg.TagVrstaID;
+
+
+
+
+                            }
+                            else
+                            {
+                                TagVrste tg = (from tv in s.Context.TagVrste where tv.Vrsta == 1 select tv).FirstOrDefault();
+                                novi.TagVrstaID = tg.TagVrstaID;
+
+                            }
+
+                        }
+                        else
+                        {
+                            novi.TagVrstaID = kategorija;
+
+                        }
                         
                         s.Context.Clanci.AddObject(novi);
                         s.Context.SaveChanges();
@@ -300,29 +365,44 @@ namespace Wikiped.Controllers
                         sadrzajS.Tekst = tekst;
                         sadrzajS.Datum = DateTime.Now;
                         s.Context.Sadrzaji.AddObject(sadrzajS);
+                        s.Context.SaveChanges();
 
                         List<string> tegs = tagovi.Split(',').ToList();
-                        List<Tags> Tagtemp = new List<Tags>();
-                        Tags tgtmp;
-                        foreach (string it in tegs)
+                        if (tegs.Count > 0 && tegs[0]!=string.Empty)
                         {
-                            tgtmp = new Tags();
-                            tgtmp.Ime = it;
-                            tgtmp.Opis = it;
-                            Tagtemp.Add(tgtmp);
-                            
+                            List<Tags> Tagtemp = new List<Tags>();
+                            Tags tgtmp;
+                            foreach (string it in tegs)
+                            {
+                                tgtmp = new Tags();
+                                tgtmp.Ime = it;
+                                tgtmp.Opis = it;
+                                Tagtemp.Add(tgtmp);
+
+                            }
+                            Tags tmpTag;
+                            TagClanci tmpTclan;
+                            foreach (Tags tgs in Tagtemp)
+                            {
+                                s.Context.Tags.AddObject(tgs);
+                                s.Context.SaveChanges();
+
+                                tmpTag = s.Context.Tags.ToList().Last();
+                                tmpTclan = new TagClanci();
+                                tmpTclan.ClanakID = ClanakS.ClanakID;
+                                tmpTclan.TagID = tmpTag.TagID;
+                                s.Context.TagClanci.AddObject(tmpTclan);
+                                s.Context.SaveChanges();
+
+                            }
                         }
-                        foreach (Tags tgs in Tagtemp)
-                        {
-                            s.Context.Tags.AddObject(tgs);
-                            s.Context.SaveChanges();
-                        }
-                        s.Context.SaveChanges();
+                        
+                        
 
                     }
                     
 
-                }
+                
             }
             else
             {
@@ -330,5 +410,10 @@ namespace Wikiped.Controllers
             }
             return View();
         }
+    
+    
+    
+    
+    
     }
 }

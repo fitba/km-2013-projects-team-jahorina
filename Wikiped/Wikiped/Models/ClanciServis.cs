@@ -102,7 +102,16 @@ namespace Wikiped.Models
                     foreach (ClanciServis cl in repl.ClanciOrig)
                     {
                         cl.tekst = cl.tekst.Substring(0, (cl.tekst.Length * 20) / 100);
+                        try
+                        {
                         cl.tekst = cl.tekst.Substring(0, cl.tekst.LastIndexOf(' '));
+                        }
+                        catch (Exception)
+                        {
+                            
+                        
+                        }
+                        
                         cl.tekst += "...";
                         tagovi = null;
                         tagovi = (from tc in s.Context.TagClanci

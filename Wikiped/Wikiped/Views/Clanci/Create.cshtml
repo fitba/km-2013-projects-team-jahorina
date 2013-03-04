@@ -1,11 +1,13 @@
-﻿@model Wikiped.Models.ClanciServisObrada
-
+﻿@model List<Wikiped.DBBL.DAL.TagVrste>
+@using Wikiped.DBBL.DAL;
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/Pocetna.cshtml";
 }
-<script src="/Script/tiny_mce/tiny_mce.js" type="text/javascript"></script>
 
+
+<script src="/Script/tiny_mce/tiny_mce.js" type="text/javascript"></script>
+<script src="../../Script/clanci.js" type="text/javascript"></script>
 <link href="/Script/autocomplete/css/jquery.tagit.clanak.css" rel="stylesheet" type="text/css" />
 <script src="/Script/autocomplete/tag-it.js" type="text/javascript"></script>
 <script src="/Script/autocomplete/autocomplete-tags.js" type="text/javascript"></script>
@@ -13,8 +15,8 @@
 <script src="../../Script/chosen/chosen.jquery.js" type="text/javascript"></script>
 
 <div class="clanci-create-head">
-<div class="clanak-create-meni">Novi clanak</div>
-<div class="clanak-create-meni">Moji clanci</div>
+<div id="btnNoviClanak" class="clanak-create-meni">Novi clanak</div>
+<div id="btnMojiClanci" class="clanak-create-meni">Moji clanci</div>
 </div>
 
 
@@ -23,16 +25,36 @@
 
 {
 <div class="clanak-details-content">
-<div class="clanci-head">Naslov</div>
-<input name="naslov" type="text" class="clanak-create-textBox" />
+<div id="mojClanakSkriven" class="clanak-skriveno">
+    <div class="clanci-head">Vasi clanci</div>
+    <select name="mojClanak" id="mojClanak" class="clanak-create-textBox">
+    <option value="0"></option> 
+         @foreach (var cls in ViewBag.clanci)
+    {
+        <option value="@cls.ClanakID">@cls.Naslov</option>
+    }
+    </select>
+    </div>
+<div id="NaslovKreiraj" class="clanak-otkriveno">
+<div class="clanci-head">
+<div class="clanak-head-texts">Naslov</div>
+
+<div id="greskaNaslov" class="clanak-naslovi-greska"></div>
+
+</div>
+<input id="txtNaslov" name="naslov" type="text" class="clanak-create-textBox" />
+</div>
 
 <div class="clanak-otkriveno">
 <div class="clanci-head">Kategorija</div>
 
     <select name="kategorija" id="ddlkategorije" class="clanak-create-textBox">
-    <option value=""></option> 
-        <option>ehhehe</option>
-         <option>ehhehe</option>
+    <option value="0"></option> 
+    @foreach (var tg in Model)
+    {
+        <option value="@tg.TagVrstaID">@tg.Opis</option>
+    }
+        
     </select>
     </div>
 
@@ -40,15 +62,19 @@
     <div class="clanak-skriveno">
     <div id="slKat"class="clanci-head"></div>
     <select name="slicnaKat" id="ddlSlkategorije" class="clanak-create-textBox">
-    <option value="0">Ostalo</option> 
-        <option>ehhehe</option>
-         <option>ehhehe</option>
+    <option value="0"></option> 
+         @foreach (var tg in Model)
+    {
+        <option value="@tg.TagVrstaID">@tg.Opis</option>
+    }
     </select>
 </div>
   <div class="clanci-head">
-            Vaš tekst</div>
+           <div class="clanak-head-texts">Vaš tekst</div> 
+            <div id="greskaText" class="clanak-naslovi-greska"></div>
+            </div>
         <div class="wmd-panel">
-            <textarea name="tekst" class="myTextEditor" style="width: 400px" id="wmd-input" name="txtComment">
+            <textarea name="tekst" class="myTextEditor" style="width: 400px" id="wmd-input">
 
                     </textarea>
         </div>
@@ -58,9 +84,10 @@
 
 <div class="clanci-head">Tagovi</div>
 <input name="tagovi" type="text" class="clanak-create-textBox" id="txtTagsClanci" name="tags"/>
-<input name="update" type="hidden" value="true"/>
+<input id="update" name="update" type="hidden" value="false"/>
+<input id="novaKat" name="novaKat" type="hidden" value=""/>
 
-<input class="mainCommentBtn" type="submit" value="Objavi clanak" />
+<input id="btnObjava" class="mainCommentBtn" type="submit" value="Objavi clanak"  />
 
 </div>
 }
@@ -73,18 +100,82 @@
 
 <script type="text/javascript">
     $("document").ready(function () {
+
+        $("#mojClanak").change(function () {
+            alert($("#mojClanak").val());
+        });
+
+        $("#btnMojiClanci").click(function () {
+
+
+            $("#mojClanakSkriven").slideDown();
+            $("#update").val(true);
+
+
+        });
+        $("#btnNoviClanak").click(function () {
+
+
+            $("#mojClanakSkriven").slideUp();
+            $("#update").val(false);
+
+
+        });
+
+        $("form").submit(function () {
+            if (provjeraUnosa() == false) {
+                $(".clanak-naslovi-greska").fadeIn();
+            }
+
+            return provjeraUnosa();
+        });
+
         $("#ddlkategorije").chosen({ no_results_text: "Kategorija ne postoji" + '<div id="btnNovaKat" class="clanak-nova-kategorija">Dodaj kategoriju</div>' });
         $("#ddlSlkategorije").chosen({ no_results_text: "Trenutno odabrana kategorija: Ostalo - " });
+        $("#mojClanak").chosen({ no_results_text: "Trenutno nema clanka - " });
+        function provjeraUnosa() {
+            var tekst = tinyMCE.activeEditor.getContent();
+            if (tekst.length > 50) {
+                $("#greskaText").text("");
+                if ($("#txtNaslov").val().length > 10) {
+                    return true;
+                }
+                else {
 
+                    $("#greskaNaslov").text("* Unesite 10 ili vise slova!");
+                    return false;
+                }
+
+            }
+            else {
+
+                $("#greskaText").text("* Unesite 50 ili vise slova!");
+                if ($("#txtNaslov").val().length < 10) {
+                    $("#greskaNaslov").text("* Unesite 10 ili vise slova!");
+                } else {
+
+                    $("#greskaNaslov").text("");
+
+                }
+
+                return false;
+
+
+            }
+
+        }
         $("#btnNovaKat").live('click', function () {
+            provjeraUnosa();
             var novaKategorija = $(".no-results").find("span").text();
+            $("#novaKat").val(novaKategorija);
+
             $(".clanak-otkriveno").hide();
             $("#slKat").text("Odaberite slicnu kategoriju za " + novaKategorija + " - ").append("<div class='clanci-change'>Promjeni</div>");
             $(".clanak-skriveno").show();
 
 
         });
-        $(".clanci-change").live('click',function () {
+        $(".clanci-change").live('click', function () {
             $(".clanak-skriveno").hide();
             $(".clanak-otkriveno").show();
         });

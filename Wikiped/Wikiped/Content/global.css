@@ -785,19 +785,27 @@ text-decoration:underline;
 .clanci-head
 {
 background: #E5EFFD;
-color: #333;
-font-size: 14px;
+
 min-height: 22px;
 height:auto;
-overflow: visible;
+overflow: hidden;
 border:1px solid #abc6dd;
 width:591px;
 border-bottom:none;
-font-style: italic;
-font-weight: bold;
+
 margin:10px 0px 0px 0px;
 padding:3px;
 display:block;
+}
+.clanak-head-texts
+{
+    color: #333;
+font-size: 14px;
+height:auto;
+width:auto;
+float:left;
+font-style: italic;
+font-weight: bold;
 }
 
 .clanak-greska{
@@ -1007,4 +1015,15 @@ moz-box-shadow: 0 0 1px 1px #888;
 .clanci-change:hover
 {
     cursor:pointer; 
+}
+.clanak-naslovi-greska
+{
+ float:right;
+ color:#ee0101;
+    display:inline;
+    width:auto;
+   height:15px;
+   font-size: 13px;
+   font-family:helvetica;
+  display:none;
 }
