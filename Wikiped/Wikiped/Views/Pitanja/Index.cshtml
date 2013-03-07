@@ -1,16 +1,15 @@
 ﻿@model IEnumerable<Wikiped.DBBL.DAL.Pitanja>
-
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/Pocetna.cshtml";
 }
 <div class="wrapperleft">
-@foreach (var item in Model)
+@foreach (var item in ViewBag.AllPitanja)
 {
     <div class="question-summary narrow">
     <div class="leftBox">
         <div class="votes">
-             <div class="mini-counts">@Html.DisplayFor(modelItem => item.BrojGlasova)</div>
+             <div class="mini-counts">@item.BrojGlasova</div>
              <div>glas</div>
             </div>
         <div class="status unanswered">
@@ -18,17 +17,19 @@
              <div>odgovor</div>
         </div>
         <div class="views">
-            <div class="mini-counts">@Html.DisplayFor(modelItem => item.BrojPregleda)</div>
+            <div class="mini-counts">@item.BrojPregleda</div>
             <div>pregled</div>
         </div>
     </div>
     <div class="summary">
-        <h3> <a>@Html.DisplayFor(modelItem => item.Naziv)</a></h3>
+        <h3> <a href="/pitanja/details/@item.PitanjeID">@item.Naziv</a></h3>
         <div class="tags t-html t-css t-google-chrome t-heroku t-zurb-foundation">
-            <a href="/questions/tagged/html" class="post-tag" title="" rel="tag">html</a> 
-            <a href="/questions/tagged/css" class="post-tag" title="" rel="tag">css</a> 
-            @*<a href="/questions/tagged/google-chrome" class="post-tag" title="" rel="tag"><img src="http://i.stack.imgur.com/dmHl0.png" height="16" width="18" alt="" class="sponsor-tag-img">google-chrome</a> *@
-            <a href="/questions/tagged/zurb-foundation" class="post-tag" title="" rel="tag">zurb-foundation</a> 
+           
+            @foreach (var tag in @ViewBag.GetTags(@item.PitanjeID))
+            {
+                 <a href="#" class="post-tag" title="" rel="tag">@tag</a> 
+            }
+            
         </div>
         <div class="started">
             <a href="/questions/14567110/website-content-shown-on-moz-but-not-chrome-with-heroku" class="started-link"><span title="2013-01-28 16:57:21Z" class="relativetime">1m ago</span></a>

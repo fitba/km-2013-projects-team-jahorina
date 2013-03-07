@@ -198,6 +198,53 @@ namespace Wikiped.Models
         {
             return context.Tags.Where(x => x.TagID == id).FirstOrDefault();
         }
+        public int AddPitanja(DBBL.DAL.Pitanja pt)
+        {
+            context.Pitanja.AddObject(pt);
+            context.SaveChanges();
+            DBBL.DAL.Pitanja temp=context.Pitanja.ToList().LastOrDefault();
+            if (temp != null)
+            {
+                return temp.PitanjeID;
+            }
+            return 0;
+        }
+        public void AddTagsForPitanja(TagoviPitanja tg)
+        {
+            context.TagoviPitanja.AddObject(tg);
+            context.SaveChanges();
+        }
+        public int GetTagIdByName(string name)
+        {
+           Tags tag= context.Tags.ToList().Where(x => x.Ime == name).FirstOrDefault();
+           if (tag != null)
+           {
+               return tag.TagID;
+           }
+           else
+           {
+               Tags t = new Tags();
+               t.Ime = name;
+               context.Tags.AddObject(t);
+               context.SaveChanges();
+               Tags tagZ = context.Tags.LastOrDefault();
+               if (tagZ != null)
+               {
+                   return tagZ.TagID;
+               }
+               return 0;
+           }
+        }
+        public IEnumerable<string> GetAllTagsForPitanjeID(int id)
+        {
+            var upit = (from t in context.Tags
+                                 join pt in context.TagoviPitanja
+                                 on t.TagID equals pt.TagID
+                                 where pt.PitanjeID == id
+                                 select t.Ime ).Distinct().ToList();
+            return upit;
+        }
+
         public void Dispose()
         {
             context.Dispose();

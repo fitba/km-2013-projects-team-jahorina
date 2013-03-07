@@ -27,10 +27,10 @@
    <div class="footerResp" style="clear: both;margin-left: 60px;">
    
    <div class="tags tagDetailMargin">
-            <a href="/questions/tagged/html" class="post-tag" title="" rel="tag">html</a> 
-            <a href="/questions/tagged/css" class="post-tag" title="" rel="tag">css</a> 
-            @*<a href="/questions/tagged/google-chrome" class="post-tag" title="" rel="tag"><img src="http://i.stack.imgur.com/dmHl0.png" height="16" width="18" alt="" class="sponsor-tag-img">google-chrome</a> *@
-            <a href="/questions/tagged/zurb-foundation" class="post-tag" title="" rel="tag">zurb-foundation</a> 
+           @foreach (var item in ViewBag.Tags)
+           {
+              <a href="#" class="post-tag" title="" rel="tag"> @item</a> 
+           }
    </div>
        
         <div class="post-signature owner">
@@ -39,7 +39,7 @@
                 <a href="/users/1644123/jim22150"><div class=""><img src="http://www.gravatar.com/avatar/e2b3c87d515c1bd878ac1b67877a265e?s=32&amp;d=identicon&amp;r=PG" alt="" width="32" height="32"></div></a>
             </div>
             <div class="user-action-time">
-            <span title="@Html.DisplayFor(model => model.PitanjaPost.Datum)" class="relativetime"> @Html.DisplayFor(model => model.PitanjaPost.Datum).ToString().Substring(0,10)</span>
+            <span title="@Html.DisplayFor(model => model.PitanjaPost.Datum)" class="relativetime"> @Html.DisplayFor(model => model.PitanjaPost.Datum).ToString().Substring(0, 10)</span>
             </div>
             
             <div class="user-details">

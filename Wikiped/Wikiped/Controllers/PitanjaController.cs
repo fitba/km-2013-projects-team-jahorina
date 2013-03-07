@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Wikiped.Models;
+
 namespace Wikiped.Controllers
 {
     public class PitanjaController : Controller
@@ -17,36 +18,69 @@ namespace Wikiped.Controllers
             using (Pitanja pt = new Pitanja())
             {
                 pitanja = pt.GetAllPitanja();
+                ViewBag.AllPitanja = pitanja;
             }
-            return View(pitanja);
-        }
 
+            ViewBag.GetTags = new Func<int, IEnumerable<string>>(GetAllTagsForPitanje);
+            return View();
+        }
+        public IEnumerable<string> GetAllTagsForPitanje(int id)
+        {
+            IEnumerable<string> lstTags;
+            using (Pitanja pt = new Pitanja())
+            {
+                lstTags = pt.GetAllTagsForPitanjeID(id);
+            }
+            return lstTags;
+        }
         public ActionResult Create()
         {
             return View();
         }
-
+      
         [HttpPost]
-        public ActionResult Create(string tags)
+        [ValidateInput(false)]
+        public ActionResult Create(string tags, string title, string opis)
         {
             string[] tagsA = null;
             if (tags != String.Empty)
             {
                 tagsA = tags.Split(',');
             };
+            DBBL.DAL.Pitanja pitanje = new DBBL.DAL.Pitanja();
+            pitanje.Naziv = title;
+            pitanje.Opis = opis;
+            pitanje.Datum = DateTime.Now;
+            pitanje.BrojGlasova = 0;
+            pitanje.BrojPregleda = 0;
 
-            return Content(tags);
+            using (Pitanja pt = new Pitanja())
+            {
+                int id = pt.AddPitanja(pitanje);
+
+                foreach (var item in tagsA)
+                {
+                   int idTaga= pt.GetTagIdByName(item);
+                   Wikiped.DBBL.DAL.TagoviPitanja tp = new DBBL.DAL.TagoviPitanja();
+                   tp.TagID = idTaga;
+                   tp.PitanjeID = id;
+                   pt.AddTagsForPitanja(tp);
+                }
+            }
+            return RedirectToAction("Create");
         }
 
         public ActionResult Details(int id)
         {
             Pitanja pitanje = new Pitanja();
+            IEnumerable<object> lstTags;
             using (Pitanja pt = new Pitanja())
             {
                 pt.SetAllDetaByPitanjeID(id);
+                lstTags = pt.GetAllTagsForPitanjeID(id);
                 pitanje = pt;
             }
-
+            ViewBag.Tags = lstTags;
             return View(pitanje);
         }
 
@@ -70,17 +104,8 @@ namespace Wikiped.Controllers
                     pt.SetAllDetaByPitanjeID(id);
                     pitanje = pt;
                 }
-
-                return View(pitanje);
             }
-            Pitanja pitanje2 = new Pitanja();
-            using (Pitanja pt = new Pitanja())
-            {
-                pt.SetAllDetaByPitanjeID(id);
-                pitanje2 = pt;
-            }
-
-            return View(pitanje2);
+            return RedirectToAction("Details", new { ID = id });
         }
         #region Ajax Vote and Comment
 
@@ -146,6 +171,7 @@ namespace Wikiped.Controllers
             {
                 lstTags = pt.GetAllTags();
             }
+
             List<string> lstTagovi = new List<string>();
 
             List<MyTags> lstMTasg = new List<MyTags>();
@@ -156,32 +182,9 @@ namespace Wikiped.Controllers
                 temp.Name = item.Ime;
                 lstMTasg.Add(temp);
             }
-
             //return Json(lstTagovi);
             return Json(lstMTasg);
-            // JavaScriptSerializer serializer = new JavaScriptSerializer();
-            //var temp = lstTags;
-            //return Json(lstTags, JsonRequestBehavior.AllowGet);
-            //return Json(new { admir = "test" });
-            // return Json(MvcHtmlString.Create(serializer.Serialize(lstTags)));
-            // return Json(new { "Name" = "Ghost Bar", "Address" = "2440 Victory Park Lane", "OpenDate"="Open"});
-
         }
-        //public static MvcHtmlString ToJson(this HtmlHelper html, object obj)
-        //{
-        //    JavaScriptSerializer serializer = new JavaScriptSerializer();
-        //    return MvcHtmlString.Create(serializer.Serialize(obj));
-        //}
-
-        //public static MvcHtmlString ToJson(this HtmlHelper html, object obj, int recursionDepth)
-        //{
-        //    JavaScriptSerializer serializer = new JavaScriptSerializer();
-        //    serializer.RecursionLimit = recursionDepth;
-        //    return MvcHtmlString.Create(serializer.Serialize(obj));
-        //}
-        // <script>
-        // var s = @(Html.ToJson(Model.Content));
-        //</script>
     }
 
     [Serializable]
