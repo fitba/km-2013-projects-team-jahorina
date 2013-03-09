@@ -35,6 +35,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net">
+      <HintPath>..\packages\Lucene.Net.3.0.3\lib\NET40\Lucene.Net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -126,9 +132,11 @@
     <Compile Include="Models\ExtensionMethod.cs" />
     <Compile Include="Models\HtmlHelpers.cs" />
     <Compile Include="Models\KorisniciServis.cs" />
+    <Compile Include="Models\LucenePt.cs" />
     <Compile Include="Models\OcjeneServis.cs" />
     <Compile Include="Models\OdgovoriSaO.cs" />
     <Compile Include="Models\Pitanja.cs" />
+    <Compile Include="Models\LuceneObject.cs" />
     <Compile Include="Models\SlikeServis.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

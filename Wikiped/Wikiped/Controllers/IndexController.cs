@@ -14,8 +14,18 @@ namespace Wikiped.Controllers
         //
         // GET: /Index/
         //[CustomAuthorize(Roles = Wikiped.Models.CustomAuthorizeAttribute.SiteRoles.Admin | Wikiped.Models.CustomAuthorizeAttribute.SiteRoles.Helpdesk)]
-        public ActionResult Index()
+        public ActionResult Index(string name)
         {
+            List<LuceneObject> pitanja;
+            if (!String.IsNullOrEmpty(name))
+            {
+                pitanja = LucenePt.Search(name).ToList();
+                ViewBag.AllData = pitanja;
+            }
+            else
+            {
+                ViewBag.AllData = "";
+            }
             return View();
         }
         [HttpPost]

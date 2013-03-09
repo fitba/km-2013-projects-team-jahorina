@@ -14,16 +14,36 @@ namespace Wikiped.Controllers
 
         public ActionResult Index()
         {
+            //LucenePt.ClearLuceneIndex();
             List<DBBL.DAL.Pitanja> pitanja;
             using (Pitanja pt = new Pitanja())
             {
                 pitanja = pt.GetAllPitanja();
                 ViewBag.AllPitanja = pitanja;
             }
-
+            ViewBag.Search = false;
             ViewBag.GetTags = new Func<int, IEnumerable<string>>(GetAllTagsForPitanje);
             return View();
         }
+
+        [HttpPost]
+        public ActionResult Index(string btnSearch, string search)
+        {
+            LucenePt.ClearLuceneIndex();
+            LucenePt.AddUpdateLuceneIndex(LucenePt.GetAllObjectForLuceneIndex());
+
+            List<LuceneObject> pitanja;
+            pitanja = LucenePt.Search(search).ToList();
+            if (pitanja != null)
+            {
+                pitanja = pitanja.Where(x => x.IsQuestion == true).ToList();
+            }
+            ViewBag.AllPitanja = pitanja;
+            ViewBag.Search = true;
+            ViewBag.GetTags = new Func<int, IEnumerable<string>>(GetAllTagsForPitanje);
+            return View();
+        }
+        
         public IEnumerable<string> GetAllTagsForPitanje(int id)
         {
             IEnumerable<string> lstTags;

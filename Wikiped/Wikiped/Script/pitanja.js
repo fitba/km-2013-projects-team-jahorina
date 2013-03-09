@@ -76,8 +76,9 @@
         });
 
     });
-  
+
     $(".btnComment").button();
     $(".mainCommentBtn").button();
     $(".wmd-input").text('');
+    $("#Pretraga").button();
 });

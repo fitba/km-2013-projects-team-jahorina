@@ -2,3 +2,25 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/Pocetna.cshtml";
 }
+<div class="wrapperleft">
+    @foreach (var item in ViewBag.AllData)
+    {
+        <div class="question-summary narrow">
+            <div class="summary">
+                <h3>
+                    <a class="colorBlue" href="/pitanja/details/@item.Id">@item.Name</a></h3>
+                    <div class="indexDescription">@if(item.Description.Length>251) { @item.Description.Substring(0, 250) }else{ @item.Description }</div> 
+                   
+                    @if (item.IsQuestion == true)
+                    {
+                          <div style="margin-top: 15px;"><a href="/pitanja/details/@item.Id" class="readMore">Pročitaj više o pitanju...</a></div>    
+                    }
+                    else
+                    {
+                          <div style="margin-top: 15px;"><a href="/clanci/ClanciPregled?clID=@item.Id" class="readMore">Pročitaj više o članku...</a></div>    
+                    }
+              
+            </div>
+        </div>
+    }
+</div>

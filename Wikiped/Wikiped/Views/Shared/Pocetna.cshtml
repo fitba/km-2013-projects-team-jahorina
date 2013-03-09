@@ -44,7 +44,25 @@
 
                 promSifre2();
             });
-
+            $('.mainSearch').keypress(function (e) {
+                if (e.which == 13) {
+                    if ($(this).val() != '') {
+                        window.location = '/index/?name='+$(this).val();
+                    }
+                }
+            });
+            $('.mainSearch').blur(function (e) {
+                if ($(this).val() == '') {
+                    $(this).val('  Pretraga');
+                    $(this).css({ 'font-weight': 'bold', 'font-style': 'italic', 'font-size': '14px' });
+                }
+            });
+            $('.mainSearch').focus(function () {
+                if ($(this).val() == '  Pretraga') {
+                    $(this).val('');
+                    $(this).css({ 'font-weight': 'normal', 'font-style': 'normal', 'font-size': '12px' });
+                }
+            });
         });
 
 </script>
@@ -78,14 +96,11 @@
         <div class="GdjeText">Obavijesti</div>
         </div>
 
-        <div class="OkolicaMenijaHome">
-        <div class="GdjeTacka"></div>
-        <div class="GdjeText">Teme</div>
-        </div>
+      
 
-        <div class="OkolicaMenijaHome">
-        <div class="GdjeTacka"></div>
-        <div class="GdjeText">Najnovije</div>
+        <div class="OkolicaMenijaHome1" style="width:300px;overflow: hidden;">
+            <input type="text" name="name" value="  Pretraga" class="mainSearch" />
+            
         </div>
     </div>
 </div>
