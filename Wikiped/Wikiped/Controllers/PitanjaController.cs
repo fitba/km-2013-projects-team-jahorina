@@ -16,6 +16,7 @@ namespace Wikiped.Controllers
 
         public ActionResult Index()
         {
+        
             //LucenePt.ClearLuceneIndex();
             List<DBBL.DAL.Pitanja> pitanja;
             using (Pitanja pt = new Pitanja())
@@ -109,9 +110,14 @@ namespace Wikiped.Controllers
         public List<PitanjaPreporuka> preporukaColaborative(int userId)
         {
             List<PitanjaPreporuka> PreporukaFinal;
+
+            List<PitanjaGlasovi> MyPitanja = getAllMyPitanjaByVote(userId);
+            List<int> UsesIds = (from m in MyPitanja select m.PitanjeId).ToList();
+
             if (getAllMyBrojPitanja(userId) > 0)
             {
-                List<PitanjaGlasovi> MyPitanja = getAllMyPitanjaByVote(userId);
+               
+
                 List<PitanjaGlasovi> OtherPitanja = getAllOtherPitanjaByVote(MyPitanja, userId);
                 double brojPitanja = (double)MyPitanja.Count;
                 List<PitanjaContains> otherContains = getAllPitanjaByContains(OtherPitanja, brojPitanja);
@@ -119,14 +125,15 @@ namespace Wikiped.Controllers
                 if (PreporukaFinal.Count < 5)
                 {
                     int top=5 - PreporukaFinal.Count;
-                    PreporukaFinal.AddRange(getTop5PitanjaDef(top));
+                    UsesIds.AddRange((from p in PreporukaFinal select p.PitanjeID).ToList());
+                    PreporukaFinal.AddRange(getTop5PitanjaDef(top, UsesIds));
                     
                 }
               
             }
             else
             {
-            PreporukaFinal= getTop5PitanjaDef(5);
+                PreporukaFinal = getTop5PitanjaDef(5, UsesIds);
               
             }
             PreporukaFinal = (from p in PreporukaFinal orderby p.Contains descending select p).ToList();
@@ -220,7 +227,7 @@ namespace Wikiped.Controllers
 
                 }
             }
-            KorisniciFinal = (from kr in KorisniciFinal orderby kr.Contains descending select kr).ToList();
+            KorisniciFinal = (from kr in KorisniciContains orderby kr.Contains descending select kr).ToList();
             return KorisniciFinal;
         }
         public List<PitanjaPreporuka> getTop5Pitanja(List<PitanjaGlasovi> myPitanja, List<PitanjaContains> otherUser)
@@ -265,15 +272,15 @@ namespace Wikiped.Controllers
             //        }).ToList();
 
         }
-        public List<PitanjaPreporuka> getTop5PitanjaDef(int top)
+        public List<PitanjaPreporuka> getTop5PitanjaDef(int top, List<int> UsesIds)
         {
             using (Spajanje s = new Spajanje())
             {
-                List<PitanjaPreporuka> preporukaFinal = (from p in s.Context.Pitanja
-                                                         orderby p.BrojGlasova, p.BrojPregleda descending
-                                                         select new
-                                                             PitanjaPreporuka { PitanjeID = p.PitanjeID, Contains = 0 }).Take(top).ToList();
-
+                List<PitanjaPreporuka> preporukaFinal=s.Context.Pitanja.Where(x=>!UsesIds.Contains(x.PitanjeID)).OrderByDescending(
+                    x=>x.BrojGlasova).ThenByDescending(x=>x.BrojPregleda).Select(x=> new PitanjaPreporuka {
+                        PitanjeID = x.PitanjeID,
+                        Contains = 0
+                    }).Take(top).ToList();
                 return preporukaFinal;
             }
 
