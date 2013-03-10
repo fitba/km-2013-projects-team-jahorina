@@ -4,7 +4,7 @@
 #page_head {
     background: white;
     width: 960px;
-    height: 80px;
+    height: 88px;
     z-index: 100;
     margin: 0 auto;
     border-radius: 0 0 6px 6px;
@@ -122,7 +122,7 @@
 }
 .GlMeni
 {
-    width:758px;
+    width:753px;
     height:35px;
     overflow:hidden;
     background-color: #EEE;
@@ -131,6 +131,8 @@
      box-shadow: 0 0 1px 1px #b5b3b3;
      float: right;
      border-radius: 5px;
+     margin-top: 8px;
+     margin-right: 5px;
 }
 .GdjeText
 {
@@ -251,19 +253,23 @@
     cursor:pointer;
     
 }
-.OkolicaMenijaPri
-{
-  float:right;
-   width:190px;
-   height:37px;
-   overflow:hidden;
-   margin:0px 0px 0px 2px;
-  background:#8f8a7f; 
-
+.OkolicaMenijaPri {
+    float: right;
+    width: 183px;
+    height: 36px;
+    overflow: hidden;
+    margin: 0px 0px 0px 2px;
+    background-color: #EEE;
+    border-radius: 4px;
+    -moz-box-shadow: 0 0 1px 1px #b5b3b3;
+    -webkit-box-shadow: 0 0 1px 1px #b5b3b3;
+    box-shadow: 0 0 1px 1px #b5b3b3;
+    margin-right: 5px;
+    margin-top: 3px;
 }
 .OkolicaMenijaPri:hover
 {
-    background:rgba(143,138,127,0.5);
+    background: rgba(175, 175, 175, 0.5);
     cursor:pointer;
 }
 
@@ -321,12 +327,12 @@
    width:115px;
    height:17px;  
    padding:0px 0px 0px 0px;
-   color:#fbda64;
+   color:Black;
    margin:0px 0px 0px 4px;
    font-size:14px;
    font-weight:bold;
   overflow:hidden;
-  
+  font-style: italic;
 }
 .headTextPodMeni2
 {
@@ -334,7 +340,7 @@
    width:130px;
    height:25px;
    padding:0px 0px 0px 0px;
-   color:#720000;
+   color: #0077cc!important;
    margin:0px 0px 0px 4px;
    font-size:11px;
    font-weight:bold;

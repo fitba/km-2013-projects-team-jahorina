@@ -13,14 +13,19 @@
 <script src="/Script/autocomplete/autocomplete-tags.js" type="text/javascript"></script>
 <link href="../../Script/chosen/chosen.css" rel="stylesheet" type="text/css" />
 <script src="../../Script/chosen/chosen.jquery.js" type="text/javascript"></script>
-
+<style type="text/css">
+.clanak-details-content
+{
+    margin-right: 35px;
+}
+</style>
 <div class="clanci-create-head">
 <div id="btnNoviClanak" class="clanak-create-meni">Novi clanak</div>
 <div id="btnMojiClanci" class="clanak-create-meni">Moji clanci</div>
 </div>
 
 
-<div class="clanak-details-preporuka"></div>
+
 @using (Html.BeginForm("create","Clanci",FormMethod.Post,new {enctype = "multipart/form-data" }))
 
 {

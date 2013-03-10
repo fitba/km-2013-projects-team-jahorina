@@ -387,6 +387,8 @@ namespace Wikiped.Controllers
                     }
                 }
             }
+            LucenePt.ClearLuceneIndex();
+            LucenePt.AddUpdateLuceneIndex(LucenePt.GetAllObjectForLuceneIndex());
             using (Wikiped.Models.Pitanja pt = new Wikiped.Models.Pitanja())
             {
                 ViewBag.Tagovi = pt.GetAllTagsCount().Take(15);

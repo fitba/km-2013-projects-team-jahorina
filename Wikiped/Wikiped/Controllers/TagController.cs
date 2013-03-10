@@ -17,6 +17,15 @@ namespace Wikiped.Controllers
         }
         public ActionResult Details(string name)
         {
+            using (Wikiped.Models.Pitanja pt = new Wikiped.Models.Pitanja())
+            {
+                if (!String.IsNullOrEmpty(name))
+                {
+                    ViewBag.Pitanja = pt.GetAllPitanjaByTagName(name);
+                    ViewBag.Sadrzaji = pt.GetAllSadrzajiByTagName(name);
+                }
+                ViewBag.Tagovi = pt.GetAllTagsCount().Take(15);
+            }
             return View();
         }
 

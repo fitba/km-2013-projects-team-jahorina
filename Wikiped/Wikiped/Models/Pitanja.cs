@@ -274,7 +274,33 @@ namespace Wikiped.Models
             }
             return tag.OrderByDescending(x => x.CountT).ToList();
         }
-
+        public List<DBBL.DAL.Pitanja> GetAllPitanjaByTagName(string name)
+        {
+            Tags tag = context.Tags.Where(x => x.Ime == name).FirstOrDefault();
+            if (tag != null)
+            {
+                var upit = (from p in context.Pitanja
+                            join tg in context.TagoviPitanja on p.PitanjeID equals tg.PitanjeID
+                            where tg.TagID == tag.TagID
+                            select p).ToList();
+                return upit;
+            }
+            return null;
+        }
+        public List<Sadrzaji> GetAllSadrzajiByTagName(string name)
+        {
+            Tags tag = context.Tags.Where(x => x.Ime == name).FirstOrDefault();
+            if (tag != null)
+            {
+                var upit = (from c in context.Clanci
+                            join s in context.Sadrzaji on c.ClanakID equals s.ClanakID
+                            join t in context.TagClanci on c.ClanakID equals t.ClanakID
+                            where t.TagID == tag.TagID
+                            select s).ToList();
+                return upit;
+            }
+            return null;
+        }
         public void Dispose()
         {
             context.Dispose();
