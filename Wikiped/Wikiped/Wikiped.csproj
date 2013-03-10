@@ -131,6 +131,7 @@
     <Compile Include="Models\ClanciServis.cs" />
     <Compile Include="Models\CustomAuthorizeAttribute.cs" />
     <Compile Include="Models\ExtensionMethod.cs" />
+    <Compile Include="Models\ExternalIntegration.cs" />
     <Compile Include="Models\HtmlHelpers.cs" />
     <Compile Include="Models\KorisniciServis.cs" />
     <Compile Include="Models\LucenePt.cs" />
@@ -557,6 +558,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Tag\Details.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Tag\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

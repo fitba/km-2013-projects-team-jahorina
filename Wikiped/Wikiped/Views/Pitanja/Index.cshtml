@@ -59,7 +59,7 @@
         }
         else
         {
-            if (ViewBag.AllPitanja.Count == 0)
+            if (ViewBag.AllPitanja.Count == 0 && ViewBag.StackOQuest.Count == 0)
             {
               <div class="question-summary narrow">
                 <div class="summary">
@@ -82,10 +82,33 @@
                         }
                     </div>
                     <div class="started">
-                        <a href="/questions/14567110/website-content-shown-on-moz-but-not-chrome-with-heroku"
-                            class="started-link"><span title="2013-01-28 16:57:21Z" class="relativetime">1m ago</span></a>
-                        <a href="/users/1509401/jason328">jason328</a> <span class="reputation-score" title="reputation score"
-                            dir="ltr">634</span>
+                        <a href="/pitanja/details/@item.Id"
+                            class="started-link"><span title="" class="relativetime">1m ago</span></a>
+                        <a href="/users/1509401/jason328">jason328</a> 
+                    </div>
+                </div>
+            </div>
+            }
+             <div class="question-summary narrow" style="margin-top:10px;">
+              <div class="legPrtMargin"></div>
+           <div class="summary2" style="margin-bottom:30px;">
+                    <h3>
+                        <span style="color:Black;margin-left:120px;">Pitanja sa stackoverflow-a mogul vam pomoći ???</span></h3>
+                </div>
+                </div>
+            foreach (var item in ViewBag.StackOQuest)
+            {
+            <div class="question-summary narrow">
+            <div class="legPrtMargin"></div>
+                <div class="summary">
+                    <h3>
+                        <a class="colorBlue" href="http://stackoverflow.com/@item.question_timeline_url">@item.title</a></h3>
+                    
+                    <div class="started">
+                        <a href="http://stackoverflow.com/@item.question_timeline_url"
+                            class="started-link"></a>
+                        <a href="#" style="color: #0077cc!important;">Broj odgovora</a> <span class="reputation-score" title="reputation score"
+                            dir="ltr">@item.answer_count</span>
                     </div>
                 </div>
             </div>

@@ -35,8 +35,14 @@ namespace Wikiped.Controllers
             LucenePt.ClearLuceneIndex();
             LucenePt.AddUpdateLuceneIndex(LucenePt.GetAllObjectForLuceneIndex());
 
-            List<LuceneObject> pitanja;
-            pitanja = LucenePt.Search(search).ToList();
+            List<LuceneObject> pitanja=new List<LuceneObject>();
+            ViewBag.StackOQuest = new List<Question>();
+            if (!String.IsNullOrEmpty(search))
+            {
+                pitanja = LucenePt.Search(search).ToList();
+                ExternalIntegration t = new ExternalIntegration();
+                ViewBag.StackOQuest=t.SearchStackOverflow(search);
+            }
             if (pitanja != null)
             {
                 pitanja = pitanja.Where(x => x.IsQuestion == true).ToList();
@@ -45,6 +51,7 @@ namespace Wikiped.Controllers
             {
                 ViewBag.Tagovi = pt.GetAllTagsCount().Take(15);
             }
+
             ViewBag.AllPitanja = pitanja;
             ViewBag.Search = true;
             ViewBag.GetTags = new Func<int, IEnumerable<string>>(GetAllTagsForPitanje);
