@@ -14,7 +14,6 @@
     <EntitySet Name="OdgovorNaOdgovor" EntityType="WikipedModel.Store.OdgovorNaOdgovor" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Pitanja" EntityType="WikipedModel.Store.Pitanja" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Sadrzaji" EntityType="WikipedModel.Store.Sadrzaji" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="sysdiagrams" EntityType="WikipedModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="TagClanci" EntityType="WikipedModel.Store.TagClanci" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="TagoviPitanja" EntityType="WikipedModel.Store.TagoviPitanja" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Tags" EntityType="WikipedModel.Store.Tags" store:Type="Tables" Schema="dbo" />
@@ -23,6 +22,10 @@
     <AssociationSet Name="FK_Algoritmi_Korisnici" Association="WikipedModel.Store.FK_Algoritmi_Korisnici">
       <End Role="Korisnici" EntitySet="Korisnici" />
       <End Role="Algoritmi" EntitySet="Algoritmi" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Clanci_Korisnici" Association="WikipedModel.Store.FK_Clanci_Korisnici">
+      <End Role="Korisnici" EntitySet="Korisnici" />
+      <End Role="Clanci" EntitySet="Clanci" />
     </AssociationSet>
     <AssociationSet Name="FK_Clanci_TagVrste" Association="WikipedModel.Store.FK_Clanci_TagVrste">
       <End Role="TagVrste" EntitySet="TagVrste" />
@@ -133,6 +136,7 @@
       <PropertyRef Name="ClanakID" />
     </Key>
     <Property Name="ClanakID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="KorisnikID" Type="int" />
     <Property Name="TagVrstaID" Type="int" />
     <Property Name="Popularnost" Type="float" />
     <Property Name="Ocjenjeno" Type="int" />
@@ -253,16 +257,6 @@
     <Property Name="ClanakID" Type="int" />
     <Property Name="Datum" Type="datetime" />
   </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
-  </EntityType>
   <EntityType Name="TagClanci">
     <Key>
       <PropertyRef Name="TagClanakID" />
@@ -294,6 +288,7 @@
     <Property Name="TagVrstaID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="Vrsta" Type="int" />
     <Property Name="Opis" Type="nvarchar(max)" />
+    <Property Name="Klasa" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="Zloupotrebe">
     <Key>
@@ -311,6 +306,18 @@
         <PropertyRef Name="KorisnikID" />
       </Principal>
       <Dependent Role="Algoritmi">
+        <PropertyRef Name="KorisnikID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Clanci_Korisnici">
+    <End Role="Korisnici" Type="WikipedModel.Store.Korisnici" Multiplicity="0..1" />
+    <End Role="Clanci" Type="WikipedModel.Store.Clanci" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Korisnici">
+        <PropertyRef Name="KorisnikID" />
+      </Principal>
+      <Dependent Role="Clanci">
         <PropertyRef Name="KorisnikID" />
       </Dependent>
     </ReferentialConstraint>
