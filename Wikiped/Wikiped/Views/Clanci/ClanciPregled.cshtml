@@ -64,6 +64,23 @@
       
         </div>
 }
+<div class="clanak-preporuka-naslovP" style="border-top-left-radius:0px; border-top-right-radius:0px; ">Wikipedia preporuka</div>
+@foreach (Wiki pr in ViewBag.PreporukaWiki)
+{
+    
+
+<div class="clanak-preporuka-naslov" style="background:#daaf85;">@pr.Name</div>
+<div class="clanak-preporuka-text">
+            @MvcHtmlString.Create(pr.Description)
+            <div class="clanak-read-more">
+            <a href="@pr.Url">Procitaj vise...</a>
+               
+                </div>
+           
+      
+        </div>
+}
+
 
 </div>
 <div class="clanak-details-content">@MvcHtmlString.Create(Model.tekst)
@@ -127,11 +144,6 @@
         }
     </div>
 </div>
-<p style="float: left">
-    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-    
-</p>
 <script type="text/javascript">
     $("document").ready(function () {
 

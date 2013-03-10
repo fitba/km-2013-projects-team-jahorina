@@ -9,7 +9,6 @@ using Wikiped.DBBL.BLL;
 using System.Web.Script.Serialization;
 using System.IO;
 using System.Drawing;
-
 namespace Wikiped.Controllers
 {
     public class ClanciController : Controller
@@ -101,11 +100,24 @@ namespace Wikiped.Controllers
         public ActionResult ClanciPregled(int clID)
         {
             ClanciServis clanak = ClanciServisObrada.getClanakById(clID);
-             List<ClanakProsjek> preporukaTemp=preporukaItembase(clID);
-            List<int> preporukaIds=(from p in preporukaTemp select p.ClanakId).ToList();
+            List<ClanakProsjek> preporukaTemp = preporukaItembase(clID);
+            List<int> preporukaIds = (from p in preporukaTemp select p.ClanakId).ToList();
 
 
             ViewBag.Preporuka = ClanciServisObrada.getClanciByIds(preporukaIds);
+            List<string> Words = getWordForWiki(clID);
+
+            ExternalIntegration t = new ExternalIntegration();
+
+            List<Wiki> clanciWiki = new List<Wiki>();
+            foreach (string its in Words)
+            {
+                clanciWiki.AddRange(t.SearchWikipedia(its));
+            }
+            clanciWiki = clanciWiki.Take(5).ToList();
+
+            ViewBag.PreporukaWiki = clanciWiki;
+
             return View(clanak);
         }
         public ActionResult zloupotreba(int zlID)
@@ -284,24 +296,32 @@ namespace Wikiped.Controllers
 
         public ActionResult Create()
         {
-            List<TagVrste> tgs;
-            using (Spajanje s = new Spajanje())
+            Korisnici kor = Session["Korisnik"] as Korisnici;
+            if (kor != null)
             {
+                List<TagVrste> tgs;
+                using (Spajanje s = new Spajanje())
+                {
 
 
-                tgs = (from tg in s.Context.TagVrste orderby tg.Opis ascending select tg).ToList();
-                ViewBag.clanci = (from cl in s.Context.Clanci
-                                  join sa in s.Context.Sadrzaji on
-                                      cl.ClanakID equals sa.ClanakID
-                                  select
-                                      sa).ToList();
+                    tgs = (from tg in s.Context.TagVrste orderby tg.Opis ascending select tg).ToList();
+                    ViewBag.clanci = (from cl in s.Context.Clanci
+                                      join sa in s.Context.Sadrzaji on
+                                          cl.ClanakID equals sa.ClanakID
+                                      select
+                                          sa).ToList();
 
+                }
+                using (Wikiped.Models.Pitanja pt = new Wikiped.Models.Pitanja())
+                {
+                    ViewBag.Tagovi = pt.GetAllTagsCount().Take(15);
+                }
+                return View(tgs);
             }
-            using (Wikiped.Models.Pitanja pt = new Wikiped.Models.Pitanja())
+            else
             {
-                ViewBag.Tagovi = pt.GetAllTagsCount().Take(15);
+                return RedirectToAction("Index");
             }
-            return View(tgs);
         }
         [ValidateInput(false)]
         [HttpPost]
@@ -327,7 +347,8 @@ namespace Wikiped.Controllers
                     }
 
                     novi.TagVrstaID = unosClanakvrste(kategorija, novaKat, slicnaKat);
-
+                    Korisnici kor = Session["Korisnik"] as Korisnici;
+                    novi.KorisnikID = kor.KorisnikID;
 
                     s.Context.Clanci.AddObject(novi);
                     s.Context.SaveChanges();
@@ -568,7 +589,22 @@ namespace Wikiped.Controllers
 
 
         }
+        public List<string> getWordForWiki(int clId)
+        {
+            using (Spajanje s = new Spajanje())
+            {
+                List<string> words = new List<string>();
+                words.AddRange((from cl in s.Context.TagClanci
+                                join t in s.Context.Tags
+                                    on cl.TagID equals t.TagID
+                                where cl.ClanakID == clId
+                                select t.Ime).ToList());
 
+                words.AddRange((from sd in s.Context.Sadrzaji where sd.ClanakID == clId select sd.Naslov).ToList());
+                words = words.Distinct().ToList();
+                return words;
+            }
+        }
 
 
         #region Preporuka item base
@@ -586,7 +622,7 @@ namespace Wikiped.Controllers
                 List<ClanakProsjek> pros = ProsjecnaOcjenaPoKategoriji((double)cls.Popularnost, cls.ClanakID, vrste.Klasa);
 
                 List<ClanakProsjek> Preporuka = SumiranjeProsjeka(pros, TagoviContain, (double)cls.Popularnost);
-                
+
                 List<ClanakProsjek> PreporukaFinal = BrojOcjena(Preporuka, (int)cls.Ocjenjeno);
                 return PreporukaFinal;
             }
@@ -645,52 +681,52 @@ namespace Wikiped.Controllers
                 return ProsjekOcjenaFinal;
             }
         }
-        public List<ClanakProsjek> BrojOcjena(List<ClanakProsjek> Prosjeci,int brojOcjenaOrig)
+        public List<ClanakProsjek> BrojOcjena(List<ClanakProsjek> Prosjeci, int brojOcjenaOrig)
         {
             try
             {
 
-            
-            using (Spajanje s = new Spajanje())
-            {
-                Clanci temp;
-                double postotak=21;
-                double razmak;
-                int ids;
-                for (int i = 0; i < Prosjeci.Count; i++)
+
+                using (Spajanje s = new Spajanje())
                 {
-                    //temp = null;
-                    ids = Prosjeci[i].ClanakId;
-                    temp = (from c in s.Context.Clanci where c.ClanakID == ids select c).FirstOrDefault();
-                    
-                    if (temp.Ocjenjeno == brojOcjenaOrig)
+                    Clanci temp;
+                    double postotak = 21;
+                    double razmak;
+                    int ids;
+                    for (int i = 0; i < Prosjeci.Count; i++)
                     {
-                        Prosjeci[i].Prosjek = Prosjeci[i].Prosjek + postotak;
-                    }
-                    else
-                    {
-                        if (temp.Ocjenjeno != 0 && brojOcjenaOrig != 0)
+                        //temp = null;
+                        ids = Prosjeci[i].ClanakId;
+                        temp = (from c in s.Context.Clanci where c.ClanakID == ids select c).FirstOrDefault();
+
+                        if (temp.Ocjenjeno == brojOcjenaOrig)
                         {
-                         
-                            if (temp.Ocjenjeno > brojOcjenaOrig)
+                            Prosjeci[i].Prosjek = Prosjeci[i].Prosjek + postotak;
+                        }
+                        else
+                        {
+                            if (temp.Ocjenjeno != 0 && brojOcjenaOrig != 0)
                             {
-                                
-                                razmak = (double)(temp.Ocjenjeno - brojOcjenaOrig);
-                                Prosjeci[i].Prosjek = Prosjeci[i].Prosjek + (postotak - ((postotak / (double)temp.Ocjenjeno) * razmak));
 
-                            }
-                            else
-                            {
-                                razmak = (double)(brojOcjenaOrig -temp.Ocjenjeno);
-                                Prosjeci[i].Prosjek = Prosjeci[i].Prosjek + (postotak - ((postotak / brojOcjenaOrig) * razmak));
+                                if (temp.Ocjenjeno > brojOcjenaOrig)
+                                {
 
+                                    razmak = (double)(temp.Ocjenjeno - brojOcjenaOrig);
+                                    Prosjeci[i].Prosjek = Prosjeci[i].Prosjek + (postotak - ((postotak / (double)temp.Ocjenjeno) * razmak));
+
+                                }
+                                else
+                                {
+                                    razmak = (double)(brojOcjenaOrig - temp.Ocjenjeno);
+                                    Prosjeci[i].Prosjek = Prosjeci[i].Prosjek + (postotak - ((postotak / brojOcjenaOrig) * razmak));
+
+                                }
                             }
                         }
+
                     }
 
                 }
-                
-            }
             }
             catch (Exception)
             {
