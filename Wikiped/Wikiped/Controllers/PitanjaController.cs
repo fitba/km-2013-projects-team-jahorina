@@ -110,6 +110,7 @@ namespace Wikiped.Controllers
         [ValidateInput(false)]
         public ActionResult Create(string tags, string title, string opis)
         {
+            int idZanjdeg = default(int);
             string[] tagsA = null;
             if (tags != String.Empty)
             {
@@ -122,20 +123,27 @@ namespace Wikiped.Controllers
             pitanje.BrojGlasova = 0;
             pitanje.BrojPregleda = 0;
             pitanje.KorisnikID = GetKorisnikId;
-
+            
             using (Pitanja pt = new Pitanja())
             {
-                int id = pt.AddPitanja(pitanje);
+                idZanjdeg = pt.AddPitanja(pitanje);
 
                 foreach (var item in tagsA)
                 {
                     int idTaga = pt.GetTagIdByName(item);
                     Wikiped.DBBL.DAL.TagoviPitanja tp = new DBBL.DAL.TagoviPitanja();
                     tp.TagID = idTaga;
-                    tp.PitanjeID = id;
+                    tp.PitanjeID = idZanjdeg;
                     pt.AddTagsForPitanja(tp);
                 }
             }
+            LuceneObject lo = new LuceneObject();
+            lo.IsQuestion = true;
+            lo.Name = title;
+            lo.Description = opis;
+            lo.Id = idZanjdeg;
+            LucenePt.AddUpdateLuceneIndex(lo);
+            LucenePt.Optimize();
             return RedirectToAction("Create");
         }
 
