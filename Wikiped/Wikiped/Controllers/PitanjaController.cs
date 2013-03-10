@@ -13,7 +13,18 @@ namespace Wikiped.Controllers
     {
         //
         // GET: /Pitanja/
-
+        private int getKorisnikId;
+        public int GetKorisnikId
+        {
+            get {
+                DBBL.DAL.Korisnici kor = Session["Korisnik"] as DBBL.DAL.Korisnici;
+                if (kor != null)
+                {
+                    return kor.KorisnikID;
+                }
+                return 0; 
+            }
+        }
         public ActionResult Index()
         {
             //LucenePt.ClearLuceneIndex();
@@ -26,9 +37,32 @@ namespace Wikiped.Controllers
             }
             ViewBag.Search = false;
             ViewBag.GetTags = new Func<int, IEnumerable<string>>(GetAllTagsForPitanje);
+            ViewBag.GetKorisnikName = new Func<int, string>(GetKorisnikName);
+            ViewBag.GetBrojOdgovora = new Func<int, int>(GetBrojOdgovora);
             return View();
         }
-
+        public int GetBrojOdgovora(int id)
+        {
+            int count = default(int);
+            using (Pitanja pt = new Pitanja())
+            {
+                count = pt.GetBrojOdgovoraZaPitanje(id);
+            }
+            return count;
+        }
+        public string GetKorisnikName(int id)
+        {
+            DBBL.DAL.Korisnici korisnik;
+            using (Pitanja pt = new Pitanja())
+            {
+                korisnik=pt.GetKorisnikByID(id);
+            }
+            if (korisnik != null)
+            {
+                return korisnik.UserName;
+            }
+            return string.Empty;
+        }
         [HttpPost]
         public ActionResult Index(string btnSearch, string search)
         {
@@ -87,6 +121,7 @@ namespace Wikiped.Controllers
             pitanje.Datum = DateTime.Now;
             pitanje.BrojGlasova = 0;
             pitanje.BrojPregleda = 0;
+            pitanje.KorisnikID = GetKorisnikId;
 
             using (Pitanja pt = new Pitanja())
             {
@@ -318,7 +353,7 @@ namespace Wikiped.Controllers
                 o.PitanjeID = id;
                 o.Odgovor = txtComment;
                 o.Datum = DateTime.Now;
-                o.KorisnikID = 1;
+                o.KorisnikID = GetKorisnikId;
                 o.BrojGlasova = 0;
 
                 Pitanja pitanje = new Pitanja();
@@ -335,7 +370,7 @@ namespace Wikiped.Controllers
 
         public ActionResult VoteUp(int id, bool mainQuestion)
         {
-            int korisnikId = 1;
+            int korisnikId = GetKorisnikId;
             int voteNumber = default(int);
             using (Pitanja pt = new Pitanja())
             {
@@ -353,7 +388,7 @@ namespace Wikiped.Controllers
         }
         public ActionResult VoteDown(int id, bool mainQuestion)
         {
-            int korisnikId = 1;
+            int korisnikId = GetKorisnikId;
             int voteNumber = default(int);
             using (Pitanja pt = new Pitanja())
             {
@@ -375,7 +410,7 @@ namespace Wikiped.Controllers
                 DBBL.DAL.OdgovorNaOdgovor tempOdg = new DBBL.DAL.OdgovorNaOdgovor();
                 tempOdg.OdgovorID = id;
                 tempOdg.Odgovor = textComm;
-                tempOdg.KorisnikID = 1;
+                tempOdg.KorisnikID = GetKorisnikId;
                 tempOdg.Datum = DateTime.Now;
                 using (Pitanja pt = new Pitanja())
                 {

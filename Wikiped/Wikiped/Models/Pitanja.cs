@@ -63,7 +63,9 @@ namespace Wikiped.Models
             korisnik = context.Korisnici.Where(x => x.KorisnikID == pitanjaPost.KorisnikID).FirstOrDefault();
             List<DBBL.DAL.Odgovori> lstOdgovori = context.Odgovori.Where(x => x.PitanjeID == id).ToList();
             odgovori = new List<OdgovoriSaO>();
-
+            DBBL.DAL.Pitanja tempP= GetPitanjeByID(id);
+            tempP.BrojPregleda++;
+            context.SaveChanges();
             foreach (var item in lstOdgovori)
             {
                 OdgovoriSaO odgovoriAll = new OdgovoriSaO();
@@ -300,6 +302,14 @@ namespace Wikiped.Models
                 return upit;
             }
             return null;
+        }
+        public Korisnici GetKorisnikByID(int id)
+        {
+            return context.Korisnici.Where(x => x.KorisnikID == id).FirstOrDefault();
+        }
+        public int GetBrojOdgovoraZaPitanje(int pitanjeID)
+        {
+            return context.Odgovori.Where(x => x.PitanjeID == pitanjeID).Count();
         }
         public void Dispose()
         {

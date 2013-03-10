@@ -28,7 +28,7 @@
                     </div>
                     <div class="status unanswered">
                         <div class="mini-counts">
-                            0</div>
+                            @ViewBag.GetBrojOdgovora(@item.PitanjeID)</div>
                         <div>
                             odgovor</div>
                     </div>
@@ -48,10 +48,9 @@
                         }
                     </div>
                     <div class="started">
-                        <a href="/questions/14567110/website-content-shown-on-moz-but-not-chrome-with-heroku"
-                            class="started-link"><span title="2013-01-28 16:57:21Z" class="relativetime">1m ago</span></a>
-                        <a href="/users/1509401/jason328">jason328</a> <span class="reputation-score" title="reputation score"
-                            dir="ltr">634</span>
+                        <a href="#"
+                            class="started-link"><span title="2013-01-28 16:57:21Z" class="relativetime">@item.Datum.ToString().Substring(0, 10)</span></a>
+                        <a href="#">@ViewBag.GetKorisnikName(@item.KorisnikID)</a> 
                     </div>
                 </div>
             </div>
@@ -81,11 +80,11 @@
                             <a href="/Tag/Details/?name=@tag" class="post-tag" title="" rel="tag">@tag</a> 
                         }
                     </div>
-                    <div class="started">
+                    @*<div class="started">
                         <a href="/pitanja/details/@item.Id"
-                            class="started-link"><span title="" class="relativetime">1m ago</span></a>
-                        <a href="/users/1509401/jason328">jason328</a> 
-                    </div>
+                            class="started-link"><span title="" class="relativetime"></span></a>
+                        <a href="#">admir</a> 
+                    </div>*@
                 </div>
             </div>
             }
