@@ -3,49 +3,52 @@
 <script src="../../Script/jquery.masonry.min.js" type="text/javascript"></script>
 <script type="text/javascript">
     $("document").ready(function () {
-                $('#main-wbg').masonry({
-                    itemSelector: '.clanak-wraper'
-                });
-        $("#Pretraga").button();
+        $('#CanciSvi').masonry({
+            itemSelector: '.clanak-wraper'
+        });
+
     });
 </script>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/Pocetna.cshtml";
 }
-@using (Html.BeginForm())
+<div class="clanak-text-search-txt"></div>
+<div class="ClanciSviWrap" id="CanciSvi">
+@foreach (var it1 in Model)
 {
-    <div id="searchClanci">
-        <div class="form-row" style="margin-bottom: 35px;">
-            <label style="margin-right: 24px;">
-                Pretraga</label>
-            <input type="text" class="title" name="search" style="width: 545px;" />
-            <input type="submit" name="btnSearch" value="Pretraga" id="Pretraga" style="width: 82px;" />
-        </div>
-    </div>
+    <div class="clanak-wraper @(it1.klasa)">
 
-    foreach (var it1 in Model)
-    {
-        <div class="clanak-wraper @(it1.klasa)">
-            @foreach (var it2 in it1.ClanciOrig)
+        @foreach (var it2 in it1.ClanciOrig) {
+
+        <div class="clanak-naslov  @(it1.klasa)">
+            @Html.DisplayFor(modelItem => it2.naslov)
+        </div>
+            
+        <div class="clanak-text">
+        @if (it2.slika != "")
+        {
+            if(it2.slika != null)
             {
-
-                <div class="clanak-naslov  @(it1.klasa)">
-                    @Html.DisplayFor(modelItem => it2.naslov)
-                </div>
-                <div class="clanak-text">
-                    <img src="@Html.DisplayFor(modelItem => it2.slika)" alt="wikitest" class="clanak-slika" />
-                    @MvcHtmlString.Create(it2.tekst)
-                    <div class="clanak-read-more">
-                        @Html.ActionLink("Procitaj vise...", "ClanciPregled", new { clID = it2.ClanakId })
-                    </div>
-                    <div class="Ocjene-Wraper">@Html.Ratings(it2.popularnost, it2.ClanakId, it2.ocjena)<div
-                        class="clanak-komentari">
-                        Komentari (@it2.komentari)</div>
-                    </div>
-                </div>
-
+            <img src="@Html.DisplayFor(modelItem => it2.slika)" alt="wikitest" class="clanak-slika" />
             }
+        }
+            @MvcHtmlString.Create(it2.tekst)
+            <div class="clanak-read-more">
+                @Html.ActionLink("Procitaj vise...", "ClanciPregled", new { clID = it2.ClanakId })
+                
+                </div>
+            <div class="Ocjene-Wraper">@Html.Ratings(it2.popularnost,it2.ClanakId,it2.ocjena)<div class="clanak-komentari">Komentari (@it2.komentari)</div></div>
+           
+                
+
+                
+               
         </div>
-    }
+
+        }
+
+    </div>
+   
 }
+ </div>

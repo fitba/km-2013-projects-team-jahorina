@@ -22,7 +22,7 @@
                 cache: false,
                 async: true,
                 success: function (data) {
-                   // alert(data[0].Ime);
+                    // alert(data[0].Ime);
                     response($.map(data, function (item) {
                         return {
                             label: item.Name, value: item.Name, id: item.Id

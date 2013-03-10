@@ -1,5 +1,6 @@
 ﻿@model Wikiped.Models.ClanciServis
 @using Wikiped.Models
+@using Wikiped.DBBL.DAL;
 @{
     ViewBag.Title = "ClanciPregled";
     Layout = "~/Views/Shared/Pocetna.cshtml";
@@ -9,7 +10,10 @@
 <script src="/Script/pitanja.js" type="text/javascript"></script>
 
 <div class="clanak-details-head">
+@if (Model.slika != null)
+{
     <img src="@Html.DisplayFor(model => model.slika)" alt="@Html.DisplayNameFor(model => model.slika)" class="clanak-slika" />
+}
     <div class="clanak-details-opis">
         <div class="clanak-details-namefor">
             Naslov</div>
@@ -17,7 +21,7 @@
     <div class="clanak-details-opis">
         <div class="clanak-details-namefor">
             Kreirano</div>
-        6.9.2012 23:32 - Avdo</div>
+        @Model.datum - @Model.korisnik</div>
     <div class="clanak-details-opis">
         <div class="clanak-details-namefor">
             Ocjena</div>@Html.Ratings(Model.popularnost, Model.ClanakId, Model.ocjena)<div class="clanak-details-namefor-error">
@@ -27,14 +31,16 @@
     <div class="clanak-details-wrap-tag">
         <div class="clanak-details-namefor">
             Tagovi</div>
-            <a href="/clanci/trazi" class="post-tag" title="" rel="tag">Prvi</a>
-            <a href="/clanci/trazi" class="post-tag" title="" rel="tag">dvadeseti</a>
-            <a href="/clanci/trazi" class="post-tag" title="" rel="tag">osamdeseti</a>
+            @foreach (Tags it in Model.tagovi)
+            {
+                <a href="/clanci/trazi" class="post-tag" title="" rel="tag">@it.Ime</a>
+            }
+
         </div>
 </div>
 <div class="clanak-details-preporuka">
 </div>
-<div class="clanak-details-content">@Html.DisplayFor(model => model.tekst)
+<div class="clanak-details-content">@MvcHtmlString.Create(Model.tekst)
     <div class="mainComment-Clanci">
         <div class="clanci-head">
             Vaš komentar</div>
@@ -60,21 +66,25 @@
                         @kom.datum</div>
                 </div>
                 @{
-                    string prikaz="";
-                if(kom.zloupotreba>0){
-                    prikaz = "none";
+            string prikaz = "";
+            if (kom.zloupotreba > 0)
+            {
+                prikaz = "none";
 
-                }else{
-                    prikaz = "block";
+            }
+            else
+            {
+                prikaz = "block";
 
-                }
+            }
                 } 
-                @if(kom.zloupotreba>0){
-                    <div  class="clanak-komentar-tekst-skriven" style="color:#7d7d7d; font-style:italic">Komentar je sakriven. <div id="@string.Format("sk{0}",@kom.komentarID)" class="clanci-prikazi-sakriven">Prikaži!</div> </div>
+                @if (kom.zloupotreba > 0)
+                {
+                    <div  class="clanak-komentar-tekst-skriven" style="color:#7d7d7d; font-style:italic">Komentar je sakriven. <div id="@string.Format("sk{0}", @kom.komentarID)" class="clanci-prikazi-sakriven">Prikaži!</div> </div>
                     
                 }
-                <div id="@string.Format("cltx{0}",@kom.komentarID)" class="clanak-komentar-tekst" style="display:@prikaz">
-                <div id="@string.Format("zl{0}",@kom.komentarID)" class="clanci-komentar-zloupotreba"></div>
+                <div id="@string.Format("cltx{0}", @kom.komentarID)" class="clanak-komentar-tekst" style="display:@prikaz">
+                <div id="@string.Format("zl{0}", @kom.komentarID)" class="clanci-komentar-zloupotreba"></div>
                 
                     @MvcHtmlString.Create(kom.tekst)
                     

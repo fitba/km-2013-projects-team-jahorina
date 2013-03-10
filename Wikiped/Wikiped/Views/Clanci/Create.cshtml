@@ -27,7 +27,7 @@
 <div class="clanak-details-content">
 <div id="mojClanakSkriven" class="clanak-skriveno">
     <div class="clanci-head">Vasi clanci</div>
-    <select name="mojClanak" id="mojClanak" class="clanak-create-textBox">
+    <select data-placeholder="Odaberite clanak..." name="mojClanak" id="mojClanak" class="clanak-create-textBox">
     <option value="0"></option> 
          @foreach (var cls in ViewBag.clanci)
     {
@@ -45,7 +45,7 @@
 <input id="txtNaslov" name="naslov" type="text" class="clanak-create-textBox" />
 </div>
 
-<div class="clanak-otkriveno">
+<div id="KategorijaVis" class="clanak-otkriveno">
 <div class="clanci-head">Kategorija</div>
 
     <select name="kategorija" id="ddlkategorije" class="clanak-create-textBox">
@@ -59,7 +59,7 @@
     </div>
 
 
-    <div class="clanak-skriveno">
+    <div id="sKategorijaVis" class="clanak-skriveno">
     <div id="slKat"class="clanci-head"></div>
     <select name="slicnaKat" id="ddlSlkategorije" class="clanak-create-textBox">
     <option value="0"></option> 
@@ -73,24 +73,31 @@
            <div class="clanak-head-texts">Vaš tekst</div> 
             <div id="greskaText" class="clanak-naslovi-greska"></div>
             </div>
-        <div class="wmd-panel">
-            <textarea name="tekst" class="myTextEditor" style="width: 400px" id="wmd-input">
-
-                    </textarea>
-        </div>
+        
+            <textarea name="tekst" class="clanak-create-textArea" id="txttext"></textarea>
+        
 
 <div class="clanci-head">Slika</div>
 <input name="slika" type="file" class="clanak-create-textBox" name="fuSlika" />
 
 <div class="clanci-head">Tagovi</div>
-<input name="tagovi" type="text" class="clanak-create-textBox" id="txtTagsClanci" name="tags"/>
+<input name="tagovi" type="text" class="clanak-create-textBox" id="txtTagsClanci"/>
 <input id="update" name="update" type="hidden" value="false"/>
+<input id="clids" name="clids" type="hidden" value="0"/>
+
 <input id="novaKat" name="novaKat" type="hidden" value=""/>
 
-<input id="btnObjava" class="mainCommentBtn" type="submit" value="Objavi clanak"  />
+<input id="btnObjava" class="mainCommentBtn" type="submit" value="Objavi clanak" />
+    <input id="btnBrisanjeC" class="mainCommentBtnB" type="button" style="display:none" value="Obrisi clanak"  />
+<div id="brisanjeGreska" class="clanak-brisanje-greska"></div>
+
 
 </div>
 }
+
+
+
+    
 
 <h2>Create</h2>
 
@@ -100,17 +107,28 @@
 
 <script type="text/javascript">
     $("document").ready(function () {
-
+        $(".mainCommentBtn").button();
+        $(".mainCommentBtnB").button();
         $("#mojClanak").change(function () {
-            alert($("#mojClanak").val());
-        });
+            getClanakByIDs($("#mojClanak").val());
 
+            $("#btnObjava").removeAttr('disabled');
+            $("#btnBrisanjeC").removeAttr('disabled');
+        });
+        $("#btnBrisanjeC").click(function () {
+            brisanjeClanka($("#mojClanak").val());
+
+
+        });
         $("#btnMojiClanci").click(function () {
 
 
             $("#mojClanakSkriven").slideDown();
             $("#update").val(true);
-
+            $("#btnObjava").val("Uredi clanak");
+            $("#btnBrisanjeC").show();
+            $("#btnObjava").attr('disabled', 'disabled');
+            $("#btnBrisanjeC").attr('disabled', 'disabled');
 
         });
         $("#btnNoviClanak").click(function () {
@@ -118,7 +136,8 @@
 
             $("#mojClanakSkriven").slideUp();
             $("#update").val(false);
-
+            $("#btnObjava").val("Objavi clanak");
+            $("#btnBrisanjeC").hide();
 
         });
 
@@ -130,11 +149,12 @@
             return provjeraUnosa();
         });
 
-        $("#ddlkategorije").chosen({ no_results_text: "Kategorija ne postoji" + '<div id="btnNovaKat" class="clanak-nova-kategorija">Dodaj kategoriju</div>' });
+
+        $("#ddlkategorije").chosen({ no_results_text: "Kategorija ne postoji" + '<div id="btnNovaKats" class="clanak-nova-kategorija">Dodaj kategoriju</div>' });
         $("#ddlSlkategorije").chosen({ no_results_text: "Trenutno odabrana kategorija: Ostalo - " });
         $("#mojClanak").chosen({ no_results_text: "Trenutno nema clanka - " });
         function provjeraUnosa() {
-            var tekst = tinyMCE.activeEditor.getContent();
+            var tekst = $("#txttext").val();
             if (tekst.length > 50) {
                 $("#greskaText").text("");
                 if ($("#txtNaslov").val().length > 10) {
@@ -164,58 +184,23 @@
             }
 
         }
-        $("#btnNovaKat").live('click', function () {
+        $("#btnNovaKats").live('click', function () {
             provjeraUnosa();
             var novaKategorija = $(".no-results").find("span").text();
             $("#novaKat").val(novaKategorija);
 
-            $(".clanak-otkriveno").hide();
+            $("#KategorijaVis").hide();
             $("#slKat").text("Odaberite slicnu kategoriju za " + novaKategorija + " - ").append("<div class='clanci-change'>Promjeni</div>");
-            $(".clanak-skriveno").show();
+            $("#sKategorijaVis").show();
 
 
         });
         $(".clanci-change").live('click', function () {
-            $(".clanak-skriveno").hide();
-            $(".clanak-otkriveno").show();
+            $("#sKategorijaVis").hide();
+            $("#KategorijaVis").show();
         });
 
-        tinyMCE.init({
-            // General options
-            //mode: "textareas",
-            mode: "specific_textareas",
-            title: 'Make h1',
-            width: "599px",
-            editor_selector: "myTextEditor",
-            theme: "advanced",
-            plugins: "autolink,lists,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
-            // Theme options
-            theme_advanced_buttons1: "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|formatselect,fontselect,fontsizeselect,|,undo,redo,|,forecolor,backcolor,|,emotions,fullscreen",
 
-            //theme_advanced_buttons4: "insertlayer,moveforward,movebackward,absolute,|,styleprops,spellchecker,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,blockquote,pagebreak,|,insertfile,insertimage",
-            theme_advanced_toolbar_location: "top",
-            theme_advanced_toolbar_align: "left",
-            theme_advanced_statusbar_location: "bottom",
-            theme_advanced_resizing: false,
-            // Skin options
-            skin: "o2k7",
-            //skin_variant: "silver", black
-
-            // Example content CSS (should be your site CSS)
-            //content_css: "css/example.css",
-
-            // Drop lists for link/image/media/template dialogs
-            //        template_external_list_url: "js/template_list.js",
-            //        external_link_list_url: "js/link_list.js",
-            //        external_image_list_url: "js/image_list.js",
-            //        media_external_list_url: "js/media_list.js",
-
-            // Replace values for the template plugin
-            template_replace_values: {
-                username: "Some User",
-                staffid: "991234"
-            }
-        });
     });
 
 </script>

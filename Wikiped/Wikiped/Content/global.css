@@ -465,21 +465,6 @@ text-align: center;
     margin:0px 0px 7px 3px;
     
 }
-.clanak-wraper.sport
-{
-    background:#f5fffa;
-    border:1px solid #cef2e0;
-}
-.clanak-wraper.biologija
-{
-    background:#f5faff;
-    border:1px solid #cedff2;
-}
-.clanak-wraper.geografija
-{
-    background:#eedcc8;
-    border:1px solid #daaf85;
-}
 
 .clanak-naslov
 {
@@ -494,26 +479,15 @@ text-align: center;
     padding:0px 5px 7px 5px;
     border-radius: 4px;
 }
-.clanak-naslov.sport
-{
-     background:#cef2e0;
-}
-.clanak-naslov.biologija
-{
-     background:#cedff2;
-}
-.clanak-naslov.geografija
-{
-     background:#daaf85;
-}
 .clanak-slika
 {
-    float:left;
+     float:left;
     width:120px;
     height:120px;
     margin:0px 5px 0px 0px;
     background:blue;
     border-radius: 3px;
+  
   
 }
 
@@ -529,6 +503,23 @@ text-align: center;
   color: #333;
 	background-color: transparent;
   font-family:Helvetica,Arial,serif;
+   
+}
+.clanak-text-search-txt
+{
+       width:935px;
+    min-height:40px;
+    height:auto;
+    overflow:hidden;
+    display:list-item;
+    float:left;
+    border-radius:3px;
+    box-shadow: 0 3px 3px #DDD;
+    -webkit-box-shadow: 1px 5px 4px gray;
+    margin:0px 0px 7px 3px;
+    background-color:Red;
+ 
+    bottom:30px;
    
 }
 .clanak-read-more
@@ -585,6 +576,13 @@ text-align: center;
     margin-top: 10px;
     font-size: 15px!important;
 }
+.mainCommentBtnB
+{
+    float: left;
+    margin-top: 10px;
+    font-size: 15px!important;
+    display:none;
+}
 .footerResp
 {
     margin-left: 59px;
@@ -636,7 +634,7 @@ text-align: center;
     display:inline;
     font-weight:700;
    font-style:italic;
-   color:#dc9118;
+   color:#dc9118 !important;
 }
 .Clanci-Tag:hover
 {
@@ -929,6 +927,16 @@ font-weight: bold;
     height:30px;
     float:left;
     border:1px solid #ABC6DD;
+    margin:0px 0px 5px 0px;
+   
+}
+.clanak-create-textArea
+{
+    width:599px;
+    height:150px;
+    float:left;
+    border:1px solid #ABC6DD;
+    overflow:hidden;
    
 }
 .clanci-create-head
@@ -1027,4 +1035,106 @@ moz-box-shadow: 0 0 1px 1px #888;
    font-size: 13px;
    font-family:helvetica;
   display:none;
+}
+.clanak-brisanje-greska
+{
+    float:left;
+    color:#ee0101;
+    margin: 14px 0px 0px 10px;
+    display:none;
+    height:15px;
+   font-size: 13px;
+   font-family:helvetica;
+   
+}
+
+
+.clanak-wraper.ZelenaT
+{
+    background:#f5fffa;
+    border:1px solid #cef2e0;
+}
+.clanak-wraper.ZelenaTS
+{
+    background:#f5fffa;
+    border:1px solid #cef2e0;
+}
+.clanak-wraper.PlavaT
+{
+    background:#f5faff;
+    border:1px solid #cedff2;
+}
+.clanak-wraper.PlavaTS
+{
+    background:#f5faff;
+    border:1px solid #cedff2;
+}
+.clanak-wraper.SmedjaT
+{
+    background:#eedcc8;
+    border:1px solid #daaf85;
+}
+.clanak-wraper.PlavaS
+{
+    background:#FFFFFF;
+    border:1px solid #EFEFEF;
+}
+.clanak-wraper.LjubicastaT
+{
+    background:#faf5ff;
+    border:1px solid #ddcef2;
+}
+.clanak-wraper.LjubicastaTS
+{
+    background:#faf5ff;
+    border:1px solid #ddcef2;
+}
+.clanak-wraper.ZutaS
+{
+    background:#FFFFFF;
+    border:1px solid #ffe996;
+}
+
+
+
+.clanak-naslov.ZutaS
+{
+     background:#ffe996;
+}
+.clanak-naslov.LjubicastaT
+{
+     background:#ddcef2;
+}
+.clanak-naslov.LjubicastaTS
+{
+     background:#ddcef2;
+}
+.clanak-naslov.PlavaS
+{
+     background:#EFEFEF;
+}
+.clanak-naslov.ZelenaT
+{
+     background:#cef2e0;
+}
+.clanak-naslov.ZelenaTS
+{
+     background:#cef2e0;
+}
+.clanak-naslov.PlavaT
+{
+     background:#cedff2;
+}
+.clanak-naslov.PlavaTS
+{
+     background:#cedff2;
+}
+.clanak-naslov.SmedjaT
+{
+     background:#daaf85;
+}
+.ClanciSviWrap
+{
+    
+    margin:50px 0px 0px 0px !important;
 }

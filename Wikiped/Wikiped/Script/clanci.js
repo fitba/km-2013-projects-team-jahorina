@@ -27,6 +27,59 @@
 
 }
 
+function brisanjeClanka(clanakID) {
+
+    $.ajax({
+        url: '/Clanci/brisanjeClanka',
+        data: { 'zlID': clanakID },
+        type: "post",
+        cache: false,
+        success: function (data) {
+            $("#brisanjeGreska").text("Clanak izbrisan");
+            var gres = $("#brisanjeGreska");
+            $(gres).fadeIn();
+            setTimeout(function () {
+                $(gres).fadeOut();
+                window.location.href = "create";
+            }, 3000);
+
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert("Problem");
+            console.log(xhr);
+        }
+    });
+
+}
+
+function getClanakByIDs(clanakID) {
+
+    $.ajax({
+        url: '/Clanci/updateData',
+        data: { 'zlID': clanakID },
+        type: "post",
+        cache: false,
+        success: function (data) {
+            $("#clids").val(clanakID);
+            $("#txttext").val(data.tekst);
+            $("#txtNaslov").val(data.Naslov);
+
+            for (var i = 0; i < data.tagovi.length; i++) {
+                $("#txtTagsClanci").tagit("createTag", data.tagovi[i]);
+
+            }
+
+
+            $('#ddlkategorije').val(data.Kategorija).trigger('liszt:updated');
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert("Problem");
+            console.log(xhr);
+        }
+    });
+
+}
+
 function NoviKomentar(text, clanakID) {
 
     $.ajax({

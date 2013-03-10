@@ -182,3 +182,7 @@ C:\Users\Administrator\Documents\GitHub\km-2013-projects-team-jahorina\Wikiped\W
 C:\Users\Administrator\Documents\GitHub\km-2013-projects-team-jahorina\Wikiped\Wikiped\bin\Lucene.Net.dll
 C:\Users\Administrator\Documents\GitHub\km-2013-projects-team-jahorina\Wikiped\Wikiped\bin\Lucene.Net.pdb
 C:\Users\Administrator\Documents\GitHub\km-2013-projects-team-jahorina\Wikiped\Wikiped\bin\Lucene.Net.xml
+D:\SeminarskiUZ\km-2013-projects-team-jahorina\Wikiped\Wikiped\bin\ICSharpCode.SharpZipLib.dll
+D:\SeminarskiUZ\km-2013-projects-team-jahorina\Wikiped\Wikiped\bin\Lucene.Net.dll
+D:\SeminarskiUZ\km-2013-projects-team-jahorina\Wikiped\Wikiped\bin\Lucene.Net.pdb
+D:\SeminarskiUZ\km-2013-projects-team-jahorina\Wikiped\Wikiped\bin\Lucene.Net.xml
