@@ -105,7 +105,180 @@ namespace Wikiped.Controllers
             ViewBag.Tags = lstTags;
             return View(pitanje);
         }
-        
+        #region Preporuka colaborative
+        public List<PitanjaPreporuka> preporukaColaborative(int userId)
+        {
+            List<PitanjaPreporuka> PreporukaFinal;
+            if (getAllMyBrojPitanja(userId) > 0)
+            {
+                List<PitanjaGlasovi> MyPitanja = getAllMyPitanjaByVote(userId);
+                List<PitanjaGlasovi> OtherPitanja = getAllOtherPitanjaByVote(MyPitanja, userId);
+                double brojPitanja = (double)MyPitanja.Count;
+                List<PitanjaContains> otherContains = getAllPitanjaByContains(OtherPitanja, brojPitanja);
+                PreporukaFinal = getTop5Pitanja(MyPitanja, otherContains);
+                if (PreporukaFinal.Count < 5)
+                {
+                    int top=5 - PreporukaFinal.Count;
+                    PreporukaFinal.AddRange(getTop5PitanjaDef(top));
+                    
+                }
+              
+            }
+            else
+            {
+            PreporukaFinal= getTop5PitanjaDef(5);
+              
+            }
+            PreporukaFinal = (from p in PreporukaFinal orderby p.Contains descending select p).ToList();
+            return PreporukaFinal;
+
+
+        }
+        public List<PitanjaGlasovi> getAllMyPitanjaByVote(int userId)
+        {
+            using (Spajanje s = new Spajanje())
+            {
+
+                List<PitanjaGlasovi> glasPitanje = (from gp in s.Context.GlasoviZaPitanja
+                                                    where gp.KorisnikID == userId
+                                                    select new PitanjaGlasovi
+                                                    {
+                                                        KorisnikID = (int)gp.KorisnikID,
+                                                        PitanjeId = (int)gp.PitanjeID,
+                                                        Glas = (int)gp.Glas
+                                                    }).ToList();
+
+                return glasPitanje;
+               
+            }
+
+        }
+        public double getAllMyBrojPitanja(int userId)
+        {
+            using (Spajanje s = new Spajanje())
+            {
+
+                double brojpitanja = (from gp in s.Context.GlasoviZaPitanja
+                                      where gp.KorisnikID == userId
+                                                    select gp.PitanjeID).ToList().Count;
+
+                return brojpitanja;
+
+            }
+
+        }
+        public List<PitanjaGlasovi> getAllOtherPitanjaByVote(List<PitanjaGlasovi> myPitanja, int userId)
+        {
+            using (Spajanje s = new Spajanje())
+            {
+                List<PitanjaGlasovi> glasPitanjeUsers = new List<PitanjaGlasovi>();
+
+                foreach (PitanjaGlasovi pt in myPitanja)
+                {
+                    glasPitanjeUsers = (from gp in s.Context.GlasoviZaPitanja
+                                        where (gp.PitanjeID == pt.PitanjeId && gp.Glas == pt.Glas && gp.KorisnikID != pt.KorisnikID)
+                                        select new PitanjaGlasovi
+                                        {
+                                            KorisnikID = (int)gp.KorisnikID,
+                                            PitanjeId = (int)gp.PitanjeID,
+                                            Glas = (int)gp.Glas
+                                        }).ToList();
+                }
+                return glasPitanjeUsers;
+            }
+
+        }
+        public List<PitanjaContains> getAllPitanjaByContains(List<PitanjaGlasovi> otherPitanja,double brojPitanja)
+        {
+            List<int> idUsers = otherPitanja.Select(x => (int)x.KorisnikID).Distinct().ToList();
+
+            PitanjaContains tempP;
+            List<PitanjaContains> KorisniciContains = new List<PitanjaContains>();
+            List<PitanjaContains> KorisniciFinal = new List<PitanjaContains>();
+            for (int i = 0; i < idUsers.Count; i++)
+            {
+                tempP = null;
+                tempP = new PitanjaContains();
+                tempP.Contains = (from pt in otherPitanja where pt.KorisnikID == idUsers[i] select pt.KorisnikID).ToList().Count();
+                tempP.KorisnikID = idUsers[i];
+                KorisniciContains.Add(tempP);
+            }
+            KorisniciContains = (from kc in KorisniciContains orderby kc.Contains descending select kc).ToList();
+            double postotak;
+            for (int i = 0; i < KorisniciContains.Count; i++)
+            {
+                if (getAllMyBrojPitanja(KorisniciContains[i].KorisnikID) > brojPitanja)
+                {
+                    postotak = 100 / getAllMyBrojPitanja(KorisniciContains[i].KorisnikID);
+                    KorisniciContains[i].Contains = KorisniciContains[i].Contains * postotak;
+
+                }
+                else
+                {
+                    postotak = 100 / brojPitanja;
+                    KorisniciContains[i].Contains = KorisniciContains[i].Contains * postotak;
+
+                }
+            }
+            KorisniciFinal = (from kr in KorisniciFinal orderby kr.Contains descending select kr).ToList();
+            return KorisniciFinal;
+        }
+        public List<PitanjaPreporuka> getTop5Pitanja(List<PitanjaGlasovi> myPitanja, List<PitanjaContains> otherUser)
+        {
+            using(Spajanje s= new Spajanje()){
+            List<int> mojaPitanjaID=(from m in myPitanja select m.PitanjeId).ToList();
+
+            List<PitanjaPreporuka> pitanjaPreporuka;
+
+            List<PitanjaPreporuka> pitanjaFinalPreporuka=new List<PitanjaPreporuka>();
+            
+            List<PitanjaGlasovi> KorisnikPitanja;
+            foreach (PitanjaContains p in otherUser)
+            {
+                pitanjaPreporuka = null;
+                KorisnikPitanja=null;
+                KorisnikPitanja=getAllMyPitanjaByVote(p.KorisnikID);
+
+                pitanjaPreporuka = KorisnikPitanja.Where(
+                    x => !mojaPitanjaID.Contains((int)x.PitanjeId)).Select(x => new PitanjaPreporuka
+                {
+                    Contains = p.Contains,
+                    PitanjeID = x.PitanjeId
+                }).Take(5).ToList();
+                pitanjaFinalPreporuka.AddRange(pitanjaPreporuka);
+                if (pitanjaFinalPreporuka.Count > 4)
+                {
+                    break;
+                }
+            }
+            return pitanjaFinalPreporuka.Take(5).ToList();
+
+            }
+
+            //clTag = s.Context.TagClanci.Join(s.Context.Tags, tg => tg.TagID, t => t.TagID, (
+            //        tg, t) => new { TagClanci = tg, Tags = t }).Where(
+            //        q => tgs.Contains(q.Tags.TagID)).Select(x => new ClanakTag
+            //        {
+            //            ClanakId = (int)x.TagClanci.ClanakID,
+            //            ClanakCount = (int)x.TagClanci.ClanakID,
+            //            Prosjek = (double)0
+            //        }).ToList();
+
+        }
+        public List<PitanjaPreporuka> getTop5PitanjaDef(int top)
+        {
+            using (Spajanje s = new Spajanje())
+            {
+                List<PitanjaPreporuka> preporukaFinal = (from p in s.Context.Pitanja
+                                                         orderby p.BrojGlasova, p.BrojPregleda descending
+                                                         select new
+                                                             PitanjaPreporuka { PitanjeID = p.PitanjeID, Contains = 0 }).Take(top).ToList();
+
+                return preporukaFinal;
+            }
+
+        }
+        #endregion
         [HttpPost]
         [ValidateInput(false)]
         public ActionResult Details(int id, string txtComment)
