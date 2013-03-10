@@ -36,21 +36,31 @@
         <div class="post-signature owner">
         <div class="user-info ">
             <div class="user-gravatar32">
-                <a href="/users/1644123/jim22150"><div class=""><img src="http://www.gravatar.com/avatar/e2b3c87d515c1bd878ac1b67877a265e?s=32&amp;d=identicon&amp;r=PG" alt="" width="32" height="32"></div></a>
+                <a href="#"><div class=""><img src="http://www.gravatar.com/avatar/e2b3c87d515c1bd878ac1b67877a265e?s=32&amp;d=identicon&amp;r=PG" alt="" width="32" height="32"></div></a>
             </div>
             <div class="user-action-time">
             <span title="@Html.DisplayFor(model => model.PitanjaPost.Datum)" class="relativetime"> @Html.DisplayFor(model => model.PitanjaPost.Datum).ToString().Substring(0, 10)</span>
             </div>
             
             <div class="user-details">
-                <a href="/users/1644123/jim22150">@Model.Korisnik.UserName</a><br>
+                <a href="#">@Model.Korisnik.UserName</a><br>
             </div>
         </div>
     </div>
     </div>
 </div>
-<div class="clear"></div>
 
+<div class="clear"></div>
+ <div class="sidebar-right" style="position: absolute;left: 950px;top: 108px;width: 200px!important;">
+        <div style="font-size: 15px;font-weight: bold;margin-bottom: 10px;font-style: italic;color: rgb(4, 54, 90)!important;">Preporuka pitanja</div>
+               @foreach (var item in  ViewBag.PreporucenaPt)
+               {
+                   <div style="margin-bottom: 10px;">
+                 <a style="line-height: 1;font-size: 13px;color: #0077cc;" href="/pitanja/details/@item.PitanjeID">@item.Naziv</a>
+                   </div>
+
+               }  
+    </div>
 <div class="response"> 
     <div class="numberRes">@Model.Odgovori.Count odgovora</div> 
    
@@ -86,14 +96,14 @@
         <div class="post-signature owner">
         <div class="user-info ">
             <div class="user-gravatar32">
-                <a href="/users/1644123/jim22150"><div class=""><img src="http://www.gravatar.com/avatar/e2b3c87d515c1bd878ac1b67877a265e?s=32&amp;d=identicon&amp;r=PG" alt="" width="32" height="32"></div></a>
+                <a href="#"><div class=""><img src="http://www.gravatar.com/avatar/e2b3c87d515c1bd878ac1b67877a265e?s=32&amp;d=identicon&amp;r=PG" alt="" width="32" height="32"></div></a>
             </div>
             <div class="user-action-time">
             <span title="@item.OdgovoriGlavni.Datum" class="relativetime">@item.OdgovoriGlavni.Datum.ToString().Substring(0, 10)</span>
             </div>
             
             <div class="user-details">
-                <a href="/users/1644123/jim22150">@item.Korisnik.UserName</a><br>
+                <a href="#">@item.Korisnik.UserName</a><br>
             </div>
         </div>
     </div>
@@ -116,7 +126,7 @@
                    <td></td>
                    <td class="comment-text">
                       @odgovorNaOdg.OdgovoriNaPodOgovor.Odgovor
-                      –&nbsp; <a href="/users/1644123/jim22150"  class="comment-user owner">@odgovorNaOdg.Korisnik.UserName</a>
+                      –&nbsp; <a href="#"  class="comment-user owner">@odgovorNaOdg.Korisnik.UserName</a>
                      <span title="@odgovorNaOdg.OdgovoriNaPodOgovor.Datum" class="relativetime-clean">@odgovorNaOdg.OdgovoriNaPodOgovor.Datum.ToString().Substring(0, 10)</span>
                    </td>
               </tr>

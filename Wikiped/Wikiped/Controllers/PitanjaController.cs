@@ -35,13 +35,13 @@ namespace Wikiped.Controllers
             LucenePt.ClearLuceneIndex();
             LucenePt.AddUpdateLuceneIndex(LucenePt.GetAllObjectForLuceneIndex());
 
-            List<LuceneObject> pitanja=new List<LuceneObject>();
+            List<LuceneObject> pitanja = new List<LuceneObject>();
             ViewBag.StackOQuest = new List<Question>();
             if (!String.IsNullOrEmpty(search))
             {
                 pitanja = LucenePt.Search(search).ToList();
                 ExternalIntegration t = new ExternalIntegration();
-                ViewBag.StackOQuest=t.SearchStackOverflow(search);
+                ViewBag.StackOQuest = t.SearchStackOverflow(search);
             }
             if (pitanja != null)
             {
@@ -108,11 +108,21 @@ namespace Wikiped.Controllers
         {
             Pitanja pitanje = new Pitanja();
             IEnumerable<object> lstTags;
+
+            //put korisnik ID
+            List<PitanjaPreporuka> preporuka = preporukaColaborative(1);
+            List<DBBL.DAL.Pitanja> pitanja = new List<DBBL.DAL.Pitanja>();
             using (Pitanja pt = new Pitanja())
             {
                 pt.SetAllDetaByPitanjeID(id);
                 lstTags = pt.GetAllTagsForPitanjeID(id);
                 pitanje = pt;
+
+                foreach (var item in preporuka)
+                {
+                    pitanja.Add(pt.GetPitanjeByID(item.PitanjeID)); 
+                }
+                ViewBag.PreporucenaPt = pitanja;
             }
             ViewBag.Tags = lstTags;
             return View(pitanje);
@@ -127,7 +137,6 @@ namespace Wikiped.Controllers
 
             if (getAllMyBrojPitanja(userId) > 0)
             {
-               
 
                 List<PitanjaGlasovi> OtherPitanja = getAllOtherPitanjaByVote(MyPitanja, userId);
                 double brojPitanja = (double)MyPitanja.Count;
@@ -135,17 +144,17 @@ namespace Wikiped.Controllers
                 PreporukaFinal = getTop5Pitanja(MyPitanja, otherContains);
                 if (PreporukaFinal.Count < 5)
                 {
-                    int top=5 - PreporukaFinal.Count;
+                    int top = 5 - PreporukaFinal.Count;
                     UsesIds.AddRange((from p in PreporukaFinal select p.PitanjeID).ToList());
                     PreporukaFinal.AddRange(getTop5PitanjaDef(top, UsesIds));
-                    
+
                 }
-              
+
             }
             else
             {
                 PreporukaFinal = getTop5PitanjaDef(5, UsesIds);
-              
+
             }
             PreporukaFinal = (from p in PreporukaFinal orderby p.Contains descending select p).ToList();
             return PreporukaFinal;
@@ -167,7 +176,7 @@ namespace Wikiped.Controllers
                                                     }).ToList();
 
                 return glasPitanje;
-               
+
             }
 
         }
@@ -178,7 +187,7 @@ namespace Wikiped.Controllers
 
                 double brojpitanja = (from gp in s.Context.GlasoviZaPitanja
                                       where gp.KorisnikID == userId
-                                                    select gp.PitanjeID).ToList().Count;
+                                      select gp.PitanjeID).ToList().Count;
 
                 return brojpitanja;
 
@@ -206,7 +215,7 @@ namespace Wikiped.Controllers
             }
 
         }
-        public List<PitanjaContains> getAllPitanjaByContains(List<PitanjaGlasovi> otherPitanja,double brojPitanja)
+        public List<PitanjaContains> getAllPitanjaByContains(List<PitanjaGlasovi> otherPitanja, double brojPitanja)
         {
             List<int> idUsers = otherPitanja.Select(x => (int)x.KorisnikID).Distinct().ToList();
 
@@ -243,33 +252,34 @@ namespace Wikiped.Controllers
         }
         public List<PitanjaPreporuka> getTop5Pitanja(List<PitanjaGlasovi> myPitanja, List<PitanjaContains> otherUser)
         {
-            using(Spajanje s= new Spajanje()){
-            List<int> mojaPitanjaID=(from m in myPitanja select m.PitanjeId).ToList();
-
-            List<PitanjaPreporuka> pitanjaPreporuka;
-
-            List<PitanjaPreporuka> pitanjaFinalPreporuka=new List<PitanjaPreporuka>();
-            
-            List<PitanjaGlasovi> KorisnikPitanja;
-            foreach (PitanjaContains p in otherUser)
+            using (Spajanje s = new Spajanje())
             {
-                pitanjaPreporuka = null;
-                KorisnikPitanja=null;
-                KorisnikPitanja=getAllMyPitanjaByVote(p.KorisnikID);
+                List<int> mojaPitanjaID = (from m in myPitanja select m.PitanjeId).ToList();
 
-                pitanjaPreporuka = KorisnikPitanja.Where(
-                    x => !mojaPitanjaID.Contains((int)x.PitanjeId)).Select(x => new PitanjaPreporuka
+                List<PitanjaPreporuka> pitanjaPreporuka;
+
+                List<PitanjaPreporuka> pitanjaFinalPreporuka = new List<PitanjaPreporuka>();
+
+                List<PitanjaGlasovi> KorisnikPitanja;
+                foreach (PitanjaContains p in otherUser)
                 {
-                    Contains = p.Contains,
-                    PitanjeID = x.PitanjeId
-                }).Take(5).ToList();
-                pitanjaFinalPreporuka.AddRange(pitanjaPreporuka);
-                if (pitanjaFinalPreporuka.Count > 4)
-                {
-                    break;
+                    pitanjaPreporuka = null;
+                    KorisnikPitanja = null;
+                    KorisnikPitanja = getAllMyPitanjaByVote(p.KorisnikID);
+
+                    pitanjaPreporuka = KorisnikPitanja.Where(
+                        x => !mojaPitanjaID.Contains((int)x.PitanjeId)).Select(x => new PitanjaPreporuka
+                    {
+                        Contains = p.Contains,
+                        PitanjeID = x.PitanjeId
+                    }).Take(5).ToList();
+                    pitanjaFinalPreporuka.AddRange(pitanjaPreporuka);
+                    if (pitanjaFinalPreporuka.Count > 4)
+                    {
+                        break;
+                    }
                 }
-            }
-            return pitanjaFinalPreporuka.Take(5).ToList();
+                return pitanjaFinalPreporuka.Take(5).ToList();
 
             }
 
@@ -287,8 +297,9 @@ namespace Wikiped.Controllers
         {
             using (Spajanje s = new Spajanje())
             {
-                List<PitanjaPreporuka> preporukaFinal=s.Context.Pitanja.Where(x=>!UsesIds.Contains(x.PitanjeID)).OrderByDescending(
-                    x=>x.BrojGlasova).ThenByDescending(x=>x.BrojPregleda).Select(x=> new PitanjaPreporuka {
+                List<PitanjaPreporuka> preporukaFinal = s.Context.Pitanja.Where(x => !UsesIds.Contains(x.PitanjeID)).OrderByDescending(
+                    x => x.BrojGlasova).ThenByDescending(x => x.BrojPregleda).Select(x => new PitanjaPreporuka
+                    {
                         PitanjeID = x.PitanjeID,
                         Contains = 0
                     }).Take(top).ToList();
@@ -411,19 +422,16 @@ namespace Wikiped.Controllers
         public int KorisnikID { get; set; }
         public int PitanjeId { get; set; }
         public int Glas { get; set; }
-
     }
     public class PitanjaContains
     {
         public int KorisnikID { get; set; }
         public double Contains { get; set; }
-
     }
     public class PitanjaPreporuka
     {
         public int PitanjeID { get; set; }
         public double Contains { get; set; }
-
     }
 
 }
