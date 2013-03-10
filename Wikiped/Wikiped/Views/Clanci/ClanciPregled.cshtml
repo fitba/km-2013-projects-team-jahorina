@@ -39,6 +39,32 @@
         </div>
 </div>
 <div class="clanak-details-preporuka">
+
+<div class="clanak-preporuka-naslovP">Preporuka</div>
+
+@foreach (ClanciServis pr in ViewBag.Preporuka)
+{
+    
+
+<div class="clanak-preporuka-naslov">@pr.naslov</div>
+<div class="clanak-preporuka-text">
+        @if (pr.slika != "")
+        {
+            if(pr.slika != null)
+            {
+            <img src="@pr.slika" alt="wikitest" class="clanak-preporuka-slika" />
+            }
+        }
+            @MvcHtmlString.Create(pr.tekst)
+            <div class="clanak-read-more">
+                @Html.ActionLink("Procitaj vise...", "ClanciPregled", new { clID = pr.ClanakId })
+                
+                </div>
+           
+      
+        </div>
+}
+
 </div>
 <div class="clanak-details-content">@MvcHtmlString.Create(Model.tekst)
     <div class="mainComment-Clanci">

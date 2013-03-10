@@ -70,6 +70,34 @@ namespace Wikiped.Models
         public string klasa { get; set; }
         public List<ClanciServis> ClanciOrig { get; set; }
 
+        public static List<ClanciServis> getClanciByIds(List<int> clanciIds)
+        {
+            List<ClanciServis> clanciPoids = new List<ClanciServis>();
+
+            ClanciServis temp;
+            foreach (int i in clanciIds)
+            {
+                temp = null;
+                temp = getClanakById(i);
+
+
+                temp.tekst = temp.tekst.Substring(0, (temp.tekst.Length * 20) / 100);
+                try
+                {
+                    temp.tekst = temp.tekst.Substring(0, temp.tekst.LastIndexOf(' '));
+                }
+                catch (Exception)
+                {
+
+
+                }
+
+                temp.tekst += "...";
+                clanciPoids.Add(temp);
+            }
+            return clanciPoids;
+
+        }
         public List<ClanciServisObrada> getAllClanci()
         {
             using (Spajanje s = new Spajanje())

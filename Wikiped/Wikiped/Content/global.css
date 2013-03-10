@@ -723,7 +723,7 @@ text-decoration:underline;
 .clanak-details-preporuka
 {
  width:318px;
- height:900px;
+ height:auto;
  float:right;   
  background:#f5fffa;
  border:1px solid #cef2e0;
@@ -1137,4 +1137,88 @@ moz-box-shadow: 0 0 1px 1px #888;
 {
     
     margin:50px 0px 0px 0px !important;
+}
+
+.clanak-preporuka-naslovP
+{
+       float:left;
+    width:308px;
+    min-height:20px;
+    height:auto;
+    overflow:hidden;
+    padding:3px 5px 4px 5px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    margin:0px 0px 5px 0px;
+    background:#ddcef2; 
+    font-size:15px;
+  line-height: 1.5;
+  color: #333;
+  font-family:Helvetica,Arial,serif;
+}
+.clanak-preporuka-naslov
+{
+    float:left;
+    width:300px;
+    min-height:20px;
+    height:auto;
+    overflow:hidden;
+    margin:0px 0px 10px 4px;
+    padding:3px 5px 4px 5px;
+    border-radius: 4px;
+    background:#cedff2;
+    font-size:15px;
+  line-height: 1.5;
+  color: #333;
+  font-family:Helvetica,Arial,serif;
+}
+.clanak-preporuka-slika
+{
+     float:left;
+    width:120px;
+    height:120px;
+    margin:0px 5px 0px 0px;
+    background:blue;
+    border-radius: 3px;
+  
+  
+}
+
+.clanak-preporuka-text
+{
+    text-align:justify;
+    font-size:12px;
+    margin:5px;
+    height:auto;
+    font-size:13px;
+  line-height: 1.5;
+  color: #333;
+	background-color: transparent;
+  font-family:Helvetica,Arial,serif;
+  float:left;
+   
+}
+.clanak-text-search-txt
+{
+       width:935px;
+    min-height:40px;
+    height:auto;
+    overflow:hidden;
+    display:list-item;
+    float:left;
+    border-radius:3px;
+    box-shadow: 0 3px 3px #DDD;
+    -webkit-box-shadow: 1px 5px 4px gray;
+    margin:0px 0px 7px 3px;
+    background-color:Red;
+ 
+    bottom:30px;
+   
+}
+.clanak-read-more
+{
+    
+   display:inline;
+   font-weight:bold;
+   margin:0px 5px 0px 5px;
 }

@@ -73,7 +73,11 @@ namespace Wikiped.Controllers
         public ActionResult ClanciPregled(int clID)
         {
             ClanciServis clanak = ClanciServisObrada.getClanakById(clID);
+             List<ClanakProsjek> preporukaTemp=preporukaItembase(clID);
+            List<int> preporukaIds=(from p in preporukaTemp select p.ClanakId).ToList();
 
+
+            ViewBag.Preporuka = ClanciServisObrada.getClanciByIds(preporukaIds);
             return View(clanak);
         }
         public ActionResult zloupotreba(int zlID)
