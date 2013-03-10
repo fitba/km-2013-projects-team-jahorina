@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Wikiped.Models;
+using Wikiped.DBBL.BLL;
+
 
 namespace Wikiped.Controllers
 {
@@ -43,7 +45,7 @@ namespace Wikiped.Controllers
             ViewBag.GetTags = new Func<int, IEnumerable<string>>(GetAllTagsForPitanje);
             return View();
         }
-        
+
         public IEnumerable<string> GetAllTagsForPitanje(int id)
         {
             IEnumerable<string> lstTags;
@@ -57,7 +59,7 @@ namespace Wikiped.Controllers
         {
             return View();
         }
-      
+
         [HttpPost]
         [ValidateInput(false)]
         public ActionResult Create(string tags, string title, string opis)
@@ -80,11 +82,11 @@ namespace Wikiped.Controllers
 
                 foreach (var item in tagsA)
                 {
-                   int idTaga= pt.GetTagIdByName(item);
-                   Wikiped.DBBL.DAL.TagoviPitanja tp = new DBBL.DAL.TagoviPitanja();
-                   tp.TagID = idTaga;
-                   tp.PitanjeID = id;
-                   pt.AddTagsForPitanja(tp);
+                    int idTaga = pt.GetTagIdByName(item);
+                    Wikiped.DBBL.DAL.TagoviPitanja tp = new DBBL.DAL.TagoviPitanja();
+                    tp.TagID = idTaga;
+                    tp.PitanjeID = id;
+                    pt.AddTagsForPitanja(tp);
                 }
             }
             return RedirectToAction("Create");
@@ -103,7 +105,7 @@ namespace Wikiped.Controllers
             ViewBag.Tags = lstTags;
             return View(pitanje);
         }
-
+        
         [HttpPost]
         [ValidateInput(false)]
         public ActionResult Details(int id, string txtComment)
@@ -213,4 +215,24 @@ namespace Wikiped.Controllers
         public int Id { get; set; }
         public string Name { get; set; }
     }
+    public class PitanjaGlasovi
+    {
+        public int KorisnikID { get; set; }
+        public int PitanjeId { get; set; }
+        public int Glas { get; set; }
+
+    }
+    public class PitanjaContains
+    {
+        public int KorisnikID { get; set; }
+        public double Contains { get; set; }
+
+    }
+    public class PitanjaPreporuka
+    {
+        public int PitanjeID { get; set; }
+        public double Contains { get; set; }
+
+    }
+
 }

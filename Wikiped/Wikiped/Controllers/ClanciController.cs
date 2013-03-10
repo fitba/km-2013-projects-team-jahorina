@@ -512,7 +512,7 @@ namespace Wikiped.Controllers
 
         public ActionResult updateData(int zlID)
         {
-            //preporukaItembase(20);
+            preporukaItembase(20);
             try
             {
 
@@ -526,6 +526,8 @@ namespace Wikiped.Controllers
 
 
         }
+
+
 
         #region Preporuka item base
         public List<ClanakProsjek> preporukaItembase(int clId)
@@ -542,7 +544,9 @@ namespace Wikiped.Controllers
                 List<ClanakProsjek> pros = ProsjecnaOcjenaPoKategoriji((double)cls.Popularnost, cls.ClanakID, vrste.Klasa);
 
                 List<ClanakProsjek> Preporuka = SumiranjeProsjeka(pros, TagoviContain, (double)cls.Popularnost);
-                return Preporuka;
+                
+                List<ClanakProsjek> PreporukaFinal = BrojOcjena(Preporuka, (int)cls.Ocjenjeno);
+                return PreporukaFinal;
             }
 
         }
@@ -576,7 +580,7 @@ namespace Wikiped.Controllers
                 }
 
 
-                float procentniDio = 34;
+                float procentniDio = 22;
                 float brojOcjena = 5;
                 float OsnovnaJedinica = procentniDio / brojOcjena;
 
@@ -592,12 +596,67 @@ namespace Wikiped.Controllers
                     {
                         ProsjekOcjenaFinal[i].Prosjek = prosjek - ProsjekOcjenaFinal[i].Prosjek;
                     }
-                    ProsjekOcjenaFinal[i].Prosjek = (procentniDio - (ProsjekOcjenaFinal[i].Prosjek * OsnovnaJedinica)) + 33.0;
+                    ProsjekOcjenaFinal[i].Prosjek = (procentniDio - (ProsjekOcjenaFinal[i].Prosjek * OsnovnaJedinica)) + 21.0;
                 }
                 ProsjekOcjenaFinal = (from p in ProsjekOcjenaFinal orderby p.Prosjek descending where p.ClanakId != clID select p).ToList();
 
                 return ProsjekOcjenaFinal;
             }
+        }
+        public List<ClanakProsjek> BrojOcjena(List<ClanakProsjek> Prosjeci,int brojOcjenaOrig)
+        {
+            try
+            {
+
+            
+            using (Spajanje s = new Spajanje())
+            {
+                Clanci temp;
+                double postotak=21;
+                double razmak;
+                int ids;
+                for (int i = 0; i < Prosjeci.Count; i++)
+                {
+                    //temp = null;
+                    ids = Prosjeci[i].ClanakId;
+                    temp = (from c in s.Context.Clanci where c.ClanakID == ids select c).FirstOrDefault();
+                    
+                    if (temp.Ocjenjeno == brojOcjenaOrig)
+                    {
+                        Prosjeci[i].Prosjek = Prosjeci[i].Prosjek + postotak;
+                    }
+                    else
+                    {
+                        if (temp.Ocjenjeno != 0 && brojOcjenaOrig != 0)
+                        {
+                         
+                            if (temp.Ocjenjeno > brojOcjenaOrig)
+                            {
+                                
+                                razmak = (double)(temp.Ocjenjeno - brojOcjenaOrig);
+                                Prosjeci[i].Prosjek = Prosjeci[i].Prosjek + (postotak - ((postotak / (double)temp.Ocjenjeno) * razmak));
+
+                            }
+                            else
+                            {
+                                razmak = (double)(brojOcjenaOrig -temp.Ocjenjeno);
+                                Prosjeci[i].Prosjek = Prosjeci[i].Prosjek + (postotak - ((postotak / brojOcjenaOrig) * razmak));
+
+                            }
+                        }
+                    }
+
+                }
+                
+            }
+            }
+            catch (Exception)
+            {
+
+                return Prosjeci;
+            }
+            return Prosjeci;
+
         }
         public List<ClanakTag> BrojTagovaUCanku(List<int> tgs, int clID)
         {

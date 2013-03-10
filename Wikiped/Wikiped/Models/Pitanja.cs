@@ -6,8 +6,10 @@ using Wikiped.DBBL.DAL;
 
 namespace Wikiped.Models
 {
+  
     public class Pitanja : IDisposable
     {
+      
         #region Property
 
         private Wikiped.DBBL.DAL.Pitanja pitanjaPost;
