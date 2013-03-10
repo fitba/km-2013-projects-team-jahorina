@@ -20,8 +20,36 @@ namespace Wikiped.Controllers
         public ActionResult Index()
         {
             ClanciServisObrada c = new ClanciServisObrada();
+            ViewBag.Search = false;
             return View(c.getAllClanci());
         }
+        [HttpPost]
+        public ActionResult Index(string btnSearch, string search)
+        {
+            List<LuceneObject> clanci;
+            clanci = LucenePt.Search(search).ToList();
+            if (clanci != null)
+            {
+                clanci = clanci.Where(x => x.IsQuestion == false).ToList();
+                if (clanci.Count == 0)
+                {
+                    ViewBag.HasResult = false;
+                }
+                else
+                {
+                    ViewBag.HasResult = true;
+                }
+            }
+            else
+            {
+                ViewBag.HasResult = false;
+            }
+
+            ViewBag.Clanci = clanci;
+            ViewBag.Search = true;
+            return View();
+        }
+
         public ActionResult Edit(int id)
         {
             ClanciServisObrada c = new ClanciServisObrada();
@@ -256,20 +284,24 @@ namespace Wikiped.Controllers
 
         public ActionResult Create()
         {
+            List<TagVrste> tgs;
             using (Spajanje s = new Spajanje())
             {
 
 
-                List<TagVrste> tgs = (from tg in s.Context.TagVrste orderby tg.Opis ascending select tg).ToList();
+                tgs = (from tg in s.Context.TagVrste orderby tg.Opis ascending select tg).ToList();
                 ViewBag.clanci = (from cl in s.Context.Clanci
                                   join sa in s.Context.Sadrzaji on
                                       cl.ClanakID equals sa.ClanakID
                                   select
                                       sa).ToList();
 
-                return View(tgs);
             }
-
+            using (Wikiped.Models.Pitanja pt = new Wikiped.Models.Pitanja())
+            {
+                ViewBag.Tagovi = pt.GetAllTagsCount().Take(15);
+            }
+            return View(tgs);
         }
         [ValidateInput(false)]
         [HttpPost]
@@ -354,6 +386,10 @@ namespace Wikiped.Controllers
 
                     }
                 }
+            }
+            using (Wikiped.Models.Pitanja pt = new Wikiped.Models.Pitanja())
+            {
+                ViewBag.Tagovi = pt.GetAllTagsCount().Take(15);
             }
             return View();
         }

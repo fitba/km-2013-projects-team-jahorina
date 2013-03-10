@@ -17,13 +17,27 @@ namespace Wikiped.Controllers
         public ActionResult Index(string name)
         {
             List<LuceneObject> pitanja;
+            using (Wikiped.Models.Pitanja pt = new Wikiped.Models.Pitanja())
+            {
+                ViewBag.Tagovi = pt.GetAllTagsCount().Take(15);
+            }
             if (!String.IsNullOrEmpty(name))
             {
                 pitanja = LucenePt.Search(name).ToList();
                 ViewBag.AllData = pitanja;
+                ViewBag.Lucene = true;
             }
             else
             {
+                List<DBBL.DAL.Pitanja> lstPitanja;
+                List<DBBL.DAL.Sadrzaji> lstSadrzaji;
+                using (Spajanje s = new Spajanje())
+                {
+                    lstPitanja = s.Context.Pitanja.OrderByDescending(x => x.Datum).Take(3).ToList();
+                    lstSadrzaji = s.Context.Sadrzaji.OrderByDescending(x => x.Datum).Take(3).ToList();
+                    ViewBag.Pitanja = lstPitanja;
+                    ViewBag.Sadrzaji = lstSadrzaji;
+                }
                 ViewBag.AllData = "";
             }
             return View();

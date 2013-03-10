@@ -44,7 +44,7 @@
                     <div class="tags t-html t-css t-google-chrome t-heroku t-zurb-foundation">
                         @foreach (var tag in @ViewBag.GetTags(@item.PitanjeID))
                         {
-                            <a href="#" class="post-tag" title="" rel="tag">@tag</a> 
+                            <a href="/Tag/Details/?name=@tag" class="post-tag" title="" rel="tag">@tag</a> 
                         }
                     </div>
                     <div class="started">
@@ -71,13 +71,14 @@
             foreach (var item in ViewBag.AllPitanja)
             {
             <div class="question-summary narrow">
+            <div class="legPrtMargin"></div>
                 <div class="summary">
                     <h3>
                         <a class="colorBlue" href="/pitanja/details/@item.Id">@item.Name</a></h3>
                     <div class="tags t-html t-css t-google-chrome t-heroku t-zurb-foundation">
                         @foreach (var tag in @ViewBag.GetTags(@item.Id))
                         {
-                            <a href="#" class="post-tag" title="" rel="tag">@tag</a> 
+                            <a href="/Tag/Details/?name=@tag" class="post-tag" title="" rel="tag">@tag</a> 
                         }
                     </div>
                     <div class="started">
@@ -92,33 +93,13 @@
         }
     </div>
     <div class="sidebar-right">
+        <div style="font-size: 15px;font-weight: bold;margin-bottom: 10px;font-style: italic;color: rgb(4, 54, 90)!important;">Najpopularni tagovi</div>
         <div id="recent-tags-list">
-            <a href="/questions/tagged/c%23" class="post-tag" title="" rel="tag">c#</a>&nbsp;<span
-                class="item-multiplier"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">78</span></span><br>
-            <a href="/questions/tagged/java" class="post-tag" title="" rel="tag">java</a>&nbsp;<span
-                class="item-multiplier"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">70</span></span><br>
-            <a href="/questions/tagged/android" class="post-tag" title="" rel="tag">
-                <img src="http://i.stack.imgur.com/tKsDb.png" height="16" width="18" alt="" class="sponsor-tag-img">android</a>&nbsp;<span
-                    class="item-multiplier"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">65</span></span><br>
-            <a href="/questions/tagged/javascript" class="post-tag" title="" rel="tag">javascript</a>&nbsp;<span
-                class="item-multiplier"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">44</span></span><br>
-            <a href="/questions/tagged/php" class="post-tag" title="" rel="tag">php</a>&nbsp;<span
-                class="item-multiplier"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">38</span></span><br>
-            <a href="/questions/tagged/jquery" class="post-tag" title="" rel="tag">jquery</a>&nbsp;<span
-                class="item-multiplier"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">37</span></span><br>
-            <a href="/questions/tagged/python" class="post-tag" title="" rel="tag">python</a>&nbsp;<span
-                class="item-multiplier"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">29</span></span><br>
-            <a href="/questions/tagged/c%2b%2b" class="post-tag" title="show questions tagged 'c++'"
-                rel="tag">c++</a>&nbsp;<span class="item-multiplier"><span class="item-multiplier-x">×</span>&nbsp;<span
-                    class="item-multiplier-count">28</span></span><br>
-            <a href="/questions/tagged/sql" class="post-tag" title="show questions tagged 'sql'"
-                rel="tag">sql</a>&nbsp;<span class="item-multiplier"><span class="item-multiplier-x">×</span>&nbsp;<span
-                    class="item-multiplier-count">26</span></span><br>
-            <a href="/questions/tagged/html" class="post-tag" title="show questions tagged 'html'"
-                rel="tag">html</a>&nbsp;<span class="item-multiplier"><span class="item-multiplier-x">×</span>&nbsp;<span
-                    class="item-multiplier-count">26</span></span><br>
-            <a href="/questions/tagged/oracle" class="post-tag" title="" rel="tag">oracle</a>&nbsp;<span
-                class="item-multiplier"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">8</span></span><br>
+        @foreach (var tag in ViewBag.Tagovi)
+        {
+                        <a href="/Tag/Details/?name=@tag.Name" class="post-tag" title="" rel="tag">@tag.Name</a><span
+                class="item-multiplier"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">@tag.CountT</span></span><br>
+        }
         </div>
     </div>
 }

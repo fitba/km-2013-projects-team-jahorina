@@ -150,11 +150,12 @@ font-size:15px;
  }
  /* pitanja sve*/
  .question-summary {
-    border-bottom: 1px solid #eaeaea;
-    overflow: hidden;
-    padding: 11px 0px;
-    width: 730px;
-    float: left;
+   border-bottom: 1px solid #eaeaea;
+overflow: hidden;
+padding: 11px 0px;
+width: 715px;
+float: left;
+margin-right: 15px;
 }
  .leftBox
  {
@@ -672,6 +673,7 @@ text-decoration:underline;
   color: #333;
 	background-color: transparent;
   font-family:Helvetica,Arial,serif;
+  margin-right: 35px;
 
 }
 .clanak-details-opis
@@ -1221,4 +1223,11 @@ moz-box-shadow: 0 0 1px 1px #888;
    display:inline;
    font-weight:bold;
    margin:0px 5px 0px 5px;
+}
+.legPrtMargin
+{
+    float: left;
+    margin: 0 3px 0 0;
+    padding: 5px;
+    width: 38px;
 }

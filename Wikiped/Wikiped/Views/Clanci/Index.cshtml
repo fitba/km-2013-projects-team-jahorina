@@ -6,49 +6,92 @@
         $('#CanciSvi').masonry({
             itemSelector: '.clanak-wraper'
         });
-
+        $('#Pretraga').button();
     });
 </script>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/Pocetna.cshtml";
 }
-<div class="clanak-text-search-txt"></div>
-<div class="ClanciSviWrap" id="CanciSvi">
-@foreach (var it1 in Model)
+@using (Html.BeginForm())
 {
-    <div class="clanak-wraper @(it1.klasa)">
-
-        @foreach (var it2 in it1.ClanciOrig) {
-
-        <div class="clanak-naslov  @(it1.klasa)">
-            @Html.DisplayFor(modelItem => it2.naslov)
+    <div class="clanak-text-search-txt" style="background-color: white; -webkit-box-shadow: 1px 5px 4px white;
+        box-shadow: 0 3px 3px white;">
+        <div id="searchPitanja">
+            <div class="form-row" style="margin-bottom: 35px;">
+                <label style="margin-right: 24px;">
+                    Pretraga</label>
+                <input type="text" class="title" name="search" style="width: 545px;" />
+                <input type="submit" name="btnSearch" value="Pretraga" id="Pretraga" style="width: 82px;" />
+            </div>
         </div>
-            
-        <div class="clanak-text">
-        @if (it2.slika != "")
-        {
-            if(it2.slika != null)
-            {
-            <img src="@Html.DisplayFor(modelItem => it2.slika)" alt="wikitest" class="clanak-slika" />
-            }
-        }
-            @MvcHtmlString.Create(it2.tekst)
-            <div class="clanak-read-more">
-                @Html.ActionLink("Procitaj vise...", "ClanciPregled", new { clID = it2.ClanakId })
-                
-                </div>
-            <div class="Ocjene-Wraper">@Html.Ratings(it2.popularnost,it2.ClanakId,it2.ocjena)<div class="clanak-komentari">Komentari (@it2.komentari)</div></div>
-           
-                
-
-                
-               
-        </div>
-
-        }
-
     </div>
+    }
+    @if (ViewBag.Search == false)
+    {
+    <div class="ClanciSviWrap" id="CanciSvi">
+        @foreach (var it1 in Model)
+        {
+            <div class="clanak-wraper @(it1.klasa)">
+                @foreach (var it2 in it1.ClanciOrig)
+                {
+
+                    <div class="clanak-naslov  @(it1.klasa)">
+                        @Html.DisplayFor(modelItem => it2.naslov)
+                    </div>
+            
+                    <div class="clanak-text">
+                        @if (it2.slika != "")
+                        {
+                            if (it2.slika != null)
+                            {
+                            <img src="@Html.DisplayFor(modelItem => it2.slika)" alt="wikitest" class="clanak-slika" />
+                            }
+                        }
+                        @MvcHtmlString.Create(it2.tekst)
+                        <div class="clanak-read-more">
+                            @Html.ActionLink("Procitaj vise...", "ClanciPregled", new { clID = it2.ClanakId })
+                        </div>
+                        <div class="Ocjene-Wraper">@Html.Ratings(it2.popularnost, it2.ClanakId, it2.ocjena)<div
+                            class="clanak-komentari">
+                            Komentari (@it2.komentari)</div>
+                        </div>
+                    </div>
+
+                }
+            </div>
    
-}
- </div>
+        }
+    </div>
+    }
+    else
+    {
+    <div class="ClanciSviWrap" id="CanciSvi">
+        @foreach (var item in ViewBag.Clanci)
+        {
+            <div class="clanak-wraper smeda">
+                    <div class="clanak-naslov  PlavaT">
+                       @item.Name
+                    </div>
+                    <div class="clanak-text">
+                         @if (item.Description.Length > 551)
+                    { @item.Description.Substring(0, 550) }
+                    else
+                    { @item.Description }
+                        <div class="clanak-read-more">
+                            @Html.ActionLink("Procitaj vise...", "ClanciPregled", new { clID = item.Id })
+                        </div>
+                    </div>
+            </div>
+        }
+        @if (ViewBag.HasResult == false)
+        {
+              <div class="question-summary narrow">
+                <div class="summary">
+                    <h3>
+                        <a class="colorBlue" href="" style="text-decoration:none!important;">Nema rezultata za datu pretragu...</a></h3>
+                </div>
+            </div>
+        }
+    </div>
+    }

@@ -6,10 +6,14 @@ using Wikiped.DBBL.DAL;
 
 namespace Wikiped.Models
 {
-  
+    public class TagCount
+    {
+        public string Name { get; set; }
+        public int CountT { get; set; }
+    }
     public class Pitanja : IDisposable
     {
-      
+
         #region Property
 
         private Wikiped.DBBL.DAL.Pitanja pitanjaPost;
@@ -204,7 +208,7 @@ namespace Wikiped.Models
         {
             context.Pitanja.AddObject(pt);
             context.SaveChanges();
-            DBBL.DAL.Pitanja temp=context.Pitanja.ToList().LastOrDefault();
+            DBBL.DAL.Pitanja temp = context.Pitanja.ToList().LastOrDefault();
             if (temp != null)
             {
                 return temp.PitanjeID;
@@ -218,33 +222,57 @@ namespace Wikiped.Models
         }
         public int GetTagIdByName(string name)
         {
-           Tags tag= context.Tags.ToList().Where(x => x.Ime == name).FirstOrDefault();
-           if (tag != null)
-           {
-               return tag.TagID;
-           }
-           else
-           {
-               Tags t = new Tags();
-               t.Ime = name;
-               context.Tags.AddObject(t);
-               context.SaveChanges();
-               Tags tagZ = context.Tags.LastOrDefault();
-               if (tagZ != null)
-               {
-                   return tagZ.TagID;
-               }
-               return 0;
-           }
+            Tags tag = context.Tags.ToList().Where(x => x.Ime == name).FirstOrDefault();
+            if (tag != null)
+            {
+                return tag.TagID;
+            }
+            else
+            {
+                Tags t = new Tags();
+                t.Ime = name;
+                context.Tags.AddObject(t);
+                context.SaveChanges();
+                Tags tagZ = context.Tags.LastOrDefault();
+                if (tagZ != null)
+                {
+                    return tagZ.TagID;
+                }
+                return 0;
+            }
         }
         public IEnumerable<string> GetAllTagsForPitanjeID(int id)
         {
             var upit = (from t in context.Tags
-                                 join pt in context.TagoviPitanja
-                                 on t.TagID equals pt.TagID
-                                 where pt.PitanjeID == id
-                                 select t.Ime ).Distinct().ToList();
+                        join pt in context.TagoviPitanja
+                        on t.TagID equals pt.TagID
+                        where pt.PitanjeID == id
+                        select t.Ime).Distinct().ToList();
             return upit;
+        }
+        public int GetCountTagByTagoviPitanja(int id)
+        {
+            return context.TagoviPitanja.Where(x => x.TagID == id).Count();
+        }
+        public int GetCountTagByTagoviClanci(int id)
+        {
+            return context.TagClanci.Where(x => x.TagID == id).Count();
+        }
+        public List<TagCount> GetAllTagsCount()
+        {
+            List<TagCount> tag = new List<TagCount>();
+            List<Tags> tagovi = context.Tags.ToList();
+            foreach (var item in tagovi)
+            {
+                TagCount t= new TagCount();
+                int count = 0;
+                count += GetCountTagByTagoviPitanja(item.TagID);
+                count += GetCountTagByTagoviClanci(item.TagID);
+                t.Name = item.Ime;
+                t.CountT = count;
+                tag.Add(t);
+            }
+            return tag.OrderByDescending(x => x.CountT).ToList();
         }
 
         public void Dispose()

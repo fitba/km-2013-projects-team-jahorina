@@ -16,12 +16,12 @@ namespace Wikiped.Controllers
 
         public ActionResult Index()
         {
-        
             //LucenePt.ClearLuceneIndex();
             List<DBBL.DAL.Pitanja> pitanja;
             using (Pitanja pt = new Pitanja())
             {
                 pitanja = pt.GetAllPitanja();
+                ViewBag.Tagovi = pt.GetAllTagsCount().Take(15);
                 ViewBag.AllPitanja = pitanja;
             }
             ViewBag.Search = false;
@@ -40,6 +40,10 @@ namespace Wikiped.Controllers
             if (pitanja != null)
             {
                 pitanja = pitanja.Where(x => x.IsQuestion == true).ToList();
+            }
+            using (Pitanja pt = new Pitanja())
+            {
+                ViewBag.Tagovi = pt.GetAllTagsCount().Take(15);
             }
             ViewBag.AllPitanja = pitanja;
             ViewBag.Search = true;

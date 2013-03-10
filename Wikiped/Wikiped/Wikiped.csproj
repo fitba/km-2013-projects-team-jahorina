@@ -118,6 +118,7 @@
     <Compile Include="Controllers\JsonResponse.cs" />
     <Compile Include="Controllers\PitanjaController.cs" />
     <Compile Include="Controllers\PocetnaController.cs" />
+    <Compile Include="Controllers\TagController.cs" />
     <Compile Include="DBBL\BLL\Spajanje.cs" />
     <Compile Include="DBBL\DAL\WikipedModel.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -553,6 +554,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Clanci\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Tag\Details.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

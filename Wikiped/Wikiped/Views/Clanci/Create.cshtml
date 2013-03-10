@@ -95,15 +95,17 @@
 </div>
 }
 
+<div class="sidebar-right">
+        <div style="font-size: 15px;font-weight: bold;margin-bottom: 10px;font-style: italic;color: rgb(4, 54, 90)!important;">Najpopularni tagovi</div>
+        <div id="recent-tags-list">
+        @foreach (var tag in ViewBag.Tagovi)
+        {
+                        <a href="/Tag/Details/?name=@tag.Name" class="post-tag" title="" rel="tag">@tag.Name</a><span
+                class="item-multiplier"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">@tag.CountT</span></span><br>
+        }
+        </div>
+    </div>    
 
-
-    
-
-<h2>Create</h2>
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 <script type="text/javascript">
     $("document").ready(function () {

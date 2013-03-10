@@ -2,25 +2,105 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/Pocetna.cshtml";
 }
-<div class="wrapperleft">
-    @foreach (var item in ViewBag.AllData)
+<style type="text/css">
+    .question-summary
     {
+        border-bottom: 1px solid #eaeaea;
+        overflow: hidden;
+        padding: 11px 0px;
+        width: 659px;
+        float: left;
+        margin-left: 30px;
+        margin-right: 40px;
+    }
+    .narrow .summary
+    {
+        width: 665px;
+        float: left;
+    }
+    .readMore
+    {
+        color: #0077cc !important;
+        margin-left: 480px;
+        font-style: italic;
+        font-size: 15px;
+        font-weight: normal;
+    }
+</style>
+<div class="wrapperleft">
+    @if (ViewBag.Lucene == true)
+    {
+        foreach (var item in ViewBag.AllData)
+        {
         <div class="question-summary narrow">
             <div class="summary">
                 <h3>
                     <a class="colorBlue" href="/pitanja/details/@item.Id">@item.Name</a></h3>
-                    <div class="indexDescription">@if(item.Description.Length>251) { @item.Description.Substring(0, 250) }else{ @item.Description }</div> 
-                   
-                    @if (item.IsQuestion == true)
-                    {
-                          <div style="margin-top: 15px;"><a href="/pitanja/details/@item.Id" class="readMore">Pročitaj više o pitanju...</a></div>    
-                    }
+                <div class="indexDescription">
+                    @if (item.Description.Length > 351)
+                    { @item.Description.Substring(0, 350) }
                     else
-                    {
-                          <div style="margin-top: 15px;"><a href="/clanci/ClanciPregled?clID=@item.Id" class="readMore">Pročitaj više o članku...</a></div>    
-                    }
-              
+                    { @item.Description }</div>
+                @if (item.IsQuestion == true)
+                {
+                    <div style="margin-top: 15px;">
+                        <a href="/pitanja/details/@item.Id" class="readMore">Pročitaj više o pitanju...</a></div>    
+                }
+                else
+                {
+                    <div style="margin-top: 15px;">
+                        <a href="/clanci/ClanciPregled?clID=@item.Id" class="readMore">Pročitaj više o članku...</a></div>    
+                }
             </div>
         </div>
+        }
     }
+    else
+    {
+        foreach (var item in ViewBag.Pitanja)
+        {
+        <div class="question-summary narrow">
+            <div class="summary">
+                <h3>
+                    <a class="colorBlue" href="/pitanja/details/@item.PitanjeID">@item.Naziv</a></h3>
+                <div class="indexDescription">
+                    @if (item.Opis.Length > 351)
+                    { @item.Opis.Substring(0, 350) }
+                    else
+                    { @item.Opis }</div>
+                <div style="margin-top: 15px;">
+                    <a href="/pitanja/details/@item.PitanjeID" class="readMore">Pročitaj više o pitanju...</a></div>
+            </div>
+        </div>
+        }
+        foreach (var item in ViewBag.Sadrzaji)
+        {
+        <div class="question-summary narrow">
+            <div class="summary">
+                <h3>
+                    <a class="colorBlue" href="/pitanja/details/@item.SadrzajID">@item.Naslov</a></h3>
+                <div class="indexDescription">
+                    @if (item.Tekst.Length > 351)
+                    { @item.Tekst.Substring(0, 350) }
+                    else
+                    { @item.Tekst }</div>
+                <div style="margin-top: 15px;">
+                    <a href="/clanci/ClanciPregled?clID=@item.SadrzajID" class="readMore">Pročitaj više
+                        o članku...</a></div>
+            </div>
+        </div>
+        }
+    }
+    <div class="sidebar-right">
+        <div style="font-size: 15px; font-weight: bold; margin-bottom: 10px; font-style: italic;
+            color: rgb(4, 54, 90)!important;">
+            Najpopularni tagovi</div>
+        <div id="recent-tags-list">
+            @foreach (var tag in ViewBag.Tagovi)
+            {
+                <a href="/Tag/Details/?name=@tag.Name" class="post-tag" title="" rel="tag">@tag.Name</a><span
+                    class="item-multiplier"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">@tag.CountT</span></span><br>
+            }
+        </div>
+    </div>
 </div>
