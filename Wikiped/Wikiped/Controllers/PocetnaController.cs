@@ -18,7 +18,13 @@ namespace Wikiped.Controllers.Register
             Korisnici kor = Session["Korisnik"] as Korisnici;
             ViewBag.logiran = kor.UserName.ToString();
 
+            return RedirectToAction("Index","Index");
+        }
+        public ActionResult OProjektu()
+        {
+       
             return View();
+
         }
         public ActionResult odjava()
         {

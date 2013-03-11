@@ -1,18 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="WikipedModelStoreContainer" CdmEntityContainer="WikipedEntities">
-    <EntitySetMapping Name="Algoritmi">
-      <EntityTypeMapping TypeName="WikipedModel.Algoritmi">
-        <MappingFragment StoreEntitySet="Algoritmi">
-          <ScalarProperty Name="Aktivan" ColumnName="Aktivan" />
-          <ScalarProperty Name="KorisnikID" ColumnName="KorisnikID" />
-          <ScalarProperty Name="Opis" ColumnName="Opis" />
-          <ScalarProperty Name="naziv" ColumnName="naziv" />
-          <ScalarProperty Name="Vrsta" ColumnName="Vrsta" />
-          <ScalarProperty Name="AlgoritamID" ColumnName="AlgoritamID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Clanci">
       <EntityTypeMapping TypeName="WikipedModel.Clanci">
         <MappingFragment StoreEntitySet="Clanci">
@@ -23,14 +11,6 @@
           <ScalarProperty Name="TagVrstaID" ColumnName="TagVrstaID" />
           <ScalarProperty Name="KorisnikID" ColumnName="KorisnikID" />
           <ScalarProperty Name="ClanakID" ColumnName="ClanakID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Drzave">
-      <EntityTypeMapping TypeName="WikipedModel.Drzave">
-        <MappingFragment StoreEntitySet="Drzave">
-          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
-          <ScalarProperty Name="DrzavaID" ColumnName="DrzavaID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -69,10 +49,6 @@
       <EntityTypeMapping TypeName="WikipedModel.Korisnici">
         <MappingFragment StoreEntitySet="Korisnici">
           <ScalarProperty Name="KorisnikVrstaID" ColumnName="KorisnikVrstaID" />
-          <ScalarProperty Name="Slika" ColumnName="Slika" />
-          <ScalarProperty Name="Adresa" ColumnName="Adresa" />
-          <ScalarProperty Name="Grad" ColumnName="Grad" />
-          <ScalarProperty Name="DrzavaID" ColumnName="DrzavaID" />
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Prezime" ColumnName="Prezime" />
           <ScalarProperty Name="Ime" ColumnName="Ime" />
@@ -148,6 +124,17 @@
           <ScalarProperty Name="Opis" ColumnName="Opis" />
           <ScalarProperty Name="Naslov" ColumnName="Naslov" />
           <ScalarProperty Name="SadrzajID" ColumnName="SadrzajID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="WikipedModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="definition" ColumnName="definition" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
