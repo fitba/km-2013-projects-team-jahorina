@@ -33,7 +33,7 @@
             Tagovi</div>
             @foreach (Tags it in Model.tagovi)
             {
-                <a href="/clanci/trazi" class="post-tag" title="" rel="tag">@it.Ime</a>
+                <a href="/Tag/Details/?name=@it.Ime" class="post-tag" title="" rel="tag">@it.Ime</a>
             }
 
         </div>

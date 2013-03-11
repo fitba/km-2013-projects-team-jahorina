@@ -177,7 +177,7 @@ namespace Wikiped.Models
                                   select t).ToList();
                         foreach (Tags tg in tagovi)
                         {
-                            cl.tekst = MvcHtmlString.Create(cl.tekst.Replace(tg.Ime, "<a href='/clanci/trazi' class='Clanci-Tag' title='' rel='tag'>" + tg.Ime + "</a>")).ToString();
+                            cl.tekst = MvcHtmlString.Create(cl.tekst.Replace(tg.Ime, "<a href='/Tag/Details/?name=" +tg.Ime + "' class='Clanci-Tag' title='' rel='tag'>" + tg.Ime + "</a>")).ToString();
 
                         }
                     }
@@ -274,7 +274,7 @@ namespace Wikiped.Models
 
                 foreach (Tags tg in tst.tagovi)
                 {
-                    tst.tekst = MvcHtmlString.Create(tst.tekst.Replace(tg.Ime, "<a href='/clanci/trazi' class='Clanci-Tag' title='' rel='tag'>" + tg.Ime + "</a>")).ToString();
+                    tst.tekst = MvcHtmlString.Create(tst.tekst.Replace(tg.Ime, "<a href='/Tag/Details/?name=" + tg.Ime + "' class='Clanci-Tag' title='' rel='tag'>" + tg.Ime + "</a>")).ToString();
 
                 }
                 return tst;
