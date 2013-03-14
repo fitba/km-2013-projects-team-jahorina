@@ -149,6 +149,7 @@ namespace Wikiped.Controllers
 
         public ActionResult Details(int id)
         {
+          
             Pitanja pitanje = new Pitanja();
             IEnumerable<object> lstTags;
 
@@ -299,21 +300,31 @@ namespace Wikiped.Controllers
             }
             KorisniciFinal = (from kr in KorisniciContains orderby kr.Contains descending select kr).ToList();
             return KorisniciFinal;
-        }
-       
+        }   
         public List<PitanjaContains> getTop5PitanjaDef(int top, List<int> UsesIds)
         {
             using (Spajanje s = new Spajanje())
             {
-                List<int> userIdsN = (from p in s.Context.Pitanja orderby p.BrojGlasova, p.BrojPregleda descending select (int)p.KorisnikID).Distinct().Take(5).ToList();
-                userIdsN.AddRange(UsesIds);
 
-                List<PitanjaContains> preporukaFinal = s.Context.Korisnici.Where(x => !UsesIds.Contains(x.KorisnikID)).Select(x => new PitanjaContains
+                try
                 {
-                    KorisnikID = x.KorisnikID,
-                    Contains = 0
-                }).Take(top).ToList();
-                return preporukaFinal;
+
+                    List<int> userIdsN = (from p in s.Context.Pitanja orderby p.BrojGlasova, p.BrojPregleda descending select (int)p.KorisnikID).Distinct().Take(5).ToList();
+
+                    List<int> userIdsF = userIdsN.Where(x => !UsesIds.Contains(x)).ToList();
+
+                    List<PitanjaContains> preporukaFinal = s.Context.Korisnici.Where(x => userIdsF.Contains(x.KorisnikID)).Select(x => new PitanjaContains
+                    {
+                        KorisnikID = x.KorisnikID,
+                        Contains = 0
+                    }).Take(top).ToList();
+                    return preporukaFinal;
+                }
+                catch (Exception)
+                {
+
+                    return null;
+                }
             }
 
         } 
@@ -481,10 +492,10 @@ namespace Wikiped.Controllers
         public int KorisnikID { get; set; }
         public double Contains { get; set; }
     }
-    public class PitanjaPreporuka
-    {
-        public int PitanjeID { get; set; }
-        public double Contains { get; set; }
-    }
+    //public class PitanjaPreporuka
+    //{
+    //    public int PitanjeID { get; set; }
+    //    public double Contains { get; set; }
+    //}
 
 }

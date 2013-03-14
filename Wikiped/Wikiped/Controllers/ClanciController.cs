@@ -575,7 +575,7 @@ namespace Wikiped.Controllers
 
         public ActionResult updateData(int zlID)
         {
-            preporukaItembase(20);
+            preporukaColaborative(1);
             try
             {
 
@@ -839,6 +839,165 @@ namespace Wikiped.Controllers
         }
         #endregion
 
+
+        #region Preporuka colaborative
+        public List<ClanciContains> preporukaColaborative(int userId)
+        {
+            List<ClanciContains> PreporukaFinal;
+
+            List<ClanciGlasovi> MyClanci = getAllMyClanciByVote(userId);
+
+            List<int> UsersIds = new List<int>();
+            UsersIds.Add(userId);
+
+            if (getAllMyBrojClanaka(userId) > 0)
+            {
+
+                List<ClanciGlasovi> OtherClanci = getAllOtherClanciByVote(MyClanci, userId);
+                double brojPitanja = (double)MyClanci.Count;
+
+                List<ClanciContains> otherContains = getAllClanciByContains(OtherClanci, brojPitanja);
+
+                PreporukaFinal = otherContains.Take(5).ToList();
+
+                if (PreporukaFinal.Count < 5)
+                {
+                    int top = 5 - PreporukaFinal.Count;
+                    UsersIds.AddRange((from p in PreporukaFinal select p.KorisnikID).ToList());
+
+                    PreporukaFinal.AddRange(getTop5ClanakaDef(top, UsersIds));
+
+                }
+
+            }
+            else
+            {
+                PreporukaFinal = getTop5ClanakaDef(5, UsersIds);
+
+            }
+            PreporukaFinal = (from p in PreporukaFinal orderby p.Contains descending select p).ToList();
+            return PreporukaFinal;
+
+
+        }
+        public List<ClanciGlasovi> getAllMyClanciByVote(int userId)
+        {
+            using (Spajanje s = new Spajanje())
+            {
+
+                List<ClanciGlasovi> glasPitanje = (from gp in s.Context.OcjenaKorisnici
+                                                    where gp.KorisnikID == userId
+                                                   select new ClanciGlasovi
+                                                    {
+                                                        KorisnikID = (int)gp.KorisnikID,
+                                                        ClanakId = (int)gp.ClanakID,
+                                                        Ocjena = (int)gp.Ocjena
+                                                    }).ToList();
+
+                return glasPitanje;
+
+            }
+
+        }
+        public double getAllMyBrojClanaka(int userId)
+        {
+            using (Spajanje s = new Spajanje())
+            {
+
+                double brojpitanja = (from gp in s.Context.OcjenaKorisnici
+                                      where gp.KorisnikID == userId
+                                      select gp.ClanakID).ToList().Count;
+
+                return brojpitanja;
+
+            }
+
+        }
+        public List<ClanciGlasovi> getAllOtherClanciByVote(List<ClanciGlasovi> myClanci, int userId)
+        {
+            using (Spajanje s = new Spajanje())
+            {
+                List<ClanciGlasovi> ocjenaClanakUsers = new List<ClanciGlasovi>();
+
+                foreach (ClanciGlasovi pt in myClanci)
+                {
+                    ocjenaClanakUsers.AddRange((from gp in s.Context.OcjenaKorisnici
+                                               where (gp.ClanakID == pt.ClanakId && gp.Ocjena == pt.Ocjena && gp.KorisnikID != userId)
+                                               select new ClanciGlasovi
+                                               {
+                                                   KorisnikID = (int)gp.KorisnikID,
+                                                   ClanakId = (int)gp.ClanakID,
+                                                   Ocjena = (int)gp.Ocjena
+                                               }).ToList());
+                }
+                return ocjenaClanakUsers;
+            }
+
+        }
+        public List<ClanciContains> getAllClanciByContains(List<ClanciGlasovi> otherClanci, double brojClanaka)
+        {
+            List<int> idUsers = otherClanci.Select(x => (int)x.KorisnikID).Distinct().ToList();
+
+            ClanciContains tempP;
+            List<ClanciContains> KorisniciContains = new List<ClanciContains>();
+            List<ClanciContains> KorisniciFinal = new List<ClanciContains>();
+            for (int i = 0; i < idUsers.Count; i++)
+            {
+                tempP = null;
+                tempP = new ClanciContains();
+                tempP.Contains = (from pt in otherClanci where pt.KorisnikID == idUsers[i] select pt.KorisnikID).ToList().Count();
+                tempP.KorisnikID = idUsers[i];
+                KorisniciContains.Add(tempP);
+            }
+            KorisniciContains = (from kc in KorisniciContains orderby kc.Contains descending select kc).ToList();
+            double postotak;
+            for (int i = 0; i < KorisniciContains.Count; i++)
+            {
+                if (getAllMyBrojClanaka(KorisniciContains[i].KorisnikID) > brojClanaka)
+                {
+                    postotak = 100 / getAllMyBrojClanaka(KorisniciContains[i].KorisnikID);
+                    KorisniciContains[i].Contains = KorisniciContains[i].Contains * postotak;
+
+                }
+                else
+                {
+                    postotak = 100 / brojClanaka;
+                    KorisniciContains[i].Contains = KorisniciContains[i].Contains * postotak;
+
+                }
+            }
+            KorisniciFinal = (from kr in KorisniciContains orderby kr.Contains descending select kr).ToList();
+            return KorisniciFinal;
+        }
+        public List<ClanciContains> getTop5ClanakaDef(int top, List<int> UsesIds)
+        {
+            using (Spajanje s = new Spajanje())
+            {
+                try
+                {
+
+                List<int> userIdsN = (from p in s.Context.Clanci orderby p.Ocjenjeno, p.Popularnost descending select (int)p.KorisnikID).Distinct().Take(15).ToList();
+
+                List<int> userIdsF = userIdsN.Where(x => !UsesIds.Contains(x)).ToList();
+               
+                List<ClanciContains> preporukaFinal = s.Context.Korisnici.Where(x => userIdsF.Contains(x.KorisnikID)).Select(x => new ClanciContains
+                {
+                    KorisnikID = x.KorisnikID,
+                    Contains = 0
+                }).Take(top).ToList();
+                return preporukaFinal;
+                }
+                catch (Exception)
+                {
+                    
+                    return null;
+                }
+                
+            }
+
+        }
+        #endregion
+
         public void brisanjeClanka(int zlID)
         {
 
@@ -859,5 +1018,16 @@ namespace Wikiped.Controllers
 
 
 
+    }
+    public class ClanciGlasovi
+    {
+        public int KorisnikID { get; set; }
+        public int ClanakId { get; set; }
+        public int Ocjena { get; set; }
+    }
+    public class ClanciContains
+    {
+        public int KorisnikID { get; set; }
+        public double Contains { get; set; }
     }
 }
