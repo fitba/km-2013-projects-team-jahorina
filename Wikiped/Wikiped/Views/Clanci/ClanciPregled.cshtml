@@ -64,6 +64,16 @@
       
         </div>
 }
+@if (ViewBag.PreporukaKorisnici != null)
+{
+<div class="clanak-preporuka-naslovP" style="border-top-left-radius:0px; border-top-right-radius:0px; ">Preporuka - collaborative</div>
+foreach (Korisnici pr in ViewBag.PreporukaKorisnici)
+{
+<div class="clanak-preporuka-naslov" style="background:#daaf85;">@pr.UserName</div>
+}
+}
+
+
 <div class="clanak-preporuka-naslovP" style="border-top-left-radius:0px; border-top-right-radius:0px; ">Wikipedia preporuka</div>
 @foreach (Wiki pr in ViewBag.PreporukaWiki)
 {

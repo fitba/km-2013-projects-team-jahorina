@@ -117,6 +117,20 @@ namespace Wikiped.Controllers
             clanciWiki = clanciWiki.Take(5).ToList();
 
             ViewBag.PreporukaWiki = clanciWiki;
+            Korisnici kor = Session["Korisnik"] as Korisnici;
+            if (kor != null)
+            {
+            List<ClanciContains> PrepKolab= preporukaColaborative(kor.KorisnikID);
+            ViewBag.PreporukaKorisnici = getKorisniciByIds(PrepKolab);
+            }
+            else{
+                ViewBag.PreporukaKorisnici = null;
+            }
+
+            
+
+            
+
 
             return View(clanak);
         }
@@ -1014,7 +1028,23 @@ namespace Wikiped.Controllers
 
 
         }
-
+        public List<Korisnici> getKorisniciByIds(List<ClanciContains> userIds)
+        {
+            Korisnici koT;
+                List<Korisnici> kor = new List<Korisnici>();
+            using (Spajanje s = new Spajanje())
+            {
+                
+                foreach (var k in userIds)
+                {
+                    koT = null;
+                    koT = (from ks in s.Context.Korisnici where ks.KorisnikID == k.KorisnikID select ks).FirstOrDefault();
+                    kor.Add(koT);
+                }
+               
+            }
+                return kor;
+        }
 
 
 
