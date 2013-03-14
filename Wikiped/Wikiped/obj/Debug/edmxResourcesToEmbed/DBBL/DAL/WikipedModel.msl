@@ -104,6 +104,7 @@
     <EntitySetMapping Name="Pitanja">
       <EntityTypeMapping TypeName="WikipedModel.Pitanja">
         <MappingFragment StoreEntitySet="Pitanja">
+          <ScalarProperty Name="TagVrstaID" ColumnName="TagVrstaID" />
           <ScalarProperty Name="TemaID" ColumnName="TemaID" />
           <ScalarProperty Name="KorisnikID" ColumnName="KorisnikID" />
           <ScalarProperty Name="BrojPregleda" ColumnName="BrojPregleda" />

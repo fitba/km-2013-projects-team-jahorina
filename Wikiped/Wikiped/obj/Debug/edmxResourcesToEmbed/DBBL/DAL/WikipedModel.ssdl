@@ -82,6 +82,10 @@
       <End Role="Korisnici" EntitySet="Korisnici" />
       <End Role="Pitanja" EntitySet="Pitanja" />
     </AssociationSet>
+    <AssociationSet Name="FK_Pitanja_TagVrste" Association="WikipedModel.Store.FK_Pitanja_TagVrste">
+      <End Role="TagVrste" EntitySet="TagVrste" />
+      <End Role="Pitanja" EntitySet="Pitanja" />
+    </AssociationSet>
     <AssociationSet Name="FK_Sadrzaji_Clanci" Association="WikipedModel.Store.FK_Sadrzaji_Clanci">
       <End Role="Clanci" EntitySet="Clanci" />
       <End Role="Sadrzaji" EntitySet="Sadrzaji" />
@@ -214,6 +218,7 @@
     <Property Name="BrojPregleda" Type="int" />
     <Property Name="KorisnikID" Type="int" />
     <Property Name="TemaID" Type="int" />
+    <Property Name="TagVrstaID" Type="int" />
   </EntityType>
   <EntityType Name="Sadrzaji">
     <Key>
@@ -466,6 +471,18 @@
       </Principal>
       <Dependent Role="Pitanja">
         <PropertyRef Name="KorisnikID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pitanja_TagVrste">
+    <End Role="TagVrste" Type="WikipedModel.Store.TagVrste" Multiplicity="0..1" />
+    <End Role="Pitanja" Type="WikipedModel.Store.Pitanja" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TagVrste">
+        <PropertyRef Name="TagVrstaID" />
+      </Principal>
+      <Dependent Role="Pitanja">
+        <PropertyRef Name="TagVrstaID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

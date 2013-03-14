@@ -149,7 +149,7 @@ namespace Wikiped.Controllers
 
         public ActionResult Details(int id)
         {
-          
+          preporukaItembase(1);
             Pitanja pitanje = new Pitanja();
             IEnumerable<object> lstTags;
 
@@ -173,6 +173,289 @@ namespace Wikiped.Controllers
             ViewBag.Tags = lstTags;
             return View(pitanje);
         }
+
+        #region Preporuka item base
+        public List<PitanjaProsjek> preporukaItembase(int PtId)
+        {
+            using (Spajanje s = new Spajanje())
+            {
+
+                List<int> tgs = (from cl in s.Context.TagoviPitanja where cl.PitanjeID == PtId select (int)cl.TagID).ToList();
+                List<PitanjaTag> TagoviContain = BrojTagovaUPitanju(tgs, PtId);
+
+                Wikiped.DBBL.DAL.Pitanja cls = (from c in s.Context.Pitanja where c.PitanjeID == PtId select c).FirstOrDefault();
+
+                Wikiped.DBBL.DAL.TagVrste vrste = (from v in s.Context.TagVrste where v.TagVrstaID == cls.TagVrstaID select v).FirstOrDefault();
+
+                double prosjek = (double)cls.BrojGlasova;
+                int ptid = (int)cls.PitanjeID;
+                List<PitanjaProsjek> pros = ProsjecnaOcjenaPoKategoriji(prosjek, ptid, vrste.Klasa);
+
+                List<PitanjaProsjek> Preporuka = SumiranjeProsjeka(pros, TagoviContain, (double)cls.BrojPregleda);
+
+                List<PitanjaProsjek> PreporukaFinal = BrojPregleda(Preporuka, (int)cls.BrojPregleda);
+                return PreporukaFinal;
+            }
+
+        }
+        public List<PitanjaProsjek> ProsjecnaOcjenaPoKategoriji(double prosjek, int ptID, string vrsta)
+        {
+
+            using (Spajanje s = new Spajanje())
+            {
+                List<Wikiped.DBBL.DAL.TagVrste> vrste = (from tv in s.Context.TagVrste where tv.Klasa == vrsta select tv).ToList();
+                List<PitanjaProsjek> ProsjekOcjenaFinal = new List<PitanjaProsjek>();
+                foreach (var tgv in vrste)
+                {
+
+
+
+                    List<PitanjaProsjek> ProsjekOcjenaPovis = (from cc in s.Context.Pitanja
+                                                              where cc.BrojGlasova > prosjek
+                                                              && cc.TagVrstaID == tgv.TagVrstaID
+                                                              orderby cc.BrojGlasova ascending
+                                                              select
+                                                                  new PitanjaProsjek { PitanjeId = cc.PitanjeID, Prosjek = (double)cc.BrojGlasova }).Take(5).ToList();
+
+                    List<PitanjaProsjek> ProsjekOcjenaIspod = (from cc in s.Context.Pitanja
+                                                               where cc.BrojGlasova <= prosjek
+                                                              && cc.TagVrstaID == tgv.TagVrstaID
+                                                               orderby cc.BrojGlasova descending
+                                                              select
+                                                                  new PitanjaProsjek { PitanjeId = cc.PitanjeID, Prosjek = (double)cc.BrojGlasova }).Take(5).ToList();
+                    ProsjekOcjenaFinal.AddRange(ProsjekOcjenaPovis);
+                    ProsjekOcjenaFinal.AddRange(ProsjekOcjenaIspod);
+                }
+
+                Wikiped.DBBL.DAL.Pitanja temp;
+                double postotak = 23;
+                double razmak;
+                int ids;
+
+                for (int i = 0; i < ProsjekOcjenaFinal.Count; i++)
+                {
+                    //temp = null;
+                    ids = ProsjekOcjenaFinal[i].PitanjeId;
+                    temp = (from c in s.Context.Pitanja where c.PitanjeID == ids select c).FirstOrDefault();
+
+                    if (temp.BrojGlasova == prosjek)
+                    {
+                        ProsjekOcjenaFinal[i].Prosjek =postotak;
+                    }
+                    else
+                    {
+                        if (temp.BrojGlasova != 0 && prosjek != 0)
+                        {
+
+                            if (temp.BrojGlasova > prosjek)
+                            {
+
+                                razmak = (double)(temp.BrojGlasova - prosjek);
+                                ProsjekOcjenaFinal[i].Prosjek = (postotak - ((postotak / (double)temp.BrojGlasova) * razmak));
+
+                            }
+                            else
+                            {
+                                razmak = (double)(prosjek - temp.BrojGlasova);
+                                ProsjekOcjenaFinal[i].Prosjek = (postotak - ((postotak / prosjek) * razmak));
+
+                            }
+                        }
+                    }
+                    ProsjekOcjenaFinal[i].Prosjek += 22.0;
+
+                }
+
+
+
+
+                ProsjekOcjenaFinal = (from p in ProsjekOcjenaFinal orderby p.Prosjek descending where p.PitanjeId != ptID select p).ToList();
+
+                return ProsjekOcjenaFinal;
+            }
+        }
+        public List<PitanjaProsjek> BrojPregleda(List<PitanjaProsjek> Prosjeci, int brojPregledaOrig)
+        {
+            try
+            {
+
+
+                using (Spajanje s = new Spajanje())
+                {
+                    Wikiped.DBBL.DAL.Pitanja temp;
+                    double postotak = 22;
+                    double razmak;
+                    int ids;
+                    for (int i = 0; i < Prosjeci.Count; i++)
+                    {
+                        //temp = null;
+                        ids = Prosjeci[i].PitanjeId;
+                        temp = (from c in s.Context.Pitanja where c.PitanjeID == ids select c).FirstOrDefault();
+
+                        if (temp.BrojPregleda == brojPregledaOrig)
+                        {
+                            Prosjeci[i].Prosjek = Prosjeci[i].Prosjek + postotak;
+                        }
+                        else
+                        {
+                            if (temp.BrojPregleda != 0 && brojPregledaOrig != 0)
+                            {
+
+                                if (temp.BrojPregleda > brojPregledaOrig)
+                                {
+
+                                    razmak = (double)(temp.BrojPregleda - brojPregledaOrig);
+                                    Prosjeci[i].Prosjek = Prosjeci[i].Prosjek + (postotak - ((postotak / (double)temp.BrojPregleda) * razmak));
+
+                                }
+                                else
+                                {
+                                    razmak = (double)(brojPregledaOrig - temp.BrojPregleda);
+                                    Prosjeci[i].Prosjek = Prosjeci[i].Prosjek + (postotak - ((postotak / brojPregledaOrig) * razmak));
+
+                                }
+                            }
+                        }
+
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+
+                return Prosjeci;
+            }
+            return Prosjeci;
+
+        }
+        public List<PitanjaTag> BrojTagovaUPitanju(List<int> tgs, int clID)
+        {
+            List<PitanjaTag> ptTag;
+            PitanjaTag pttemp;
+            List<PitanjaTag> ptTagFin = new List<PitanjaTag>();
+
+            using (Spajanje s = new Spajanje())
+            {
+
+                ptTag = s.Context.TagoviPitanja.Join(s.Context.Tags, tg => tg.TagID, t => t.TagID, (
+                    tg, t) => new { TagPitanja = tg, Tags = t }).Where(
+                    q => tgs.Contains(q.Tags.TagID)).Select(x => new PitanjaTag
+                    {
+                        PitanjeId = (int)x.TagPitanja.PitanjeID,
+                        PitanjeCount = (int)x.TagPitanja.PitanjeID,
+                        Prosjek = (double)0
+                    }).ToList();
+
+                foreach (var it in ptTag)
+                {
+                    pttemp = null;
+                    pttemp = new PitanjaTag();
+                    pttemp.PitanjeId = it.PitanjeId;
+                    pttemp.PitanjeCount = ptTag.Where(x => x.PitanjeId == pttemp.PitanjeId).Select(x => x.PitanjeId).ToList().Count;
+                    ptTagFin.Add(pttemp);
+                }
+
+                ptTag = ptTagFin.Distinct(new PitanjaPoredjenje()).ToList();
+
+                ptTag = (from cc in ptTag orderby cc.PitanjeCount descending where cc.PitanjeId != clID select cc).ToList();
+                float procentniDio = 33;
+                float brojTagova = (float)tgs.Count;
+                float OsnovnaJedinica = procentniDio / brojTagova;
+                ptTag = (from cc in ptTag
+                         orderby cc.Prosjek descending
+                         select new PitanjaTag
+                         {
+                             PitanjeId = cc.PitanjeId,
+                             PitanjeCount = cc.PitanjeCount,
+                             Prosjek = (cc.PitanjeCount * OsnovnaJedinica)
+                         }).ToList();
+
+
+            }
+            return ptTag;
+
+        }
+        public double UporediProsjek(double origProsjek, int pitanjeId)
+        {
+            float procentniDio = 34;
+            
+            double Ostatak, prosjek;
+            using (Spajanje s = new Spajanje())
+            {
+                Wikiped.DBBL.DAL.Pitanja cla = (from c in s.Context.Pitanja where c.PitanjeID == pitanjeId select c).FirstOrDefault();
+                if (cla.BrojGlasova <= origProsjek)
+                {
+                    Ostatak = origProsjek - (double)cla.BrojGlasova;
+                }
+                else
+                {
+                    Ostatak = (double)cla.BrojGlasova - origProsjek;
+
+                }
+                
+                double OsnovnaJedinica;
+                if (origProsjek > cla.BrojGlasova)
+                {
+                    OsnovnaJedinica = procentniDio / origProsjek;
+                    prosjek = Ostatak * OsnovnaJedinica;
+                }
+                else
+                {
+                    if (origProsjek == cla.BrojGlasova)
+                    {
+                            prosjek = procentniDio;
+                    }
+                    else
+                    {
+                        OsnovnaJedinica = procentniDio / (double)cla.BrojGlasova;
+                        prosjek = Ostatak * OsnovnaJedinica;
+                    }
+                }
+                
+
+                
+
+            }
+
+            return prosjek;
+        }
+        public List<PitanjaProsjek> SumiranjeProsjeka(List<PitanjaProsjek> pros, List<PitanjaTag> TagoviContain, double origprosjek)
+        {
+            PitanjaProsjek pttemp;
+            PitanjaProsjek pttemp2;
+            List<PitanjaProsjek> final = new List<PitanjaProsjek>();
+            using (Spajanje s = new Spajanje())
+            {
+                for (int i = 0; i < TagoviContain.Count; i++)
+                {
+                    pttemp = null;
+                    pttemp = (from p in pros where p.PitanjeId == TagoviContain[i].PitanjeId select p).FirstOrDefault();
+                    if (pttemp != null)
+                    {
+                        pttemp2 = new PitanjaProsjek();
+                        pttemp2.PitanjeId = pttemp.PitanjeId;
+                        pttemp2.Prosjek = pttemp.Prosjek + TagoviContain[i].Prosjek;
+                        pros.Remove(pttemp);
+                        pros.Add(pttemp2);
+
+                    }
+                    else
+                    {
+                        pttemp2 = new PitanjaProsjek();
+                        pttemp2.PitanjeId = TagoviContain[i].PitanjeId;
+                        pttemp2.Prosjek = pttemp2.Prosjek + UporediProsjek(origprosjek, TagoviContain[i].PitanjeId);
+                        pros.Add(pttemp2);
+                    }
+                }
+                pros = (from p in pros orderby p.Prosjek descending select p).Take(5).ToList();
+                return pros;
+            }
+
+        }
+        #endregion
+
+
         #region Preporuka colaborative
         public List<PitanjaContains> preporukaColaborative(int userId)
         {
@@ -497,5 +780,31 @@ namespace Wikiped.Controllers
     //    public int PitanjeID { get; set; }
     //    public double Contains { get; set; }
     //}
+    public class PitanjaPoredjenje : IEqualityComparer<PitanjaTag>
+    {
+        #region IEqualityComparer<Post> Members
 
+        public bool Equals(PitanjaTag x, PitanjaTag y)
+        {
+            return x.PitanjeId.Equals(y.PitanjeId);
+        }
+
+        public int GetHashCode(PitanjaTag obj)
+        {
+            return obj.PitanjeId.GetHashCode();
+        }
+
+        #endregion
+    }
+    public class PitanjaProsjek
+    {
+        public int PitanjeId { get; set; }
+        public double Prosjek { get; set; }
+    }
+    public class PitanjaTag
+    {
+        public int PitanjeId { get; set; }
+        public int PitanjeCount { get; set; }
+        public double Prosjek { get; set; }
+    }
 }

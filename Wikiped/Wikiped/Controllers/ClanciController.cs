@@ -672,7 +672,7 @@ namespace Wikiped.Controllers
                 }
 
 
-                float procentniDio = 22;
+                float procentniDio = 23;
                 float brojOcjena = 5;
                 float OsnovnaJedinica = procentniDio / brojOcjena;
 
@@ -688,7 +688,7 @@ namespace Wikiped.Controllers
                     {
                         ProsjekOcjenaFinal[i].Prosjek = prosjek - ProsjekOcjenaFinal[i].Prosjek;
                     }
-                    ProsjekOcjenaFinal[i].Prosjek = (procentniDio - (ProsjekOcjenaFinal[i].Prosjek * OsnovnaJedinica)) + 21.0;
+                    ProsjekOcjenaFinal[i].Prosjek = (procentniDio - (ProsjekOcjenaFinal[i].Prosjek * OsnovnaJedinica)) + 22.0;
                 }
                 ProsjekOcjenaFinal = (from p in ProsjekOcjenaFinal orderby p.Prosjek descending where p.ClanakId != clID select p).ToList();
 
@@ -704,7 +704,7 @@ namespace Wikiped.Controllers
                 using (Spajanje s = new Spajanje())
                 {
                     Clanci temp;
-                    double postotak = 21;
+                    double postotak = 22;
                     double razmak;
                     int ids;
                     for (int i = 0; i < Prosjeci.Count; i++)

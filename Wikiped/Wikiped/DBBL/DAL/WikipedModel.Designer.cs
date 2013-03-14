@@ -39,6 +39,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_Zloupotrebe_Korisnici", "Korisnici", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Wikiped.DBBL.DAL.Korisnici), "Zloupotrebe", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.Zloupotrebe), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_Odgovori_Pitanja", "Pitanja", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Pitanja), "Odgovori", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.Odgovori), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_OdgovorNaOdgovor_Odgovori", "Odgovori", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Odgovori), "OdgovorNaOdgovor", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.OdgovorNaOdgovor), true)]
+[assembly: EdmRelationshipAttribute("WikipedModel", "FK_Pitanja_TagVrste", "TagVrste", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.TagVrste), "Pitanja", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.Pitanja), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_TagoviPitanja_Pitanja", "Pitanja", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Wikiped.DBBL.DAL.Pitanja), "TagoviPitanja", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.TagoviPitanja), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_TagClanci_Tags", "Tags", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Tags), "TagClanci", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.TagClanci), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_TagoviPitanja_Tags", "Tags", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Wikiped.DBBL.DAL.Tags), "TagoviPitanja", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.TagoviPitanja), true)]
@@ -3113,6 +3114,30 @@ namespace Wikiped.DBBL.DAL
         private Nullable<global::System.Int32> _TemaID;
         partial void OnTemaIDChanging(Nullable<global::System.Int32> value);
         partial void OnTemaIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> TagVrstaID
+        {
+            get
+            {
+                return _TagVrstaID;
+            }
+            set
+            {
+                OnTagVrstaIDChanging(value);
+                ReportPropertyChanging("TagVrstaID");
+                _TagVrstaID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TagVrstaID");
+                OnTagVrstaIDChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _TagVrstaID;
+        partial void OnTagVrstaIDChanging(Nullable<global::System.Int32> value);
+        partial void OnTagVrstaIDChanged();
 
         #endregion
 
@@ -3197,6 +3222,44 @@ namespace Wikiped.DBBL.DAL
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Odgovori>("WikipedModel.FK_Odgovori_Pitanja", "Odgovori", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("WikipedModel", "FK_Pitanja_TagVrste", "TagVrste")]
+        public TagVrste TagVrste
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TagVrste>("WikipedModel.FK_Pitanja_TagVrste", "TagVrste").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TagVrste>("WikipedModel.FK_Pitanja_TagVrste", "TagVrste").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<TagVrste> TagVrsteReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TagVrste>("WikipedModel.FK_Pitanja_TagVrste", "TagVrste");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<TagVrste>("WikipedModel.FK_Pitanja_TagVrste", "TagVrste", value);
                 }
             }
         }
@@ -4277,6 +4340,28 @@ namespace Wikiped.DBBL.DAL
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Clanci>("WikipedModel.FK_Clanci_TagVrste", "Clanci", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("WikipedModel", "FK_Pitanja_TagVrste", "Pitanja")]
+        public EntityCollection<Pitanja> Pitanja
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Pitanja>("WikipedModel.FK_Pitanja_TagVrste", "Pitanja");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Pitanja>("WikipedModel.FK_Pitanja_TagVrste", "Pitanja", value);
                 }
             }
         }

@@ -98,6 +98,10 @@
       <End Role="Odgovori" EntitySet="Odgovori" />
       <End Role="OdgovorNaOdgovor" EntitySet="OdgovorNaOdgovor" />
     </AssociationSet>
+    <AssociationSet Name="FK_Pitanja_TagVrste" Association="WikipedModel.FK_Pitanja_TagVrste">
+      <End Role="TagVrste" EntitySet="TagVrste" />
+      <End Role="Pitanja" EntitySet="Pitanja" />
+    </AssociationSet>
     <AssociationSet Name="FK_TagoviPitanja_Pitanja" Association="WikipedModel.FK_TagoviPitanja_Pitanja">
       <End Role="Pitanja" EntitySet="Pitanja" />
       <End Role="TagoviPitanja" EntitySet="TagoviPitanja" />
@@ -246,9 +250,11 @@
     <Property Type="Int32" Name="BrojPregleda" />
     <Property Type="Int32" Name="KorisnikID" />
     <Property Type="Int32" Name="TemaID" />
+    <Property Type="Int32" Name="TagVrstaID" />
     <NavigationProperty Name="GlasoviZaPitanja" Relationship="WikipedModel.FK_GlasoviZaPitanja_Pitanja" FromRole="Pitanja" ToRole="GlasoviZaPitanja" />
     <NavigationProperty Name="Korisnici" Relationship="WikipedModel.FK_Pitanja_Korisnici" FromRole="Pitanja" ToRole="Korisnici" />
     <NavigationProperty Name="Odgovori" Relationship="WikipedModel.FK_Odgovori_Pitanja" FromRole="Pitanja" ToRole="Odgovori" />
+    <NavigationProperty Name="TagVrste" Relationship="WikipedModel.FK_Pitanja_TagVrste" FromRole="Pitanja" ToRole="TagVrste" />
     <NavigationProperty Name="TagoviPitanja" Relationship="WikipedModel.FK_TagoviPitanja_Pitanja" FromRole="Pitanja" ToRole="TagoviPitanja" />
   </EntityType>
   <EntityType Name="Sadrzaji">
@@ -312,6 +318,7 @@
     <Property Type="String" Name="Opis" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="Klasa" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Clanci" Relationship="WikipedModel.FK_Clanci_TagVrste" FromRole="TagVrste" ToRole="Clanci" />
+    <NavigationProperty Name="Pitanja" Relationship="WikipedModel.FK_Pitanja_TagVrste" FromRole="TagVrste" ToRole="Pitanja" />
   </EntityType>
   <EntityType Name="Zloupotrebe">
     <Key>
@@ -560,6 +567,18 @@
       </Principal>
       <Dependent Role="OdgovorNaOdgovor">
         <PropertyRef Name="OdgovorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pitanja_TagVrste">
+    <End Type="WikipedModel.TagVrste" Role="TagVrste" Multiplicity="0..1" />
+    <End Type="WikipedModel.Pitanja" Role="Pitanja" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TagVrste">
+        <PropertyRef Name="TagVrstaID" />
+      </Principal>
+      <Dependent Role="Pitanja">
+        <PropertyRef Name="TagVrstaID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

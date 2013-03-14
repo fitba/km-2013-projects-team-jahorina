@@ -87,6 +87,10 @@
             <End Role="Korisnici" EntitySet="Korisnici" />
             <End Role="Pitanja" EntitySet="Pitanja" />
           </AssociationSet>
+          <AssociationSet Name="FK_Pitanja_TagVrste" Association="WikipedModel.Store.FK_Pitanja_TagVrste">
+            <End Role="TagVrste" EntitySet="TagVrste" />
+            <End Role="Pitanja" EntitySet="Pitanja" />
+          </AssociationSet>
           <AssociationSet Name="FK_Sadrzaji_Clanci" Association="WikipedModel.Store.FK_Sadrzaji_Clanci">
             <End Role="Clanci" EntitySet="Clanci" />
             <End Role="Sadrzaji" EntitySet="Sadrzaji" />
@@ -219,6 +223,7 @@
           <Property Name="BrojPregleda" Type="int" />
           <Property Name="KorisnikID" Type="int" />
           <Property Name="TemaID" Type="int" />
+          <Property Name="TagVrstaID" Type="int" />
         </EntityType>
         <EntityType Name="Sadrzaji">
           <Key>
@@ -474,6 +479,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Pitanja_TagVrste">
+          <End Role="TagVrste" Type="WikipedModel.Store.TagVrste" Multiplicity="0..1" />
+          <End Role="Pitanja" Type="WikipedModel.Store.Pitanja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TagVrste">
+              <PropertyRef Name="TagVrstaID" />
+            </Principal>
+            <Dependent Role="Pitanja">
+              <PropertyRef Name="TagVrstaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Sadrzaji_Clanci">
           <End Role="Clanci" Type="WikipedModel.Store.Clanci" Multiplicity="0..1" />
           <End Role="Sadrzaji" Type="WikipedModel.Store.Sadrzaji" Multiplicity="*" />
@@ -660,6 +677,10 @@
             <End Role="Odgovori" EntitySet="Odgovori" />
             <End Role="OdgovorNaOdgovor" EntitySet="OdgovorNaOdgovor" />
           </AssociationSet>
+          <AssociationSet Name="FK_Pitanja_TagVrste" Association="WikipedModel.FK_Pitanja_TagVrste">
+            <End Role="TagVrste" EntitySet="TagVrste" />
+            <End Role="Pitanja" EntitySet="Pitanja" />
+          </AssociationSet>
           <AssociationSet Name="FK_TagoviPitanja_Pitanja" Association="WikipedModel.FK_TagoviPitanja_Pitanja">
             <End Role="Pitanja" EntitySet="Pitanja" />
             <End Role="TagoviPitanja" EntitySet="TagoviPitanja" />
@@ -808,9 +829,11 @@
           <Property Type="Int32" Name="BrojPregleda" />
           <Property Type="Int32" Name="KorisnikID" />
           <Property Type="Int32" Name="TemaID" />
+          <Property Type="Int32" Name="TagVrstaID" />
           <NavigationProperty Name="GlasoviZaPitanja" Relationship="WikipedModel.FK_GlasoviZaPitanja_Pitanja" FromRole="Pitanja" ToRole="GlasoviZaPitanja" />
           <NavigationProperty Name="Korisnici" Relationship="WikipedModel.FK_Pitanja_Korisnici" FromRole="Pitanja" ToRole="Korisnici" />
           <NavigationProperty Name="Odgovori" Relationship="WikipedModel.FK_Odgovori_Pitanja" FromRole="Pitanja" ToRole="Odgovori" />
+          <NavigationProperty Name="TagVrste" Relationship="WikipedModel.FK_Pitanja_TagVrste" FromRole="Pitanja" ToRole="TagVrste" />
           <NavigationProperty Name="TagoviPitanja" Relationship="WikipedModel.FK_TagoviPitanja_Pitanja" FromRole="Pitanja" ToRole="TagoviPitanja" />
         </EntityType>
         <EntityType Name="Sadrzaji">
@@ -874,6 +897,7 @@
           <Property Type="String" Name="Opis" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Klasa" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Clanci" Relationship="WikipedModel.FK_Clanci_TagVrste" FromRole="TagVrste" ToRole="Clanci" />
+          <NavigationProperty Name="Pitanja" Relationship="WikipedModel.FK_Pitanja_TagVrste" FromRole="TagVrste" ToRole="Pitanja" />
         </EntityType>
         <EntityType Name="Zloupotrebe">
           <Key>
@@ -1125,6 +1149,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Pitanja_TagVrste">
+          <End Type="WikipedModel.TagVrste" Role="TagVrste" Multiplicity="0..1" />
+          <End Type="WikipedModel.Pitanja" Role="Pitanja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TagVrste">
+              <PropertyRef Name="TagVrstaID" />
+            </Principal>
+            <Dependent Role="Pitanja">
+              <PropertyRef Name="TagVrstaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TagoviPitanja_Pitanja">
           <End Type="WikipedModel.Pitanja" Role="Pitanja" Multiplicity="1" />
           <End Type="WikipedModel.TagoviPitanja" Role="TagoviPitanja" Multiplicity="*" />
@@ -1270,6 +1306,7 @@
           <EntitySetMapping Name="Pitanja">
             <EntityTypeMapping TypeName="WikipedModel.Pitanja">
               <MappingFragment StoreEntitySet="Pitanja">
+                <ScalarProperty Name="TagVrstaID" ColumnName="TagVrstaID" />
                 <ScalarProperty Name="TemaID" ColumnName="TemaID" />
                 <ScalarProperty Name="KorisnikID" ColumnName="KorisnikID" />
                 <ScalarProperty Name="BrojPregleda" ColumnName="BrojPregleda" />
@@ -1371,208 +1408,205 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="WikipedModel" ZoomLevel="29">
-        <EntityTypeShape EntityType="WikipedModel.Clanci" Width="1.5" PointX="5.25" PointY="12.75" Height="3.5186979166666674" />
-        <EntityTypeShape EntityType="WikipedModel.GlasoviZaOdgovore" Width="1.5" PointX="8.25" PointY="13.5" Height="2.172587890624996" />
-        <EntityTypeShape EntityType="WikipedModel.GlasoviZaPitanja" Width="1.5" PointX="7.5" PointY="20.125" Height="2.1725878906250031" />
-        <EntityTypeShape EntityType="WikipedModel.Komentari" Width="1.5" PointX="10.5" PointY="13.25" Height="2.5571907552083282" />
-        <EntityTypeShape EntityType="WikipedModel.Korisnici" Width="1.5" PointX="3" PointY="12.375" Height="4.2879036458333246" />
-        <EntityTypeShape EntityType="WikipedModel.KorisnikVrste" Width="1.5" PointX="0.75" PointY="13.625" Height="1.7879850260416674" />
-        <EntityTypeShape EntityType="WikipedModel.OcjenaKorisnici" Width="1.5" PointX="7.5" PointY="10.5" Height="2.1725878906250102" />
-        <EntityTypeShape EntityType="WikipedModel.Odgovori" Width="1.5" PointX="10.5" PointY="19.75" Height="2.9417936197916674" />
-        <EntityTypeShape EntityType="WikipedModel.OdgovorNaOdgovor" Width="1.5" PointX="12.75" PointY="16.25" Height="2.5571907552083388" />
-        <EntityTypeShape EntityType="WikipedModel.Pitanja" Width="1.5" PointX="5.25" PointY="26.625" Height="3.326396484374996" />
-        <EntityTypeShape EntityType="WikipedModel.Sadrzaji" Width="1.5" PointX="7.5" PointY="16.625" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="WikipedModel.Clanci" Width="1.5" PointX="5.25" PointY="13" Height="3.5186979166666674" />
+        <EntityTypeShape EntityType="WikipedModel.GlasoviZaOdgovore" Width="1.5" PointX="8.25" PointY="13.625" Height="2.172587890624996" />
+        <EntityTypeShape EntityType="WikipedModel.GlasoviZaPitanja" Width="1.5" PointX="8.25" PointY="10.625" Height="2.172587890624996" />
+        <EntityTypeShape EntityType="WikipedModel.Komentari" Width="1.5" PointX="10.5" PointY="15.5" Height="2.5571907552083317" />
+        <EntityTypeShape EntityType="WikipedModel.Korisnici" Width="1.5" PointX="3" PointY="12.625" Height="4.2879036458333264" />
+        <EntityTypeShape EntityType="WikipedModel.KorisnikVrste" Width="1.5" PointX="0.75" PointY="13.875" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="WikipedModel.OcjenaKorisnici" Width="1.5" PointX="10.5" PointY="8.625" Height="2.1725878906250102" />
+        <EntityTypeShape EntityType="WikipedModel.Odgovori" Width="1.5" PointX="5.25" PointY="9.25" Height="2.9417936197916674" />
+        <EntityTypeShape EntityType="WikipedModel.OdgovorNaOdgovor" Width="1.5" PointX="10.5" PointY="11.75" Height="2.5571907552083388" />
+        <EntityTypeShape EntityType="WikipedModel.Pitanja" Width="1.5" PointX="8.25" PointY="16.875" Height="3.7109993489583388" />
+        <EntityTypeShape EntityType="WikipedModel.Sadrzaji" Width="1.5" PointX="7.5" PointY="21.75" Height="2.3648893229166674" />
         <EntityTypeShape EntityType="WikipedModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" Height="1.9802864583333246" />
-        <EntityTypeShape EntityType="WikipedModel.TagClanci" Width="1.5" PointX="10.5" PointY="10.5" Height="1.9802864583333388" />
-        <EntityTypeShape EntityType="WikipedModel.TagoviPitanja" Width="1.5" PointX="7.5" PointY="27.375" Height="1.9802864583333388" />
-        <EntityTypeShape EntityType="WikipedModel.Tags" Width="1.5" PointX="8.25" PointY="7.5" Height="1.9802864583333388" />
-        <EntityTypeShape EntityType="WikipedModel.TagVrste" Width="1.5" PointX="3" PointY="9.5" Height="1.9802864583333246" />
-        <EntityTypeShape EntityType="WikipedModel.Zloupotrebe" Width="1.5" PointX="12.75" PointY="13.5" Height="1.9802864583333388" />
+        <EntityTypeShape EntityType="WikipedModel.TagClanci" Width="1.5" PointX="10.5" PointY="18.75" Height="1.9802864583333388" />
+        <EntityTypeShape EntityType="WikipedModel.TagoviPitanja" Width="1.5" PointX="13.5" PointY="17.75" Height="1.9802864583333388" />
+        <EntityTypeShape EntityType="WikipedModel.Tags" Width="1.5" PointX="8.25" PointY="25.75" Height="1.9802864583333388" />
+        <EntityTypeShape EntityType="WikipedModel.TagVrste" Width="1.5" PointX="6" PointY="17.625" Height="2.1725878906250102" />
+        <EntityTypeShape EntityType="WikipedModel.Zloupotrebe" Width="1.5" PointX="12.75" PointY="14.375" Height="1.9802864583333371" />
         <AssociationConnector Association="WikipedModel.FK_Clanci_Korisnici" >
-          <ConnectorPoint PointX="4.5" PointY="14.509348958333334" />
-          <ConnectorPoint PointX="5.25" PointY="14.509348958333334" />
+          <ConnectorPoint PointX="4.5" PointY="14.759348958333334" />
+          <ConnectorPoint PointX="5.25" PointY="14.759348958333334" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_Clanci_TagVrste" >
-          <ConnectorPoint PointX="4.5" PointY="10.490143229166662" />
-          <ConnectorPoint PointX="6" PointY="10.490143229166662" />
-          <ConnectorPoint PointX="6" PointY="12.75" />
+          <ConnectorPoint PointX="6.375" PointY="17.625" />
+          <ConnectorPoint PointX="6.375" PointY="16.518697916666667" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_Komentari_Clanci" >
-          <ConnectorPoint PointX="6.75" PointY="13.34375" />
-          <ConnectorPoint PointX="7.588541666666667" PointY="13.34375" />
-          <ConnectorPoint PointX="7.755208333333333" PointY="13.34375" />
-          <ConnectorPoint PointX="7.760416666666667" PointY="13.34375" />
-          <ConnectorPoint PointX="7.927083333333333" PointY="13.34375" />
-          <ConnectorPoint PointX="10.229166666666666" PointY="13.34375" />
-          <ConnectorPoint PointX="10.395833333333334" PointY="13.34375" />
-          <ConnectorPoint PointX="10.5" PointY="13.34375" />
+          <ConnectorPoint PointX="6.75" PointY="16.189392903645832" />
+          <ConnectorPoint PointX="7.947916666666667" PointY="16.189392903645832" />
+          <ConnectorPoint PointX="8.2083333333333339" PointY="16.189392903645832" />
+          <ConnectorPoint PointX="10.166666666666666" PointY="16.189392903645832" />
+          <ConnectorPoint PointX="10.333333333333334" PointY="16.189392903645832" />
+          <ConnectorPoint PointX="10.5" PointY="16.189392903645832" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_OcjenaKorisnici_Clanci" >
-          <ConnectorPoint PointX="6.75" PointY="16.001892903645832" />
-          <ConnectorPoint PointX="7.588541666666667" PointY="16.001892903645832" />
-          <ConnectorPoint PointX="7.755208333333333" PointY="16.001892903645832" />
-          <ConnectorPoint PointX="7.84375" PointY="16.001892903645832" />
-          <ConnectorPoint PointX="7.84375" PointY="12.67258789062501" />
+          <ConnectorPoint PointX="6.75" PointY="13.001152846153847" />
+          <ConnectorPoint PointX="7.125" PointY="12.626152846153847" />
+          <ConnectorPoint PointX="7.125" PointY="9.5937504999999987" />
+          <ConnectorPoint PointX="10.5" PointY="9.5937504999999987" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_Sadrzaji_Clanci" >
-          <ConnectorPoint PointX="6.75" PointY="13.015622500000006" />
-          <ConnectorPoint PointX="7.671875" PointY="13.015622500000006" />
-          <ConnectorPoint PointX="7.671875" PointY="16.625" />
+          <ConnectorPoint PointX="5.59375" PointY="16.518697916666667" />
+          <ConnectorPoint PointX="5.59375" PointY="22.932444661458334" />
+          <ConnectorPoint PointX="7.5" PointY="22.932444661458334" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_TagClanci_Clanci" >
-          <ConnectorPoint PointX="6.406252" PointY="12.75" />
-          <ConnectorPoint PointX="6.406252" PointY="10.25" />
-          <ConnectorPoint PointX="10.125" PointY="10.25" />
-          <ConnectorPoint PointX="10.125" PointY="11.490143229166669" />
-          <ConnectorPoint PointX="10.229166666666666" PointY="11.490143229166669" />
-          <ConnectorPoint PointX="10.395833333333334" PointY="11.490143229166669" />
-          <ConnectorPoint PointX="10.5" PointY="11.490143229166669" />
+          <ConnectorPoint PointX="5.7968775" PointY="16.518697916666667" />
+          <ConnectorPoint PointX="5.7968775" PointY="20.689392903645839" />
+          <ConnectorPoint PointX="10.5" PointY="20.689392903645839" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_GlasoviZaOdgovore_Korisnici" >
-          <ConnectorPoint PointX="4.5" PointY="16.446848958333334" />
-          <ConnectorPoint PointX="7.166666666666667" PointY="16.446848958333334" />
-          <ConnectorPoint PointX="7.333333333333333" PointY="16.446848958333334" />
-          <ConnectorPoint PointX="7.588541666666667" PointY="16.446848958333334" />
-          <ConnectorPoint PointX="7.755208333333333" PointY="16.446848958333334" />
-          <ConnectorPoint PointX="9.40625" PointY="16.446848958333334" />
-          <ConnectorPoint PointX="9.40625" PointY="15.672587890624996" />
+          <ConnectorPoint PointX="3.75" PointY="12.625" />
+          <ConnectorPoint PointX="3.75" PointY="12.375" />
+          <ConnectorPoint PointX="4.2760454166666664" PointY="12.375" />
+          <ConnectorPoint PointX="4.4427120833333325" PointY="12.375" />
+          <ConnectorPoint PointX="5.916666666666667" PointY="12.375" />
+          <ConnectorPoint PointX="6.083333333333333" PointY="12.375" />
+          <ConnectorPoint PointX="6.9121817391826914" PointY="12.374999999999998" />
+          <ConnectorPoint PointX="7.208333333333333" PointY="12.375" />
+          <ConnectorPoint PointX="7.875" PointY="12.375" />
+          <ConnectorPoint PointX="7.875" PointY="14.711293945312498" />
+          <ConnectorPoint PointX="7.947916666666667" PointY="14.711293945312496" />
+          <ConnectorPoint PointX="8.2083333333333339" PointY="14.711293945312498" />
+          <ConnectorPoint PointX="8.25" PointY="14.711293945312498" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_GlasoviZaOdgovore_Odgovori" >
-          <ConnectorPoint PointX="10.5" PointY="22.525940755208335" />
-          <ConnectorPoint PointX="10.395833333333334" PointY="22.525940755208335" />
-          <ConnectorPoint PointX="10.229166666666666" PointY="22.525940755208335" />
-          <ConnectorPoint PointX="9.6093775" PointY="22.525940755208335" />
-          <ConnectorPoint PointX="9.6093775" PointY="15.672587890624996" />
+          <ConnectorPoint PointX="6.75" PointY="12.129484927483976" />
+          <ConnectorPoint PointX="7.0660744349011217" PointY="12.445559362385096" />
+          <ConnectorPoint PointX="7.1839255650988791" PointY="12.563410492582854" />
+          <ConnectorPoint PointX="7.4375" PointY="12.816984927483976" />
+          <ConnectorPoint PointX="7.4375" PointY="14.136894972656247" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="14.136894972656245" />
+          <ConnectorPoint PointX="8.2083333333333339" PointY="14.136894972656247" />
+          <ConnectorPoint PointX="8.25" PointY="14.136894972656247" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_GlasoviZaPitanja_Korisnici" >
-          <ConnectorPoint PointX="3.75" PointY="16.662903645833325" />
-          <ConnectorPoint PointX="3.75" PointY="21.2112939453125" />
-          <ConnectorPoint PointX="4.2760454166666664" PointY="21.2112939453125" />
-          <ConnectorPoint PointX="4.4427120833333325" PointY="21.2112939453125" />
-          <ConnectorPoint PointX="7.5" PointY="21.2112939453125" />
+          <ConnectorPoint PointX="4.1562525" PointY="12.625" />
+          <ConnectorPoint PointX="4.1562525" PointY="12.314646809895834" />
+          <ConnectorPoint PointX="4.2760454166666664" PointY="12.314646809895834" />
+          <ConnectorPoint PointX="4.4427120833333325" PointY="12.314646809895834" />
+          <ConnectorPoint PointX="5.916666666666667" PointY="12.314646809895834" />
+          <ConnectorPoint PointX="6.083333333333333" PointY="12.314646809895834" />
+          <ConnectorPoint PointX="6.8518285490785251" PointY="12.314646809895834" />
+          <ConnectorPoint PointX="7.0184952157451912" PointY="12.314646809895834" />
+          <ConnectorPoint PointX="7.041666666666667" PointY="12.314646809895834" />
+          <ConnectorPoint PointX="7.208333333333333" PointY="12.314646809895834" />
+          <ConnectorPoint PointX="7.947916666666667" PointY="12.314646809895834" />
+          <ConnectorPoint PointX="8.1145833333333339" PointY="12.314646809895834" />
+          <ConnectorPoint PointX="8.25" PointY="12.314646809895834" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_GlasoviZaPitanja_Pitanja" >
-          <ConnectorPoint PointX="6" PointY="26.625" />
-          <ConnectorPoint PointX="6" PointY="21.785693417968744" />
-          <ConnectorPoint PointX="7.5" PointY="21.785693417968744" />
+          <ConnectorPoint PointX="8.2753836153846159" PointY="16.875" />
+          <ConnectorPoint PointX="8.125" PointY="16.724616384615384" />
+          <ConnectorPoint PointX="8.125" PointY="12.922587890624996" />
+          <ConnectorPoint PointX="8.25" PointY="12.797587890624996" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_Komentari_Korisnici" >
-          <ConnectorPoint PointX="4.5" PointY="16.41559645833334" />
-          <ConnectorPoint PointX="7.166666666666667" PointY="16.41559645833334" />
-          <ConnectorPoint PointX="7.333333333333333" PointY="16.41559645833334" />
-          <ConnectorPoint PointX="7.588541666666667" PointY="16.41559645833334" />
-          <ConnectorPoint PointX="7.755208333333333" PointY="16.41559645833334" />
-          <ConnectorPoint PointX="9.5260441666666669" PointY="16.41559645833334" />
-          <ConnectorPoint PointX="9.6927108333333347" PointY="16.41559645833334" />
-          <ConnectorPoint PointX="10.229166666666666" PointY="16.41559645833334" />
-          <ConnectorPoint PointX="10.395833333333334" PointY="16.41559645833334" />
-          <ConnectorPoint PointX="11.25" PointY="16.41559645833334" />
-          <ConnectorPoint PointX="11.25" PointY="15.807190755208328" />
+          <ConnectorPoint PointX="4.5" PointY="16.696848958333334" />
+          <ConnectorPoint PointX="5.510416666666667" PointY="16.696848958333334" />
+          <ConnectorPoint PointX="5.677083333333333" PointY="16.696848958333334" />
+          <ConnectorPoint PointX="5.7135441666666669" PointY="16.696848958333334" />
+          <ConnectorPoint PointX="5.8802108333333329" PointY="16.696848958333334" />
+          <ConnectorPoint PointX="6.291666666666667" PointY="16.696848958333334" />
+          <ConnectorPoint PointX="6.458333333333333" PointY="16.696848958333334" />
+          <ConnectorPoint PointX="7.666666666666667" PointY="16.696848958333334" />
+          <ConnectorPoint PointX="7.833333333333333" PointY="16.696848958333334" />
+          <ConnectorPoint PointX="10.5" PointY="16.696848958333334" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_Zloupotrebe_Komentari" >
-          <ConnectorPoint PointX="12" PointY="14.490143229166669" />
-          <ConnectorPoint PointX="12.75" PointY="14.490143229166669" />
+          <ConnectorPoint PointX="12" PointY="15.927643229166669" />
+          <ConnectorPoint PointX="12.75" PointY="15.927643229166669" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_Korisnici_KorisnikVrste" >
-          <ConnectorPoint PointX="2.25" PointY="14.518992513020834" />
-          <ConnectorPoint PointX="3" PointY="14.518992513020834" />
+          <ConnectorPoint PointX="2.25" PointY="14.768992513020834" />
+          <ConnectorPoint PointX="3" PointY="14.768992513020834" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_OcjenaKorisnici_Korisnici" >
-          <ConnectorPoint PointX="3.75" PointY="12.375" />
-          <ConnectorPoint PointX="3.75" PointY="11.730286458333325" />
-          <ConnectorPoint PointX="4.75" PointY="11.730286458333325" />
-          <ConnectorPoint PointX="4.75" PointY="11.586293945312505" />
-          <ConnectorPoint PointX="5.916666666666667" PointY="11.586293945312505" />
-          <ConnectorPoint PointX="6.083333333333333" PointY="11.586293945312505" />
-          <ConnectorPoint PointX="6.3229186666666672" PointY="11.586293945312505" />
-          <ConnectorPoint PointX="6.4895853333333333" PointY="11.586293945312505" />
-          <ConnectorPoint PointX="7.5" PointY="11.586293945312505" />
+          <ConnectorPoint PointX="3.3437475" PointY="12.625" />
+          <ConnectorPoint PointX="3.3437475" PointY="8.90625" />
+          <ConnectorPoint PointX="10.5" PointY="8.90625" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_Odgovori_Korisnici" >
-          <ConnectorPoint PointX="4.1562525" PointY="16.662903645833325" />
-          <ConnectorPoint PointX="4.1562525" PointY="19.90625" />
-          <ConnectorPoint PointX="4.2760454166666664" PointY="19.90625" />
-          <ConnectorPoint PointX="4.4427120833333325" PointY="19.90625" />
-          <ConnectorPoint PointX="9.5260441666666669" PointY="19.90625" />
-          <ConnectorPoint PointX="9.6927108333333347" PointY="19.90625" />
-          <ConnectorPoint PointX="10.229166666666666" PointY="19.90625" />
-          <ConnectorPoint PointX="10.395833333333334" PointY="19.90625" />
-          <ConnectorPoint PointX="10.5" PointY="19.90625" />
+          <ConnectorPoint PointX="4.3593787499999994" PointY="12.625" />
+          <ConnectorPoint PointX="4.3593787499999994" PointY="10.720896809895834" />
+          <ConnectorPoint PointX="5.25" PointY="10.720896809895834" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_OdgovorNaOdgovor_Korisnici" >
-          <ConnectorPoint PointX="3.343748" PointY="16.662903645833325" />
-          <ConnectorPoint PointX="3.343748" PointY="17.528595377604169" />
-          <ConnectorPoint PointX="3.6666666666666665" PointY="17.528595377604169" />
-          <ConnectorPoint PointX="3.8333333333333335" PointY="17.528595377604169" />
-          <ConnectorPoint PointX="4.0729191666666669" PointY="17.528595377604169" />
-          <ConnectorPoint PointX="4.2395858333333329" PointY="17.528595377604169" />
-          <ConnectorPoint PointX="4.2760454166666664" PointY="17.528595377604169" />
-          <ConnectorPoint PointX="4.4427120833333325" PointY="17.528595377604169" />
-          <ConnectorPoint PointX="7.25" PointY="17.528595377604169" />
-          <ConnectorPoint PointX="7.25" PointY="16.25" />
-          <ConnectorPoint PointX="7.588541666666667" PointY="16.25" />
-          <ConnectorPoint PointX="7.755208333333333" PointY="16.25" />
-          <ConnectorPoint PointX="9.3229166666666661" PointY="16.25" />
-          <ConnectorPoint PointX="9.4895833333333339" PointY="16.25" />
-          <ConnectorPoint PointX="9.5260441666666669" PointY="16.25" />
-          <ConnectorPoint PointX="9.6927108333333347" PointY="16.25" />
-          <ConnectorPoint PointX="10.229166666666666" PointY="16.25" />
-          <ConnectorPoint PointX="10.395833333333334" PointY="16.25" />
-          <ConnectorPoint PointX="11.166666666666666" PointY="16.25" />
-          <ConnectorPoint PointX="11.333333333333334" PointY="16.25" />
-          <ConnectorPoint PointX="12.375" PointY="16.25" />
-          <ConnectorPoint PointX="12.375" PointY="17.528595377604169" />
-          <ConnectorPoint PointX="12.75" PointY="17.528595377604169" />
+          <ConnectorPoint PointX="4.5" PointY="12.898793945312498" />
+          <ConnectorPoint PointX="6.7690255675080158" PointY="12.898793945312498" />
+          <ConnectorPoint PointX="6.9356922341746818" PointY="12.898793945312498" />
+          <ConnectorPoint PointX="7.666666666666667" PointY="12.898793945312496" />
+          <ConnectorPoint PointX="8.1145833333333339" PointY="12.898793945312498" />
+          <ConnectorPoint PointX="10.5" PointY="12.898793945312498" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_Pitanja_Korisnici" >
-          <ConnectorPoint PointX="4.3593787499999994" PointY="16.662903645833325" />
-          <ConnectorPoint PointX="4.3593787499999994" PointY="28.288198242187498" />
-          <ConnectorPoint PointX="5.25" PointY="28.288198242187498" />
+          <ConnectorPoint PointX="3.75" PointY="16.912903645833325" />
+          <ConnectorPoint PointX="3.75" PointY="20.223043619791675" />
+          <ConnectorPoint PointX="5.510416666666667" PointY="20.223043619791675" />
+          <ConnectorPoint PointX="5.677083333333333" PointY="20.223043619791675" />
+          <ConnectorPoint PointX="5.7135441666666669" PointY="20.223043619791675" />
+          <ConnectorPoint PointX="5.8802108333333329" PointY="20.223043619791675" />
+          <ConnectorPoint PointX="8.25" PointY="20.223043619791675" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_Zloupotrebe_Korisnici" >
-          <ConnectorPoint PointX="4.156252" PointY="12.375" />
-          <ConnectorPoint PointX="4.156252" PointY="12.125" />
-          <ConnectorPoint PointX="5.916666666666667" PointY="12.125" />
-          <ConnectorPoint PointX="6.083333333333333" PointY="12.125" />
-          <ConnectorPoint PointX="6.3229186666666672" PointY="12.125" />
-          <ConnectorPoint PointX="6.4895853333333333" PointY="12.125" />
-          <ConnectorPoint PointX="7.25" PointY="12.125" />
-          <ConnectorPoint PointX="7.25" PointY="12.79758789062501" />
-          <ConnectorPoint PointX="7.760416666666667" PointY="12.79758789062501" />
-          <ConnectorPoint PointX="7.927083333333333" PointY="12.79758789062501" />
-          <ConnectorPoint PointX="10.229166666666666" PointY="12.79758789062501" />
-          <ConnectorPoint PointX="10.395833333333334" PointY="12.79758789062501" />
-          <ConnectorPoint PointX="12.375" PointY="12.79758789062501" />
-          <ConnectorPoint PointX="12.375" PointY="13.96381961458334" />
-          <ConnectorPoint PointX="12.75" PointY="13.96381961458334" />
+          <ConnectorPoint PointX="4.156252" PointY="16.912903645833325" />
+          <ConnectorPoint PointX="4.156252" PointY="17.162903645833325" />
+          <ConnectorPoint PointX="5.510416666666667" PointY="17.162903645833325" />
+          <ConnectorPoint PointX="5.677083333333333" PointY="17.162903645833325" />
+          <ConnectorPoint PointX="5.7135441666666669" PointY="17.162903645833325" />
+          <ConnectorPoint PointX="5.8802108333333329" PointY="17.162903645833325" />
+          <ConnectorPoint PointX="6.291666666666667" PointY="17.162903645833325" />
+          <ConnectorPoint PointX="6.458333333333333" PointY="17.162903645833325" />
+          <ConnectorPoint PointX="7.75" PointY="17.162903645833325" />
+          <ConnectorPoint PointX="7.75" PointY="16.5" />
+          <ConnectorPoint PointX="7.947916666666667" PointY="16.5" />
+          <ConnectorPoint PointX="8.2083333333333339" PointY="16.5" />
+          <ConnectorPoint PointX="10.25" PointY="16.5" />
+          <ConnectorPoint PointX="10.25" PointY="14.906250499999999" />
+          <ConnectorPoint PointX="12.75" PointY="14.906250499999999" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_Odgovori_Pitanja" >
-          <ConnectorPoint PointX="6.4062525" PointY="26.625" />
-          <ConnectorPoint PointX="6.4062525" PointY="22.640119687499997" />
-          <ConnectorPoint PointX="10.229166666666666" PointY="22.640119687499997" />
-          <ConnectorPoint PointX="10.395833333333334" PointY="22.640119687499997" />
-          <ConnectorPoint PointX="10.5" PointY="22.640119687499997" />
+          <ConnectorPoint PointX="8.2569220769230771" PointY="16.875" />
+          <ConnectorPoint PointX="8.03125" PointY="16.649327923076925" />
+          <ConnectorPoint PointX="8.03125" PointY="10.830365213741994" />
+          <ConnectorPoint PointX="7.208333333333333" PointY="10.830365213741994" />
+          <ConnectorPoint PointX="7.041666666666667" PointY="10.830365213741994" />
+          <ConnectorPoint PointX="6.75" PointY="10.830365213741994" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_OdgovorNaOdgovor_Odgovori" >
-          <ConnectorPoint PointX="11.625" PointY="19.75" />
-          <ConnectorPoint PointX="11.625" PointY="18.199145566406248" />
-          <ConnectorPoint PointX="12.75" PointY="18.199145566406248" />
+          <ConnectorPoint PointX="6" PointY="12.191793619791667" />
+          <ConnectorPoint PointX="6" PointY="12.75" />
+          <ConnectorPoint PointX="6.9178195128205138" PointY="12.75" />
+          <ConnectorPoint PointX="7.08448617948718" PointY="12.75" />
+          <ConnectorPoint PointX="7.2871817391826914" PointY="12.75" />
+          <ConnectorPoint PointX="7.4538484058493575" PointY="12.75" />
+          <ConnectorPoint PointX="7.75" PointY="12.75" />
+          <ConnectorPoint PointX="7.75" PointY="13.261899472656243" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="13.261899472656241" />
+          <ConnectorPoint PointX="8.2083333333333339" PointY="13.261899472656243" />
+          <ConnectorPoint PointX="10.5" PointY="13.261899472656243" />
+        </AssociationConnector>
+        <AssociationConnector Association="WikipedModel.FK_Pitanja_TagVrste" >
+          <ConnectorPoint PointX="7.5" PointY="18.711293945312505" />
+          <ConnectorPoint PointX="8.25" PointY="18.711293945312505" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_TagoviPitanja_Pitanja" >
-          <ConnectorPoint PointX="6.75" PointY="28.365143229166669" />
-          <ConnectorPoint PointX="7.5" PointY="28.365143229166669" />
+          <ConnectorPoint PointX="9.75" PointY="18.403595377604166" />
+          <ConnectorPoint PointX="13.5" PointY="18.403595377604166" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_TagClanci_Tags" >
-          <ConnectorPoint PointX="9.75" PointY="8.49014322916667" />
-          <ConnectorPoint PointX="11.25" PointY="8.49014322916667" />
-          <ConnectorPoint PointX="11.25" PointY="10.5" />
+          <ConnectorPoint PointX="9.75" PointY="26.740143229166669" />
+          <ConnectorPoint PointX="11.25" PointY="26.740143229166669" />
+          <ConnectorPoint PointX="11.25" PointY="20.730286458333339" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_TagoviPitanja_Tags" >
-          <ConnectorPoint PointX="9.75" PointY="9.4179777660256487" />
-          <ConnectorPoint PointX="10.3125" PointY="9.9804777660256487" />
-          <ConnectorPoint PointX="10.3125" PointY="27" />
-          <ConnectorPoint PointX="9.375" PointY="27" />
-          <ConnectorPoint PointX="9" PointY="27.375" />
+          <ConnectorPoint PointX="9.75" PointY="26.213819114583341" />
+          <ConnectorPoint PointX="11.166666666666666" PointY="26.213819114583341" />
+          <ConnectorPoint PointX="11.333333333333334" PointY="26.213819114583341" />
+          <ConnectorPoint PointX="14.25" PointY="26.213819114583341" />
+          <ConnectorPoint PointX="14.25" PointY="19.730286458333339" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
