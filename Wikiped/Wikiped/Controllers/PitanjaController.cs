@@ -300,6 +300,23 @@ namespace Wikiped.Controllers
             KorisniciFinal = (from kr in KorisniciContains orderby kr.Contains descending select kr).ToList();
             return KorisniciFinal;
         }
+       
+        public List<PitanjaContains> getTop5PitanjaDef(int top, List<int> UsesIds)
+        {
+            using (Spajanje s = new Spajanje())
+            {
+                List<int> userIdsN = (from p in s.Context.Pitanja orderby p.BrojGlasova, p.BrojPregleda descending select (int)p.KorisnikID).Distinct().Take(5).ToList();
+                userIdsN.AddRange(UsesIds);
+
+                List<PitanjaContains> preporukaFinal = s.Context.Korisnici.Where(x => !UsesIds.Contains(x.KorisnikID)).Select(x => new PitanjaContains
+                {
+                    KorisnikID = x.KorisnikID,
+                    Contains = 0
+                }).Take(top).ToList();
+                return preporukaFinal;
+            }
+
+        } 
         //public List<PitanjaPreporuka> getTop5Pitanja(List<PitanjaGlasovi> myPitanja, List<PitanjaContains> otherUser)
         //{
         //    using (Spajanje s = new Spajanje())
@@ -343,22 +360,6 @@ namespace Wikiped.Controllers
         //    //        }).ToList();
 
         //}
-        public List<PitanjaContains> getTop5PitanjaDef(int top, List<int> UsesIds)
-        {
-            using (Spajanje s = new Spajanje())
-            {
-                List<int> userIdsN = (from p in s.Context.Pitanja orderby p.BrojGlasova, p.BrojPregleda descending select (int)p.KorisnikID).Distinct().Take(5).ToList();
-                userIdsN.AddRange(UsesIds);
-
-                List<PitanjaContains> preporukaFinal = s.Context.Korisnici.Where(x => !UsesIds.Contains(x.KorisnikID)).Select(x => new PitanjaContains
-                {
-                    KorisnikID = x.KorisnikID,
-                    Contains = 0
-                }).Take(top).ToList();
-                return preporukaFinal;
-            }
-
-        }
         #endregion
         [HttpPost]
         [ValidateInput(false)]
