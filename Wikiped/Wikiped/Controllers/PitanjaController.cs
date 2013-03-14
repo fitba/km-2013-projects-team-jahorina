@@ -149,7 +149,7 @@ namespace Wikiped.Controllers
 
         public ActionResult Details(int id)
         {
-          preporukaItembase(1);
+         
             Pitanja pitanje = new Pitanja();
             IEnumerable<object> lstTags;
 
