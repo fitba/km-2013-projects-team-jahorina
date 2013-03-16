@@ -119,6 +119,7 @@
     <Compile Include="Controllers\PitanjaController.cs" />
     <Compile Include="Controllers\PocetnaController.cs" />
     <Compile Include="Controllers\TagController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DBBL\BLL\Spajanje.cs" />
     <Compile Include="DBBL\DAL\WikipedModel.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -564,6 +565,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Pocetna\OProjektu.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Users\Details.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

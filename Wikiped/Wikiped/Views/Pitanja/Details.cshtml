@@ -43,7 +43,7 @@
             </div>
             
             <div class="user-details">
-                <a href="#">@Model.Korisnik.UserName</a><br>
+                <a href="/users/details/@Model.Korisnik.KorisnikID">@Model.Korisnik.UserName</a><br>
             </div>
         </div>
     </div>
@@ -103,7 +103,7 @@
             </div>
             
             <div class="user-details">
-                <a href="#">@item.Korisnik.UserName</a><br>
+                <a href="/users/details/@item.Korisnik.KorisnikID">@item.Korisnik.UserName</a><br>
             </div>
         </div>
     </div>
@@ -126,7 +126,7 @@
                    <td></td>
                    <td class="comment-text">
                       @odgovorNaOdg.OdgovoriNaPodOgovor.Odgovor
-                      –&nbsp; <a href="#"  class="comment-user owner">@odgovorNaOdg.Korisnik.UserName</a>
+                      –&nbsp; <a href="/users/details/@odgovorNaOdg.Korisnik.KorisnikID"  class="comment-user owner">@odgovorNaOdg.Korisnik.UserName</a>
                      <span title="@odgovorNaOdg.OdgovoriNaPodOgovor.Datum" class="relativetime-clean">@odgovorNaOdg.OdgovoriNaPodOgovor.Datum.ToString().Substring(0, 10)</span>
                    </td>
               </tr>

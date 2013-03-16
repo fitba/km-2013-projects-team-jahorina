@@ -39,6 +39,7 @@ namespace Wikiped.Controllers
             ViewBag.GetTags = new Func<int, IEnumerable<string>>(GetAllTagsForPitanje);
             ViewBag.GetKorisnikName = new Func<int, string>(GetKorisnikName);
             ViewBag.GetBrojOdgovora = new Func<int, int>(GetBrojOdgovora);
+            ViewBag.GetKorisnikID = new Func<int, int>(GetKorisnikID);
             return View();
         }
         public int GetBrojOdgovora(int id)
@@ -49,6 +50,19 @@ namespace Wikiped.Controllers
                 count = pt.GetBrojOdgovoraZaPitanje(id);
             }
             return count;
+        }
+        public int GetKorisnikID(int id)
+        {
+            DBBL.DAL.Korisnici korisnik;
+            using (Pitanja pt = new Pitanja())
+            {
+                korisnik = pt.GetKorisnikByID(id);
+            }
+            if (korisnik != null)
+            {
+                return korisnik.KorisnikID;
+            }
+            return 0;
         }
         public string GetKorisnikName(int id)
         {
@@ -170,6 +184,7 @@ namespace Wikiped.Controllers
                 //}
                 ViewBag.PreporucenaPt = pitanja;
             }
+            ViewBag.GetKorisnikID = new Func<int, int>(GetKorisnikID);
             ViewBag.Tags = lstTags;
             return View(pitanje);
         }

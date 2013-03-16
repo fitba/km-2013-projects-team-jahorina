@@ -269,7 +269,7 @@ a.post-tag:hover, .post-text a.post-tag:hover, .wmd-preview a.post-tag:hover {
     font-weight: bold;
 }
 a {
-    color: #0077cc;
+    color: #0077cc!important;
     text-decoration: none;
     cursor: pointer;
 }
@@ -478,7 +478,11 @@ text-align: center;
     overflow:hidden;
     margin:10px 5px 5px 5px;
     padding:0px 5px 7px 5px;
-    border-radius: 4px;
+    border-radius: 3px;
+    color: #0077cc;
+    text-align: center;
+    padding-top: 4px;
+    padding-bottom: 4px;
 }
 .clanak-slika
 {
@@ -494,16 +498,15 @@ text-align: center;
 
 .clanak-text
 {
-    text-align:justify;
-    font-size:12px;
+   font-size: 14px;
+text-align: justify;
     margin:5px;
     min-height:100%;
     height:auto;
-    font-size:13px;
   line-height: 1.5;
   color: #333;
 	background-color: transparent;
-  font-family:Helvetica,Arial,serif;
+font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
    
 }
 .clanak-text-search-txt
@@ -620,7 +623,7 @@ text-align: center;
   line-height: 1.5;
   color: #333;
 	background-color: transparent;
-  font-family:Helvetica,Arial,serif;
+ font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
 }
 .clanak-komentari
 {
@@ -647,7 +650,7 @@ text-decoration:underline;
     float:left;
     width:602px;
     height:120px;
-    background:#cef2e0;
+   background: rgb(181, 222, 255);
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
   overflow:hidden;
@@ -666,13 +669,12 @@ text-decoration:underline;
     border-bottom-right-radius: 3px;
   overflow:hidden;
   padding:5px;
-  text-align:justify;
-  
-  font-size:13px;
-  line-height: 1.5;
-  color: #333;
+    color: #333;
 	background-color: transparent;
-  font-family:Helvetica,Arial,serif;
+     font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
+     font-size: 14px;
+    text-align: justify;
+    line-height: 1.5;
 
 }
 .clanak-details-opis
@@ -687,7 +689,7 @@ text-decoration:underline;
   line-height: 1.5;
   color: #333;
 	background-color: transparent;
-  font-family:Helvetica,Arial,serif;
+font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
 }
 .clanak-details-wrap-tag
 {
@@ -702,7 +704,7 @@ text-decoration:underline;
   line-height: 1.5;
   color: #333;
 	background-color: transparent;
-  font-family:Helvetica,Arial,serif;
+font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
 }
 .clanak-details-namefor
 {
@@ -726,7 +728,7 @@ text-decoration:underline;
  width:318px;
  height:auto;
  float:right;   
- background:#f5fffa;
+background: white;
  border:1px solid #cef2e0;
  border-radius:3px;
  
@@ -1034,7 +1036,7 @@ moz-box-shadow: 0 0 1px 1px #888;
     width:auto;
    height:15px;
    font-size: 13px;
-   font-family:helvetica;
+  font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
   display:none;
 }
 .clanak-brisanje-greska
@@ -1045,54 +1047,54 @@ moz-box-shadow: 0 0 1px 1px #888;
     display:none;
     height:15px;
    font-size: 13px;
-   font-family:helvetica;
+font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
    
 }
 
 
 .clanak-wraper.ZelenaT
 {
-    background:#f5fffa;
+  
     border:1px solid #cef2e0;
 }
 .clanak-wraper.ZelenaTS
 {
-    background:#f5fffa;
+   
     border:1px solid #cef2e0;
 }
 .clanak-wraper.PlavaT
 {
-    background:#f5faff;
+   
     border:1px solid #cedff2;
 }
 .clanak-wraper.PlavaTS
 {
-    background:#f5faff;
+  
     border:1px solid #cedff2;
 }
 .clanak-wraper.SmedjaT
 {
-    background:#eedcc8;
+   
     border:1px solid #daaf85;
 }
 .clanak-wraper.PlavaS
 {
-    background:#FFFFFF;
+   
     border:1px solid #EFEFEF;
 }
 .clanak-wraper.LjubicastaT
 {
-    background:#faf5ff;
+   
     border:1px solid #ddcef2;
 }
 .clanak-wraper.LjubicastaTS
 {
-    background:#faf5ff;
+    
     border:1px solid #ddcef2;
 }
 .clanak-wraper.ZutaS
 {
-    background:#FFFFFF;
+    
     border:1px solid #ffe996;
 }
 
@@ -1116,7 +1118,7 @@ moz-box-shadow: 0 0 1px 1px #888;
 }
 .clanak-naslov.ZelenaT
 {
-     background:#cef2e0;
+    background: rgb(189, 255, 189);
 }
 .clanak-naslov.ZelenaTS
 {
@@ -1124,7 +1126,7 @@ moz-box-shadow: 0 0 1px 1px #888;
 }
 .clanak-naslov.PlavaT
 {
-     background:#cedff2;
+     background: rgb(220, 233, 247);
 }
 .clanak-naslov.PlavaTS
 {
@@ -1132,7 +1134,7 @@ moz-box-shadow: 0 0 1px 1px #888;
 }
 .clanak-naslov.SmedjaT
 {
-     background:#daaf85;
+    background: rgb(240, 222, 205);
 }
 .ClanciSviWrap
 {
@@ -1151,11 +1153,15 @@ moz-box-shadow: 0 0 1px 1px #888;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
     margin:0px 0px 5px 0px;
-    background:#ddcef2; 
+   background: rgb(142, 208, 255);
     font-size:15px;
   line-height: 1.5;
-  color: #333;
-  font-family:Helvetica,Arial,serif;
+color: black;
+font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
+font-weight: bold;
+font-style: italic;
+text-align: center;
+
 }
 .clanak-preporuka-naslov
 {
@@ -1167,11 +1173,16 @@ moz-box-shadow: 0 0 1px 1px #888;
     margin:0px 0px 10px 4px;
     padding:3px 5px 4px 5px;
     border-radius: 4px;
-    background:#cedff2;
+   background: rgb(220, 233, 247);
     font-size:15px;
   line-height: 1.5;
   color: #333;
-  font-family:Helvetica,Arial,serif;
+font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
+ color: #0077cc;
+text-align: center;
+padding-top: 4px;
+padding-bottom: 4px;
+font-weight:bold;
 }
 .clanak-preporuka-slika
 {
@@ -1195,7 +1206,7 @@ moz-box-shadow: 0 0 1px 1px #888;
   line-height: 1.5;
   color: #333;
 	background-color: transparent;
-  font-family:Helvetica,Arial,serif;
+font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
   float:left;
    
 }
@@ -1241,7 +1252,7 @@ moz-box-shadow: 0 0 1px 1px #888;
   line-height: 1.5;
   color: #333;
 	background-color: transparent;
-  font-family:Helvetica,Arial,serif;
+font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
   padding:3px 3px 0px 3px;
    
 }

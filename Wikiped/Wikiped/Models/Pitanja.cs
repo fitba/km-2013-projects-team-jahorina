@@ -311,6 +311,26 @@ namespace Wikiped.Models
         {
             return context.Odgovori.Where(x => x.PitanjeID == pitanjeID).Count();
         }
+        public List<DBBL.DAL.Pitanja> GetAllPitanjaByKorisnikId(int id)
+        {
+            return context.Pitanja.Where(X => X.KorisnikID == id).ToList();
+        }
+        public List<DBBL.DAL.Pitanja> GetAllPitanjaOdgovoriByKorisnikId(int id)
+        {
+            var upit = (from p in context.Pitanja
+                        join o in context.Odgovori on p.PitanjeID equals o.PitanjeID
+                        where o.KorisnikID == id
+                        select p).ToList();
+            return upit;
+        }
+        public List<DBBL.DAL.Sadrzaji> GetAllClanciByKorisnikId(int id)
+        {
+            var upit = (from c in context.Clanci
+                        join s in context.Sadrzaji on c.ClanakID equals s.ClanakID
+                        where c.KorisnikID == id
+                        select s).ToList();
+            return upit;
+        }
         public void Dispose()
         {
             context.Dispose();

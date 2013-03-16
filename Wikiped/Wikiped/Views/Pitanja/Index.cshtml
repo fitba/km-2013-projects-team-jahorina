@@ -50,7 +50,7 @@
                     <div class="started">
                         <a href="#"
                             class="started-link"><span title="2013-01-28 16:57:21Z" class="relativetime">@item.Datum.ToString().Substring(0, 10)</span></a>
-                        <a href="#">@ViewBag.GetKorisnikName(@item.KorisnikID)</a> 
+                        <a href="/users/details/@ViewBag.GetKorisnikID(@item.KorisnikID)">@ViewBag.GetKorisnikName(@item.KorisnikID)</a> 
                     </div>
                 </div>
             </div>

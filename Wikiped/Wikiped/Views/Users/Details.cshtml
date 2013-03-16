@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/Pocetna.cshtml";
+}
+<style type="text/css">
+    .narrow .summary2 {
+        width: 700px;
+        float: left;
+    }
+    .readMore {
+        color: #0077cc!important;
+        margin-left: 525px;
+        font-style: italic;
+        font-size: 15px;
+        font-weight: normal;
+    }
+</style>
+<div class="wrapperleft">
+<div style="
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 15px;
+    font-style: italic;
+">Aktivnosti korisnika</div>
+@foreach (var item in ViewBag.AllPitanja)
+            {
+            <div class="question-summary narrow">
+                <div class="leftBox">
+                    <div class="votes">
+                        <div class="mini-counts">@item.BrojGlasova</div>
+                        <div>
+                            glas</div>
+                    </div>
+                    <div class="status unanswered">
+                        <div class="mini-counts">
+                            @ViewBag.GetBrojOdgovora(@item.PitanjeID)</div>
+                        <div>
+                            odgovor</div>
+                    </div>
+                    <div class="views">
+                        <div class="mini-counts">@item.BrojPregleda</div>
+                        <div>
+                            pregled</div>
+                    </div>
+                </div>
+                <div class="summary">
+                    <h3>
+                        <a class="colorBlue" href="/pitanja/details/@item.PitanjeID">@item.Naziv</a></h3>
+                    <div class="tags t-html t-css t-google-chrome t-heroku t-zurb-foundation">
+                        @foreach (var tag in @ViewBag.GetTags(@item.PitanjeID))
+                        {
+                            <a href="/Tag/Details/?name=@tag" class="post-tag" title="" rel="tag">@tag</a> 
+                        }
+                    </div>
+                    <div class="started">
+                        <a href="#"
+                            class="started-link"><span title="2013-01-28 16:57:21Z" class="relativetime">@item.Datum.ToString().Substring(0, 10)</span></a>
+                        <a href="#">@ViewBag.GetKorisnikName(@item.KorisnikID)</a> 
+                    </div>
+                </div>
+            </div>
+            }
+            </div>
+              @foreach (var item in ViewBag.Sadrzaji)
+        {
+        <div class="question-summary narrow">
+            <div class="summary2">
+                <h3>
+                    <a class="colorBlue" href="/pitanja/details/@item.SadrzajID">@item.Naslov</a></h3>
+                <div class="indexDescription">
+                    @if (item.Tekst.Length > 351)
+                    { @item.Tekst.Substring(0, 350) }
+                    else
+                    { @item.Tekst }</div>
+                <div style="margin-top: 15px;">
+                    <a href="/clanci/ClanciPregled?clID=@item.SadrzajID" class="readMore">Pročitaj više
+                        o članku...</a></div>
+            </div>
+        </div>
+        }
+
+                <div class="sidebar-right">
+        <div style="font-size: 15px;font-weight: bold;margin-bottom: 10px;font-style: italic;color: rgb(4, 54, 90)!important;">Najpopularni tagovi</div>
+        <div id="recent-tags-list">
+        @foreach (var tag in ViewBag.Tagovi)
+        {
+                        <a href="/Tag/Details/?name=@tag.Name" class="post-tag" title="" rel="tag">@tag.Name</a><span
+                class="item-multiplier"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">@tag.CountT</span></span><br>
+        }
+        </div>
+    </div>
