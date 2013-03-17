@@ -185,7 +185,7 @@ namespace Wikiped.Models
 
 
 
-                return finals;
+                return finals.Take(30).ToList();
 
             }
         }
