@@ -217,6 +217,10 @@ namespace Wikiped.Models
             }
             return 0;
         }
+        public List<TagVrste> GetAllKategorije()
+        {
+            return context.TagVrste.ToList();
+        }
         public void AddTagsForPitanja(TagoviPitanja tg)
         {
             context.TagoviPitanja.AddObject(tg);

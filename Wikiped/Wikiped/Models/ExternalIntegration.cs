@@ -24,26 +24,33 @@ namespace Wikiped.Models
        /// <param name="a"></param>
         public List<Question> SearchStackOverflow(string a)
         {
-            //var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://api.stackoverflow.com/1.1/search?intitle=" + Uri.EscapeDataString(y));
-            string url = "http://api.stackoverflow.com/1.1/search?intitle=" + HttpUtility.UrlEncode(a) + "&pagesize=5&sort=votes";
-            var request = (HttpWebRequest)WebRequest.Create(url);
-            var response = request.GetResponse();
-            string json = ExtractJsonResponse(response);
-            JavaScriptSerializer js = new JavaScriptSerializer();
-            dynamic d = js.Deserialize<dynamic>(json);
-
-            dynamic[] questions = d["questions"];
-
-            List<Question> question = new List<Question>();
-            for (int i = 0; i < questions.Length; i++)
+            try
             {
-                Question q = new Question();
-                q.question_timeline_url = questions[i]["question_timeline_url"];
-                q.title = questions[i]["title"];
-                q.answer_count = questions[i]["answer_count"];
-                question.Add(q);
+                //var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://api.stackoverflow.com/1.1/search?intitle=" + Uri.EscapeDataString(y));
+                string url = "http://api.stackoverflow.com/1.1/search?intitle=" + HttpUtility.UrlEncode(a) + "&pagesize=5&sort=votes";
+                var request = (HttpWebRequest)WebRequest.Create(url);
+                var response = request.GetResponse();
+                string json = ExtractJsonResponse(response);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                dynamic d = js.Deserialize<dynamic>(json);
+
+                dynamic[] questions = d["questions"];
+
+                List<Question> question = new List<Question>();
+                for (int i = 0; i < questions.Length; i++)
+                {
+                    Question q = new Question();
+                    q.question_timeline_url = questions[i]["question_timeline_url"];
+                    q.title = questions[i]["title"];
+                    q.answer_count = questions[i]["answer_count"];
+                    question.Add(q);
+                }
+                return question;
             }
-            return question;
+            catch (System.Exception)
+            {
+                return new List<Question>();
+            }
         }
         private string ExtractJsonResponse(WebResponse response)
         {
@@ -67,6 +74,8 @@ namespace Wikiped.Models
         public List<Wiki> SearchWikipedia(string a)
         {
             List<Wiki> ls = new List<Wiki>();
+            try
+            {
             HttpWebRequest request
                 = WebRequest.Create("http://en.wikipedia.org/w/api.php?action=opensearch&search=" + HttpUtility.UrlEncode(a) + "&limit=10&namespace=0&format=xml") as HttpWebRequest;
             request.UserAgent = "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)";
@@ -76,6 +85,11 @@ namespace Wikiped.Models
             {
                 odg = reader.ReadToEnd();
                 ls.AddRange(GetWikiByXml(odg));
+            }
+            }
+            catch (System.Exception)
+            {
+               
             }
             return ls;
         }

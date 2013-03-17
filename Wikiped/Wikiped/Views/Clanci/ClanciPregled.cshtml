@@ -69,7 +69,7 @@
 <div class="clanak-preporuka-naslovP" style="border-top-left-radius:0px; border-top-right-radius:0px; ">Preporuka - collaborative</div>
 foreach (Korisnici pr in ViewBag.PreporukaKorisnici)
 {
-<div class="clanak-preporuka-naslov" style="background:#daaf85;">@pr.UserName</div>
+<div class="clanak-preporuka-naslov" style="background:#daaf85;"><a href="/users/details/@pr.KorisnikID">@pr.UserName</a></div>
 }
 }
 

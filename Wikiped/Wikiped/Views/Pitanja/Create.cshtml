@@ -13,6 +13,8 @@
 <link href="/Script/autocomplete/css/jquery.tagit.css" rel="stylesheet" type="text/css" />
 <script src="/Script/autocomplete/tag-it.js" type="text/javascript"></script>
 <script src="/Script/autocomplete/autocomplete-tags.js" type="text/javascript"></script>
+<link href="/Script/chosen/chosen.css" rel="stylesheet" type="text/css" />
+<script src="/Script/chosen/chosen.jquery.js" type="text/javascript"></script>
 
         <script type="text/javascript">
             tinyMCE.init({
@@ -53,6 +55,7 @@
             });
             $(document).ready(function () {
                 $(".btnCreate").button();
+                $("#Kategorija").chosen();
             });
 </script>
 
@@ -69,6 +72,15 @@
         <div class="form-row" style="width:635px;">
          <label >Tagovi</label>
          <input type="text" class="title" id="txtTags" name="tags"/>
+         <div style="position: absolute;left: 867px;top: 108px;">
+            <label style="width: 84px;">Kategorije</label>
+         <select id="Kategorija" name="Kategorija" >
+            @foreach (var item in ViewBag.Kategorija)
+            {
+               <option value="@item.TagVrstaID">@item.Opis</option>
+            }
+        </select>
+        </div>
         </div>
         <input type="submit" value="Postavi pitanje" class="btnCreate" />
 }

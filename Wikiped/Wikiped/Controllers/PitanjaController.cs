@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using Wikiped.Models;
 using Wikiped.DBBL.BLL;
 
-
 namespace Wikiped.Controllers
 {
     public class PitanjaController : Controller
@@ -117,12 +116,16 @@ namespace Wikiped.Controllers
         }
         public ActionResult Create()
         {
+            using (Pitanja pt = new Pitanja())
+            {
+                ViewBag.Kategorija = pt.GetAllKategorije();
+            }
             return View();
         }
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Create(string tags, string title, string opis)
+        public ActionResult Create(string tags, string title, string opis, string Kategorija)
         {
             int idZanjdeg = default(int);
             string[] tagsA = null;
@@ -136,6 +139,8 @@ namespace Wikiped.Controllers
             pitanje.Datum = DateTime.Now;
             pitanje.BrojGlasova = 0;
             pitanje.BrojPregleda = 0;
+            if(!String.IsNullOrEmpty(Kategorija))
+                 pitanje.TagVrstaID = Kategorija.ToInt();
             pitanje.KorisnikID = GetKorisnikId;
             
             using (Pitanja pt = new Pitanja())
@@ -163,30 +168,49 @@ namespace Wikiped.Controllers
 
         public ActionResult Details(int id)
         {
-         
+
             Pitanja pitanje = new Pitanja();
             IEnumerable<object> lstTags;
 
-            //put korisnik ID - get korisnici ids and simularity
-            List<PitanjaContains> preporuka = preporukaColaborative(1);
-
-            //Get korisnici by preporuka
-            List<DBBL.DAL.Pitanja> pitanja = new List<DBBL.DAL.Pitanja>();
             using (Pitanja pt = new Pitanja())
             {
                 pt.SetAllDetaByPitanjeID(id);
                 lstTags = pt.GetAllTagsForPitanjeID(id);
                 pitanje = pt;
-
-                //foreach (var item in preporuka)
-                //{
-                //    pitanja.Add(pt.GetPitanjeByID(item.PitanjeID)); 
-                //}
-                ViewBag.PreporucenaPt = pitanja;
             }
+            // ViewBag.PreporucenaPt 
             ViewBag.GetKorisnikID = new Func<int, int>(GetKorisnikID);
             ViewBag.Tags = lstTags;
+            // zadnja preporika
+            List<PitanjaContains> tempusers = preporukaColaborative(GetKorisnikId);
+            ViewBag.PreporukaKorisnici = getKorisniciByIds(tempusers);
+            // pr
+            List<PitanjaProsjek> tempPreporuka = preporukaItembase(id);
+            List<DBBL.DAL.Pitanja> lstPitanja = new List<DBBL.DAL.Pitanja>();
+            using (Pitanja pt = new Pitanja())
+            {
+                foreach (var item in tempPreporuka)
+                {
+                    lstPitanja.Add(pt.GetPitanjeByID(item.PitanjeId));
+                }
+            }
+            ViewBag.PreporucenaPt = lstPitanja;
             return View(pitanje);
+        }
+        public List<Wikiped.DBBL.DAL.Korisnici> getKorisniciByIds(List<PitanjaContains> userIds)
+        {
+            Wikiped.DBBL.DAL.Korisnici koT;
+            List<Wikiped.DBBL.DAL.Korisnici> kor = new List<Wikiped.DBBL.DAL.Korisnici>();
+            using (Spajanje s = new Spajanje())
+            {
+                foreach (var k in userIds)
+                {
+                    koT = null;
+                    koT = (from ks in s.Context.Korisnici where ks.KorisnikID == k.KorisnikID select ks).FirstOrDefault();
+                    kor.Add(koT);
+                }
+            }
+            return kor;
         }
 
         #region Preporuka item base
