@@ -30,7 +30,7 @@ namespace Wikiped.Controllers
             List<DBBL.DAL.Pitanja> pitanja;
             using (Pitanja pt = new Pitanja())
             {
-                pitanja = pt.GetAllPitanja();
+                pitanja = pt.GetAllPitanja().Take(20).ToList();
                 ViewBag.Tagovi = pt.GetAllTagsCount().Take(15);
                 ViewBag.AllPitanja = pitanja;
             }
